@@ -1,0 +1,93 @@
+﻿[
+  {
+    "name": "basic",
+    "IsBasic": true,
+    "fields": [
+      {
+        "FieldkeyJDE": "ID",
+        "name": "ID",
+        "keyIdioma": "ID"
+      },
+      {
+        "fieldkeyJDE": "GRUPO",
+        "name": "Grupo",
+        "keyIdioma": "GRUPO"
+
+      },
+      {
+        "fieldkeyJDE": "SECCION",
+        "name": "Sección",
+        "keyIdioma": "SECCION"
+
+      },
+      {
+        "fieldkeyJDE": "SURTIDO",
+        "name": "Surtido",
+        "keyIdioma": "SURTIDO"
+      },
+      {
+        "fieldkeyJDE": "ARTICULO",
+        "name": "Articulo",
+        "keyIdioma": "ARTICULO"
+      }
+    ]
+  },
+  {
+    "name": "Preus",
+    "IsBasic": false,
+    "fields": [
+      {
+        "fieldkeyJDE": "PVC",
+        "name": "PVC",
+        "keyIdioma": "PVC"
+      },
+      {
+        "fieldkeyJDE": "PVS",
+        "name": "PVS",
+        "keyIdioma": "PVS"
+      },
+      {
+        "fieldkeyJDE": "PVP",
+        "name": "PVP",
+        "keyIdioma": "PVP"
+      }
+    ]
+  },
+  {
+    "name": "Fechas de Entrega",
+    "IsBasic": false,
+    "fields": [
+      {
+        "fieldkeyJDE": "FECHATIENDA",
+        "name": "Fecha Tienda",
+        "keyIdioma": "FECHATIENDA"
+      },
+      {
+        "fieldkeyJDE": "FECHAALMACEN",
+        "name": "Fecha Almacén",
+        "keyIdioma": "FECHAALMACEN"
+      },
+      {
+        "fieldkeyJDE": "TIEMPOENTREGA",
+        "name": "Tiempo entrega",
+        "keyIdioma": "TIEMPOENTREGA"
+      }
+    ]
+  },
+  {
+    "name": "Condiciones comerciales",
+    "IsBasic": false,
+    "fields": [
+      {
+        "fieldkeyJDE": "CANTIDADMINIMA",
+        "name": "Cantidad mínima",
+        "keyIdioma": "CANTIDADMINIMA"
+      },
+      {
+        "fieldkeyJDE": "CANTIDADMAXIMA",
+        "name": "Cantidad máxima",
+        "keyIdioma": "CANTIDADMAXIMA"
+      }
+    ]
+  }
+]
