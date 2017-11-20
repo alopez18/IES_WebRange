@@ -11,8 +11,13 @@ namespace ALC.IES.WebRange.Models {
         public List<cls.Filtro> Filtros { get; set; }
         public Models.HeaderModel Header { get; set; }
 
+        public EntitiesLayer.Convencion ConvencionCurrent { get; set; }
+
         public ConvencionEditarModel(String id) {
             this.Id = id;
+            this.ConvencionCurrent = BusinessLayer.Convencion.Get(id);
+
+
             this.Filtros = cls.FiltrosConvenciones.GetFiltros();
 
             this.Header = new HeaderModel();

@@ -8,7 +8,8 @@ namespace ALC.IES.WebRange.Controllers {
     public class ConvencionesController : Controller {
         // GET: Convencions
         public ActionResult Index() {
-            return View();
+            Models.ConvencionesListModel model = new Models.ConvencionesListModel();
+            return View(model);
         }
 
         

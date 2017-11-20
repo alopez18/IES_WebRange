@@ -6,10 +6,18 @@ using System.Threading.Tasks;
 
 namespace ALC.IES.WebRange.EntitiesLayer {
     public class Folleto {
-        public String Id { get; set; }
         public String IdConvencion { get; set; }
         public String Descripcion { get; set; }
 
+        public Folleto() {
 
+        }
+
+    }//Class Finish
+
+    public class Folletos : List<Folleto> {
+        public Folletos() {
+
+        }
     }//Class Finish
 }//Namespace Finish

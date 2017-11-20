@@ -153,6 +153,7 @@
     </Compile>
     <Compile Include="Models\ConvencionDatosModel.cs" />
     <Compile Include="Models\ConvencionEditarModel.cs" />
+    <Compile Include="Models\ConvencionesListModel.cs" />
     <Compile Include="Models\HeaderModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

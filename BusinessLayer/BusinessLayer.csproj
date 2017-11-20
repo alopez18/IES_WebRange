@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Convencion.cs" />
     <Compile Include="Filtro.cs" />
+    <Compile Include="Folleto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

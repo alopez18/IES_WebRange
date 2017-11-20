@@ -21,4 +21,12 @@ namespace ALC.IES.WebRange.EntitiesLayer {
 
 
     }//Class Finish
+
+    public class Convenciones : List<Convencion> {
+
+
+        public Convenciones() {
+
+        }
+    }
 }//Namespace Finish

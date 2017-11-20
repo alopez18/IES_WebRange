@@ -1,0 +1,13 @@
+2017-11-20 17:18:16,746 20 ERROR ALC.IES.WebRange.DataLayer.Consultas - Ha fallado la consulta al web service 'EjecutarConsulta'. la consulta es: 'SELECT DCZONE, DCDSE, DCDEE,  from F55V126A ORDER BY DCDSE DESC' 
+System.InvalidOperationException: No se encontró el elemento de extremo con el nombre 'Service1Soap12' y el contrato 'JDEdwardsService.Service1Soap' en la sección de configuración de cliente de ServiceModel. La razón puede ser que no se encontró ningún archivo de configuración para la aplicación o que no se encontró ningún elemento de extremo con este nombre en el elemento de cliente.
+   en System.ServiceModel.Description.ConfigLoader.LoadChannelBehaviors(ServiceEndpoint serviceEndpoint, String configurationName)
+   en System.ServiceModel.ChannelFactory.ApplyConfiguration(String configurationName, Configuration configuration)
+   en System.ServiceModel.ChannelFactory.InitializeEndpoint(String configurationName, EndpointAddress address)
+   en System.ServiceModel.ChannelFactory`1..ctor(String endpointConfigurationName, EndpointAddress remoteAddress)
+   en System.ServiceModel.ConfigurationEndpointTrait`1.CreateSimplexFactory()
+   en System.ServiceModel.ClientBase`1.CreateChannelFactoryRef(EndpointTrait`1 endpointTrait)
+   en System.ServiceModel.ClientBase`1.InitializeChannelFactoryRef()
+   en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1SoapClient..ctor(String endpointConfigurationName) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Connected Services\JDEdwardsService\Reference.cs:línea 67
+   en ALC.IES.WebRange.DataLayer.Consultas.Execute(String sSelect) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Consultas.cs:línea 14
+2017-11-20 17:19:32,550 20 ERROR ALC.IES.WebRange.DataLayer.Convenciones - No se ha devuelto ningún elemento, por lo que suponemos que ha fallado la consulta 'SELECT DCZONE, DCDSE, DCDEE,  from F55V126A ORDER BY DCDSE DESC'
+2017-11-20 17:20:17,287 20 ERROR ALC.IES.WebRange.DataLayer.Convenciones - No se ha devuelto ningún elemento, por lo que suponemos que ha fallado la consulta 'SELECT DCZONE, DCDSE, DCDEE from F55V126A ORDER BY DCDSE DESC'

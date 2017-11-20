@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLayer {
+namespace ALC.IES.WebRange.BusinessLayer {
     public class Convencion {
 
 
@@ -12,6 +12,23 @@ namespace BusinessLayer {
         public Convencion() {
 
         }
+
+        public static EntitiesLayer.Convencion Get(string id) {
+            return DataLayer.Convencion.Get(id);
+        }
+    }//Class Finish
+
+
+    public class Convenciones {
+
+
+
+        public static EntitiesLayer.Convenciones GetAll() {
+            return DataLayer.Convenciones.GetAll();
+        }
+
+
+
 
 
 
