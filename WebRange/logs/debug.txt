@@ -1,0 +1,2 @@
+2017-11-20 11:52:06,415 1 DEBUG ALC.IES.WebRange.MvcApplication - Inicio de pruebas
+2017-11-20 11:52:33,397 156 DEBUG ALC.IES.WebRange.MvcApplication - Inicio de pruebas

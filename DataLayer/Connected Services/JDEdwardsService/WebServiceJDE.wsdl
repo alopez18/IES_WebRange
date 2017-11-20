@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EjecutarConsulta">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sSelect" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EjecutarConsultaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="EjecutarConsultaResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EjecutarActualizacion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sComando" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="EjecutarActualizacionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="EjecutarActualizacionResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPrefijo1">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetPrefijo1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPrefijo1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPrefijo2">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetPrefijo2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPrefijo2Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="DataSet" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:element ref="s:schema" />
+            <s:any />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="boolean" type="s:boolean" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="EjecutarConsultaSoapIn">
+    <wsdl:part name="parameters" element="tns:EjecutarConsulta" />
+  </wsdl:message>
+  <wsdl:message name="EjecutarConsultaSoapOut">
+    <wsdl:part name="parameters" element="tns:EjecutarConsultaResponse" />
+  </wsdl:message>
+  <wsdl:message name="EjecutarActualizacionSoapIn">
+    <wsdl:part name="parameters" element="tns:EjecutarActualizacion" />
+  </wsdl:message>
+  <wsdl:message name="EjecutarActualizacionSoapOut">
+    <wsdl:part name="parameters" element="tns:EjecutarActualizacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPrefijo1SoapIn">
+    <wsdl:part name="parameters" element="tns:GetPrefijo1" />
+  </wsdl:message>
+  <wsdl:message name="GetPrefijo1SoapOut">
+    <wsdl:part name="parameters" element="tns:GetPrefijo1Response" />
+  </wsdl:message>
+  <wsdl:message name="GetPrefijo2SoapIn">
+    <wsdl:part name="parameters" element="tns:GetPrefijo2" />
+  </wsdl:message>
+  <wsdl:message name="GetPrefijo2SoapOut">
+    <wsdl:part name="parameters" element="tns:GetPrefijo2Response" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldHttpGetIn" />
+  <wsdl:message name="HelloWorldHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="EjecutarConsultaHttpGetIn">
+    <wsdl:part name="sSelect" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EjecutarConsultaHttpGetOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="EjecutarActualizacionHttpGetIn">
+    <wsdl:part name="sComando" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EjecutarActualizacionHttpGetOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetPrefijo1HttpGetIn" />
+  <wsdl:message name="GetPrefijo1HttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPrefijo2HttpGetIn" />
+  <wsdl:message name="GetPrefijo2HttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldHttpPostIn" />
+  <wsdl:message name="HelloWorldHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="EjecutarConsultaHttpPostIn">
+    <wsdl:part name="sSelect" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EjecutarConsultaHttpPostOut">
+    <wsdl:part name="Body" element="tns:DataSet" />
+  </wsdl:message>
+  <wsdl:message name="EjecutarActualizacionHttpPostIn">
+    <wsdl:part name="sComando" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="EjecutarActualizacionHttpPostOut">
+    <wsdl:part name="Body" element="tns:boolean" />
+  </wsdl:message>
+  <wsdl:message name="GetPrefijo1HttpPostIn" />
+  <wsdl:message name="GetPrefijo1HttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetPrefijo2HttpPostIn" />
+  <wsdl:message name="GetPrefijo2HttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="Service1Soap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EjecutarConsulta">
+      <wsdl:input message="tns:EjecutarConsultaSoapIn" />
+      <wsdl:output message="tns:EjecutarConsultaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EjecutarActualizacion">
+      <wsdl:input message="tns:EjecutarActualizacionSoapIn" />
+      <wsdl:output message="tns:EjecutarActualizacionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPrefijo1">
+      <wsdl:input message="tns:GetPrefijo1SoapIn" />
+      <wsdl:output message="tns:GetPrefijo1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPrefijo2">
+      <wsdl:input message="tns:GetPrefijo2SoapIn" />
+      <wsdl:output message="tns:GetPrefijo2SoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="Service1HttpGet">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldHttpGetIn" />
+      <wsdl:output message="tns:HelloWorldHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EjecutarConsulta">
+      <wsdl:input message="tns:EjecutarConsultaHttpGetIn" />
+      <wsdl:output message="tns:EjecutarConsultaHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EjecutarActualizacion">
+      <wsdl:input message="tns:EjecutarActualizacionHttpGetIn" />
+      <wsdl:output message="tns:EjecutarActualizacionHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPrefijo1">
+      <wsdl:input message="tns:GetPrefijo1HttpGetIn" />
+      <wsdl:output message="tns:GetPrefijo1HttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPrefijo2">
+      <wsdl:input message="tns:GetPrefijo2HttpGetIn" />
+      <wsdl:output message="tns:GetPrefijo2HttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="Service1HttpPost">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldHttpPostIn" />
+      <wsdl:output message="tns:HelloWorldHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EjecutarConsulta">
+      <wsdl:input message="tns:EjecutarConsultaHttpPostIn" />
+      <wsdl:output message="tns:EjecutarConsultaHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="EjecutarActualizacion">
+      <wsdl:input message="tns:EjecutarActualizacionHttpPostIn" />
+      <wsdl:output message="tns:EjecutarActualizacionHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPrefijo1">
+      <wsdl:input message="tns:GetPrefijo1HttpPostIn" />
+      <wsdl:output message="tns:GetPrefijo1HttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPrefijo2">
+      <wsdl:input message="tns:GetPrefijo2HttpPostIn" />
+      <wsdl:output message="tns:GetPrefijo2HttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Service1Soap" type="tns:Service1Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EjecutarConsulta">
+      <soap:operation soapAction="http://tempuri.org/EjecutarConsulta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EjecutarActualizacion">
+      <soap:operation soapAction="http://tempuri.org/EjecutarActualizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrefijo1">
+      <soap:operation soapAction="http://tempuri.org/GetPrefijo1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrefijo2">
+      <soap:operation soapAction="http://tempuri.org/GetPrefijo2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Service1Soap12" type="tns:Service1Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EjecutarConsulta">
+      <soap12:operation soapAction="http://tempuri.org/EjecutarConsulta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EjecutarActualizacion">
+      <soap12:operation soapAction="http://tempuri.org/EjecutarActualizacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrefijo1">
+      <soap12:operation soapAction="http://tempuri.org/GetPrefijo1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrefijo2">
+      <soap12:operation soapAction="http://tempuri.org/GetPrefijo2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Service1HttpGet" type="tns:Service1HttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="HelloWorld">
+      <http:operation location="/HelloWorld" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EjecutarConsulta">
+      <http:operation location="/EjecutarConsulta" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EjecutarActualizacion">
+      <http:operation location="/EjecutarActualizacion" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrefijo1">
+      <http:operation location="/GetPrefijo1" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrefijo2">
+      <http:operation location="/GetPrefijo2" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Service1HttpPost" type="tns:Service1HttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="HelloWorld">
+      <http:operation location="/HelloWorld" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EjecutarConsulta">
+      <http:operation location="/EjecutarConsulta" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EjecutarActualizacion">
+      <http:operation location="/EjecutarActualizacion" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrefijo1">
+      <http:operation location="/GetPrefijo1" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrefijo2">
+      <http:operation location="/GetPrefijo2" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="Service1Soap" binding="tns:Service1Soap">
+      <soap:address location="http://ninkasi.intersport.dev/WebServiceJDE.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Service1Soap12" binding="tns:Service1Soap12">
+      <soap12:address location="http://ninkasi.intersport.dev/WebServiceJDE.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Service1HttpGet" binding="tns:Service1HttpGet">
+      <http:address location="http://ninkasi.intersport.dev/WebServiceJDE.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Service1HttpPost" binding="tns:Service1HttpPost">
+      <http:address location="http://ninkasi.intersport.dev/WebServiceJDE.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

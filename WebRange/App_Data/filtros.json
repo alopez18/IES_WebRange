@@ -8,7 +8,6 @@
         "Name": "ID",
         "KeyIdioma": "ID",
         "HOT_ColConfig": {
-          "data": "ID",
           "type": "text"
         }
       },
@@ -17,7 +16,6 @@
         "Name": "Grupo",
         "KeyIdioma": "GRUPO",
         "HOT_ColConfig": {
-          "data": "GRUPO",
           "type": "text"
         }
 
@@ -27,7 +25,6 @@
         "Name": "Sección",
         "KeyIdioma": "SECCION",
         "HOT_ColConfig": {
-          "data": "SECCION",
           "type": "text"
         }
 
@@ -37,7 +34,6 @@
         "Name": "Surtido",
         "KeyIdioma": "SURTIDO",
         "HOT_ColConfig": {
-          "data": "SURTIDO",
           "type": "text"
         }
       },
@@ -46,7 +42,6 @@
         "Name": "Modelo",
         "KeyIdioma": "MODELO",
         "HOT_ColConfig": {
-          "data": "MODELO",
           "type": "text"
         }
       },
@@ -55,7 +50,6 @@
         "Name": "Talla",
         "KeyIdioma": "TALLA",
         "HOT_ColConfig": {
-          "data": "TALLA",
           "type": "text"
         }
       },
@@ -64,7 +58,6 @@
         "Name": "Color",
         "KeyIdioma": "COLOR",
         "HOT_ColConfig": {
-          "data": "COLOR",
           "type": "text"
         }
       }
@@ -79,13 +72,13 @@
         "Name": "Fecha Entrega 1",
         "KeyIdioma": "LCC9EADJ1",
         "HOT_ColConfig": {
-          "data": "LCC9EADJ1",
           "type": "date",
-          "dateFormat": "MM/DD/YYYY",
+          "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
+          "allowEmpty": true,
           "defaultDate": "01/01/1900",
           "datePickerConfig": {
-            "firstDay": 0, 
+            "firstDay": 0,
             "numberOfMonths": 1
           }
         }
@@ -95,13 +88,13 @@
         "Name": "Fecha Entrega 2",
         "KeyIdioma": "LCC9EADJ2",
         "HOT_ColConfig": {
-          "data": "LCC9EADJ2",
           "type": "date",
-          "dateFormat": "MM/DD/YYYY",
+          "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
+          "allowEmpty": true,
           "defaultDate": "01/01/1900",
           "datePickerConfig": {
-            "firstDay": 0, 
+            "firstDay": 0,
             "numberOfMonths": 1
           }
         }
@@ -111,13 +104,13 @@
         "Name": "Fecha Entrega 3",
         "KeyIdioma": "LCC9EADJ3",
         "HOT_ColConfig": {
-          "data": "LCC9EADJ3",
           "type": "date",
-          "dateFormat": "MM/DD/YYYY",
+          "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
+          "allowEmpty": true,
           "defaultDate": "01/01/1900",
           "datePickerConfig": {
-            "firstDay": 0, 
+            "firstDay": 0,
             "numberOfMonths": 1
           }
         }
@@ -127,13 +120,13 @@
         "Name": "Fecha Entrega 4",
         "KeyIdioma": "LCC9EADJ4",
         "HOT_ColConfig": {
-          "data": "LCC9EADJ4",
           "type": "date",
-          "dateFormat": "MM/DD/YYYY",
+          "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
+          "allowEmpty": true,
           "defaultDate": "01/01/1900",
           "datePickerConfig": {
-            "firstDay": 0, 
+            "firstDay": 0,
             "numberOfMonths": 1
           }
         }
@@ -143,13 +136,13 @@
         "Name": "Fecha Entrega 5",
         "KeyIdioma": "LCC9EADJ5",
         "HOT_ColConfig": {
-          "data": "LCC9EADJ5",
           "type": "date",
-          "dateFormat": "MM/DD/YYYY",
+          "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
+          "allowEmpty": true,
           "defaultDate": "01/01/1900",
           "datePickerConfig": {
-            "firstDay": 0, 
+            "firstDay": 0,
             "numberOfMonths": 1
           }
         }
@@ -159,13 +152,13 @@
         "Name": "Fecha Limite 1",
         "KeyIdioma": "LC$CPD1",
         "HOT_ColConfig": {
-          "data": "LC$CPD1",
           "type": "date",
-          "dateFormat": "MM/DD/YYYY",
+          "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
+          "allowEmpty": true,
           "defaultDate": "01/01/1900",
           "datePickerConfig": {
-            "firstDay": 0, 
+            "firstDay": 0,
             "numberOfMonths": 1
           }
         }
@@ -175,13 +168,13 @@
         "Name": "Fecha Limite 2",
         "KeyIdioma": "LC$CPD2",
         "HOT_ColConfig": {
-          "data": "LC$CPD2",
           "type": "date",
-          "dateFormat": "MM/DD/YYYY",
+          "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
+          "allowEmpty": true,
           "defaultDate": "01/01/1900",
           "datePickerConfig": {
-            "firstDay": 0, 
+            "firstDay": 0,
             "numberOfMonths": 1
           }
         }
@@ -191,13 +184,13 @@
         "Name": "Fecha Limite 3",
         "KeyIdioma": "LC$CPD3",
         "HOT_ColConfig": {
-          "data": "LC$CPD3",
           "type": "date",
-          "dateFormat": "MM/DD/YYYY",
+          "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
+          "allowEmpty": true,
           "defaultDate": "01/01/1900",
           "datePickerConfig": {
-            "firstDay": 0, 
+            "firstDay": 0,
             "numberOfMonths": 1
           }
         }
@@ -207,13 +200,13 @@
         "Name": "Fecha Limite 4",
         "KeyIdioma": "LC$CPD4",
         "HOT_ColConfig": {
-          "data": "LC$CPD4",
           "type": "date",
-          "dateFormat": "MM/DD/YYYY",
+          "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
+          "allowEmpty": true,
           "defaultDate": "01/01/1900",
           "datePickerConfig": {
-            "firstDay": 0, 
+            "firstDay": 0,
             "numberOfMonths": 1
           }
         }
@@ -223,13 +216,13 @@
         "Name": "Fecha Limite 5",
         "KeyIdioma": "LC$CPD5",
         "HOT_ColConfig": {
-          "data": "LC$CPD5",
           "type": "date",
-          "dateFormat": "MM/DD/YYYY",
+          "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
+          "allowEmpty": true,
           "defaultDate": "01/01/1900",
           "datePickerConfig": {
-            "firstDay": 0, 
+            "firstDay": 0,
             "numberOfMonths": 1
           }
         }
@@ -245,7 +238,6 @@
         "Name": "Tipo Servicio",
         "KeyIdioma": "LCC9CAT2 ",
         "HOT_ColConfig": {
-          "data": "LCC9CAT2",
           "width": 150,
           "renderer": "customDropdownRenderer",
           "editor": "chosen",
@@ -274,7 +266,6 @@
         "Name": "Mejor Precio",
         "KeyIdioma": "LC$MPRE ",
         "HOT_ColConfig": {
-          "data": "LC$MPRE",
           "type": "checkbox"
         }
       },
@@ -283,7 +274,6 @@
         "Name": "Folleto",
         "KeyIdioma": "LC$MPRE ",
         "HOT_ColConfig": {
-          "data": "LC$MPRE",
           "type": "checkbox"
         }
       }
@@ -298,7 +288,6 @@
         "Name": "PVC",
         "KeyIdioma": "PVC",
         "HOT_ColConfig": {
-          "data": "price_usd",
           "type": "numeric",
           "format": "$0,0.00",
           "language": "en-US" 
