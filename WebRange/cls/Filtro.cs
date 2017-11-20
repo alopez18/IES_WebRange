@@ -28,10 +28,38 @@ namespace ALC.IES.WebRange.cls {
         public string FieldkeyJDE { get; set; }
         public string Name { get; set; }
         public string KeyIdioma { get; set; }
+        public HOTColConfig HOT_ColConfig { get; set; }
     }//Class Finish
 
 
+    public class HOTColConfig {
+        public string data { get; set; }
+        public string type { get; set; }
+        public string dateFormat { get; set; }
+        public bool? correctFormat { get; set; }
+        public string defaultDate { get; set; }
+        public DatePickerConfig datePickerConfig { get; set; }
+        public int? width { get; set; }
+        public string renderer { get; set; }
+        public string editor { get; set; }
+        public ChosenOptions chosenOptions { get; set; }
+        public string format { get; set; }
+        public string language { get; set; }
+    }
 
 
+    public class DatePickerConfig {
+        public int firstDay { get; set; }
+        public int numberOfMonths { get; set; }
+    }
+
+    public class ChosenOption {
+        public string id { get; set; }
+        public string label { get; set; }
+    }
+
+    public class ChosenOptions {
+        public List<ChosenOption> data { get; set; }
+    }
 
 }//Namespace Finish

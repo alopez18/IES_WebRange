@@ -26,9 +26,11 @@ $(function () {
             dataType: 'json',
             success: function (data) {
                 gl.loadGlobal.hide();
+                console.log(data.ColsConfig);
                 convencion.hot.updateSettings({
                     colHeaders: data.Headers,
                     data: data.Datos,
+                    columns: data.ColsConfig,
                     hiddenColumns: {
                         columns: [0],
                         indicators: true
@@ -75,3 +77,21 @@ $(function () {
     //    console.log('Data loaded');
     //});
 });
+
+
+function customDropdownRenderer(instance, td, row, col, prop, value, cellProperties) {
+    var selectedId;
+    var optionsList = cellProperties.chosenOptions.data;
+
+    var values = (value + "").split(",");
+    var value = [];
+    for (var index = 0; index < optionsList.length; index++) {
+        if (values.indexOf(optionsList[index].id + "") > -1) {
+            selectedId = optionsList[index].id;
+            value.push(optionsList[index].label);
+        }
+    }
+    value = value.join(", ");
+
+    Handsontable.TextCell.renderer.apply(this, arguments);
+}

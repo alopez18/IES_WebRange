@@ -1,92 +1,334 @@
 ﻿[
   {
-    "name": "basic",
+    "Name": "basic",
     "IsBasic": true,
-    "fields": [
+    "Fields": [
       {
         "FieldkeyJDE": "ID",
-        "name": "ID",
-        "keyIdioma": "ID"
+        "Name": "ID",
+        "KeyIdioma": "ID",
+        "HOT_ColConfig": {
+          "data": "ID",
+          "type": "text"
+        }
       },
       {
-        "fieldkeyJDE": "GRUPO",
-        "name": "Grupo",
-        "keyIdioma": "GRUPO"
+        "FieldkeyJDE": "GRUPO",
+        "Name": "Grupo",
+        "KeyIdioma": "GRUPO",
+        "HOT_ColConfig": {
+          "data": "GRUPO",
+          "type": "text"
+        }
 
       },
       {
-        "fieldkeyJDE": "SECCION",
-        "name": "Sección",
-        "keyIdioma": "SECCION"
+        "FieldkeyJDE": "SECCION",
+        "Name": "Sección",
+        "KeyIdioma": "SECCION",
+        "HOT_ColConfig": {
+          "data": "SECCION",
+          "type": "text"
+        }
 
       },
       {
-        "fieldkeyJDE": "SURTIDO",
-        "name": "Surtido",
-        "keyIdioma": "SURTIDO"
+        "FieldkeyJDE": "SURTIDO",
+        "Name": "Surtido",
+        "KeyIdioma": "SURTIDO",
+        "HOT_ColConfig": {
+          "data": "SURTIDO",
+          "type": "text"
+        }
       },
       {
-        "fieldkeyJDE": "ARTICULO",
-        "name": "Articulo",
-        "keyIdioma": "ARTICULO"
+        "FieldkeyJDE": "MODELO",
+        "Name": "Modelo",
+        "KeyIdioma": "MODELO",
+        "HOT_ColConfig": {
+          "data": "MODELO",
+          "type": "text"
+        }
+      },
+      {
+        "FieldkeyJDE": "TALLA",
+        "Name": "Talla",
+        "KeyIdioma": "TALLA",
+        "HOT_ColConfig": {
+          "data": "TALLA",
+          "type": "text"
+        }
+      },
+      {
+        "FieldkeyJDE": "COLOR",
+        "Name": "Color",
+        "KeyIdioma": "COLOR",
+        "HOT_ColConfig": {
+          "data": "COLOR",
+          "type": "text"
+        }
       }
     ]
   },
   {
-    "name": "Preus",
+    "Name": "Fechas",
     "IsBasic": false,
-    "fields": [
+    "Fields": [
       {
-        "fieldkeyJDE": "PVC",
-        "name": "PVC",
-        "keyIdioma": "PVC"
+        "FieldkeyJDE": "LCC9EADJ1",
+        "Name": "Fecha Entrega 1",
+        "KeyIdioma": "LCC9EADJ1",
+        "HOT_ColConfig": {
+          "data": "LCC9EADJ1",
+          "type": "date",
+          "dateFormat": "MM/DD/YYYY",
+          "correctFormat": true,
+          "defaultDate": "01/01/1900",
+          "datePickerConfig": {
+            "firstDay": 0, 
+            "numberOfMonths": 1
+          }
+        }
       },
       {
-        "fieldkeyJDE": "PVS",
-        "name": "PVS",
-        "keyIdioma": "PVS"
+        "FieldkeyJDE": "LCC9EADJ2",
+        "Name": "Fecha Entrega 2",
+        "KeyIdioma": "LCC9EADJ2",
+        "HOT_ColConfig": {
+          "data": "LCC9EADJ2",
+          "type": "date",
+          "dateFormat": "MM/DD/YYYY",
+          "correctFormat": true,
+          "defaultDate": "01/01/1900",
+          "datePickerConfig": {
+            "firstDay": 0, 
+            "numberOfMonths": 1
+          }
+        }
       },
       {
-        "fieldkeyJDE": "PVP",
-        "name": "PVP",
-        "keyIdioma": "PVP"
+        "FieldkeyJDE": "LCC9EADJ3",
+        "Name": "Fecha Entrega 3",
+        "KeyIdioma": "LCC9EADJ3",
+        "HOT_ColConfig": {
+          "data": "LCC9EADJ3",
+          "type": "date",
+          "dateFormat": "MM/DD/YYYY",
+          "correctFormat": true,
+          "defaultDate": "01/01/1900",
+          "datePickerConfig": {
+            "firstDay": 0, 
+            "numberOfMonths": 1
+          }
+        }
+      },
+      {
+        "FieldkeyJDE": "LCC9EADJ4",
+        "Name": "Fecha Entrega 4",
+        "KeyIdioma": "LCC9EADJ4",
+        "HOT_ColConfig": {
+          "data": "LCC9EADJ4",
+          "type": "date",
+          "dateFormat": "MM/DD/YYYY",
+          "correctFormat": true,
+          "defaultDate": "01/01/1900",
+          "datePickerConfig": {
+            "firstDay": 0, 
+            "numberOfMonths": 1
+          }
+        }
+      },
+      {
+        "FieldkeyJDE": "LCC9EADJ5",
+        "Name": "Fecha Entrega 5",
+        "KeyIdioma": "LCC9EADJ5",
+        "HOT_ColConfig": {
+          "data": "LCC9EADJ5",
+          "type": "date",
+          "dateFormat": "MM/DD/YYYY",
+          "correctFormat": true,
+          "defaultDate": "01/01/1900",
+          "datePickerConfig": {
+            "firstDay": 0, 
+            "numberOfMonths": 1
+          }
+        }
+      },
+      {
+        "FieldkeyJDE": "LC$CPD1",
+        "Name": "Fecha Limite 1",
+        "KeyIdioma": "LC$CPD1",
+        "HOT_ColConfig": {
+          "data": "LC$CPD1",
+          "type": "date",
+          "dateFormat": "MM/DD/YYYY",
+          "correctFormat": true,
+          "defaultDate": "01/01/1900",
+          "datePickerConfig": {
+            "firstDay": 0, 
+            "numberOfMonths": 1
+          }
+        }
+      },
+      {
+        "FieldkeyJDE": "LC$CPD2",
+        "Name": "Fecha Limite 2",
+        "KeyIdioma": "LC$CPD2",
+        "HOT_ColConfig": {
+          "data": "LC$CPD2",
+          "type": "date",
+          "dateFormat": "MM/DD/YYYY",
+          "correctFormat": true,
+          "defaultDate": "01/01/1900",
+          "datePickerConfig": {
+            "firstDay": 0, 
+            "numberOfMonths": 1
+          }
+        }
+      },
+      {
+        "FieldkeyJDE": "LC$CPD3",
+        "Name": "Fecha Limite 3",
+        "KeyIdioma": "LC$CPD3",
+        "HOT_ColConfig": {
+          "data": "LC$CPD3",
+          "type": "date",
+          "dateFormat": "MM/DD/YYYY",
+          "correctFormat": true,
+          "defaultDate": "01/01/1900",
+          "datePickerConfig": {
+            "firstDay": 0, 
+            "numberOfMonths": 1
+          }
+        }
+      },
+      {
+        "FieldkeyJDE": "LC$CPD4",
+        "Name": "Fecha Limite 4",
+        "KeyIdioma": "LC$CPD4",
+        "HOT_ColConfig": {
+          "data": "LC$CPD4",
+          "type": "date",
+          "dateFormat": "MM/DD/YYYY",
+          "correctFormat": true,
+          "defaultDate": "01/01/1900",
+          "datePickerConfig": {
+            "firstDay": 0, 
+            "numberOfMonths": 1
+          }
+        }
+      },
+      {
+        "FieldkeyJDE": "LC$CPD5",
+        "Name": "Fecha Limite 5",
+        "KeyIdioma": "LC$CPD5",
+        "HOT_ColConfig": {
+          "data": "LC$CPD5",
+          "type": "date",
+          "dateFormat": "MM/DD/YYYY",
+          "correctFormat": true,
+          "defaultDate": "01/01/1900",
+          "datePickerConfig": {
+            "firstDay": 0, 
+            "numberOfMonths": 1
+          }
+        }
       }
     ]
   },
   {
-    "name": "Fechas de Entrega",
+    "Name": "Presentació",
     "IsBasic": false,
-    "fields": [
+    "Fields": [
       {
-        "fieldkeyJDE": "FECHATIENDA",
-        "name": "Fecha Tienda",
-        "keyIdioma": "FECHATIENDA"
-      },
-      {
-        "fieldkeyJDE": "FECHAALMACEN",
-        "name": "Fecha Almacén",
-        "keyIdioma": "FECHAALMACEN"
-      },
-      {
-        "fieldkeyJDE": "TIEMPOENTREGA",
-        "name": "Tiempo entrega",
-        "keyIdioma": "TIEMPOENTREGA"
+        "FieldkeyJDE": "LCC9CAT2 ",
+        "Name": "Tipo Servicio",
+        "KeyIdioma": "LCC9CAT2 ",
+        "HOT_ColConfig": {
+          "data": "LCC9CAT2",
+          "width": 150,
+          "renderer": "customDropdownRenderer",
+          "editor": "chosen",
+          "chosenOptions": {
+            "data": [
+              {
+                "id": "N",
+                "label": "Servicio central"
+              },
+              {
+                "id": "S",
+                "label": "servicio Directo"
+              }
+            ]
+          }
+        }
       }
     ]
   },
   {
-    "name": "Condiciones comerciales",
+    "Name": "Marketing",
     "IsBasic": false,
-    "fields": [
+    "Fields": [
       {
-        "fieldkeyJDE": "CANTIDADMINIMA",
-        "name": "Cantidad mínima",
-        "keyIdioma": "CANTIDADMINIMA"
+        "FieldkeyJDE": "LC$MPRE",
+        "Name": "Mejor Precio",
+        "KeyIdioma": "LC$MPRE ",
+        "HOT_ColConfig": {
+          "data": "LC$MPRE",
+          "type": "checkbox"
+        }
       },
       {
-        "fieldkeyJDE": "CANTIDADMAXIMA",
-        "name": "Cantidad máxima",
-        "keyIdioma": "CANTIDADMAXIMA"
+        "FieldkeyJDE": "LCCCD07DES",
+        "Name": "Folleto",
+        "KeyIdioma": "LC$MPRE ",
+        "HOT_ColConfig": {
+          "data": "LC$MPRE",
+          "type": "checkbox"
+        }
+      }
+    ]
+  },
+  {
+    "Name": "Preus",
+    "IsBasic": false,
+    "Fields": [
+      {
+        "FieldkeyJDE": "PVC",
+        "Name": "PVC",
+        "KeyIdioma": "PVC",
+        "HOT_ColConfig": {
+          "data": "price_usd",
+          "type": "numeric",
+          "format": "$0,0.00",
+          "language": "en-US" 
+        }
+      },
+      {
+        "FieldkeyJDE": "PVS",
+        "Name": "PVS",
+        "KeyIdioma": "PVS"
+      },
+      {
+        "FieldkeyJDE": "PVP",
+        "Name": "PVP",
+        "KeyIdioma": "PVP"
+      }
+    ]
+  },
+  {
+    "Name": "Condiciones comerciales",
+    "IsBasic": false,
+    "Fields": [
+      {
+        "FieldkeyJDE": "CANTIDADMINIMA",
+        "Name": "Cantidad mínima",
+        "KeyIdioma": "CANTIDADMINIMA"
+      },
+      {
+        "FieldkeyJDE": "CANTIDADMAXIMA",
+        "Name": "Cantidad máxima",
+        "KeyIdioma": "CANTIDADMAXIMA"
       }
     ]
   }

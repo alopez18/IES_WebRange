@@ -21,12 +21,15 @@ namespace ALC.IES.WebRange.Controllers {
             return View(model);
         }
 
-        public JsonResult Datos(String id, String filtroId) {
+        public String Datos(String id, String filtroId) {
             Models.ConvencionDatosModel model = new Models.ConvencionDatosModel(id, filtroId);
             model.LoadData(1500);
-            var res = Json(model);
-            res.MaxJsonLength = int.MaxValue;
-            return res;
+
+            Newtonsoft.Json.JsonSerializerSettings sett = new Newtonsoft.Json.JsonSerializerSettings();
+            sett.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+            String res = Newtonsoft.Json.JsonConvert.SerializeObject(model, sett);
+            Response.ContentType = "Application/Json";
+            return res;            
         }
 
 

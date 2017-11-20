@@ -9,14 +9,18 @@ namespace ALC.IES.WebRange.Models {
         public String Id { get; set; }
         public List<cls.Filtro> Filtros { get; set; }
         public List<String> Headers { get; set; }
+        public List<cls.HOTColConfig> ColsConfig { get; set; }
 
 
         public ConvencionDatosModel(String id, String nombreFiltro) {
             this.Filtros = cls.FiltrosConvenciones.GetFiltros();
             cls.Filtro filtroBasico = this.Filtros.FirstOrDefault(m => m.IsBasic);
             this.Headers = new List<string>();
-            foreach (var item in filtroBasico.Fields) {
-                this.Headers.Add(item.Name);
+            this.ColsConfig = new List<cls.HOTColConfig>();
+
+            foreach (var field in filtroBasico.Fields) {
+                this.Headers.Add(field.Name);
+                this.ColsConfig.Add(field.HOT_ColConfig);
             }
 
             if (!String.IsNullOrEmpty(nombreFiltro)) {
@@ -25,14 +29,16 @@ namespace ALC.IES.WebRange.Models {
                         if (!filtro.IsBasic) {
                             foreach (var field in filtro.Fields) {
                                 this.Headers.Add(field.Name);
+                                this.ColsConfig.Add(field.HOT_ColConfig);
                             }
                         }
                     }
                 } else {
                     cls.Filtro filtroSeleccionado = this.Filtros.FirstOrDefault(m => m.Name.ToLower() == nombreFiltro.ToLower());
                     if (filtroSeleccionado != null) {
-                        foreach (var item in filtroSeleccionado.Fields) {
-                            this.Headers.Add(item.Name);
+                        foreach (var field in filtroSeleccionado.Fields) {
+                            this.Headers.Add(field.Name);
+                            this.ColsConfig.Add(field.HOT_ColConfig);
                         }
                     }
                 }
