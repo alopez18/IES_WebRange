@@ -15,10 +15,10 @@ namespace ALC.IES.WebRange.DataLayer {
             foreach (DataColumn col in dr.Table.Columns) {
                 switch (col.ColumnName) {
                     case "VFZON":
-                        res.IdConvencion = dr["VFZON"].ToString();
+                        res.IdConvencion = dr[col.ColumnName].ToString();
                         break;
                     case "VFCCD07DES":
-                        res.Descripcion = dr["VFCCD07DES"].ToString();
+                        res.Descripcion = dr[col.ColumnName].ToString();
                         break;
                     default:
                         _log.WarnFormat("Columna '{0}' no reconocida para parsear la entidad {1}", col.ColumnName, "EntitiesLayer.Convencion");

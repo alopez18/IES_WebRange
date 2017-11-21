@@ -42,10 +42,11 @@ namespace ALC.IES.WebRange.cls {
         public DatePickerConfig datePickerConfig { get; set; }
         public int? width { get; set; }
         public string renderer { get; set; }
-        public string editor { get; set; }
+        public Boolean editor { get; set; }
         public ChosenOptions chosenOptions { get; set; }
         public string format { get; set; }
         public string language { get; set; }
+        public List<String> source { get; set; }
     }
 
 

@@ -6,15 +6,25 @@ using System.Threading.Tasks;
 
 namespace ALC.IES.WebRange.BusinessLayer {
     public class Convencion {
-
+        EntitiesLayer.Convencion ConvencionEntidad { get; set; }
 
 
         public Convencion() {
 
         }
 
-        public static EntitiesLayer.Convencion Get(string id) {
-            return DataLayer.Convencion.Get(id);
+        public static BusinessLayer.Convencion Get(string id) {
+            BusinessLayer.Convencion res = new Convencion() {
+                ConvencionEntidad = DataLayer.Convencion.Get(id)
+            };
+            return res;
+        }
+
+        public BusinessLayer.Articulos GetArticulos(List<String> campos, int pageNumber, int pageSize) {
+            BusinessLayer.Articulos res = new Articulos() {
+                ArticulosEntidad = DataLayer.Articulos.Get(this.ConvencionEntidad.Id, campos, pageNumber, pageSize)
+            };
+            return res;
         }
     }//Class Finish
 

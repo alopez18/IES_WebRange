@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Articulo.cs" />
     <Compile Include="Convencion.cs" />
     <Compile Include="Filtro.cs" />
     <Compile Include="Folleto.cs" />

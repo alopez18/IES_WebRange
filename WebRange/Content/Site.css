@@ -577,3 +577,7 @@ table.dataTable thead .sorting_desc_disabled {
 .page-header {
     color: #e60a0a
 }
+
+.no-padding {
+    padding: 0 !important;
+}

@@ -22,9 +22,12 @@ namespace ALC.IES.WebRange.Controllers {
             return View(model);
         }
 
-        public String Datos(String id, String filtroId) {
+        public String Datos(String id, String filtroId/*, int page*/) {
+            //String sPageSize = System.Configuration.ConfigurationManager.AppSettings.Get("ARTICULOS_CONVENCIONES_PAGESIZE");
+
+            //int pageSize = int.Parse(sPageSize);
             Models.ConvencionDatosModel model = new Models.ConvencionDatosModel(id, filtroId);
-            model.LoadData(1500);
+            model.LoadData(/*page, pageSize*/);
 
             Newtonsoft.Json.JsonSerializerSettings sett = new Newtonsoft.Json.JsonSerializerSettings();
             sett.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;

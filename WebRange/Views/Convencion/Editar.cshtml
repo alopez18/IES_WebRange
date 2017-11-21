@@ -7,6 +7,11 @@
     <link href="~/Content/loadingOverlay.css" rel="stylesheet" />
     <link href="~/Content/Pikaday/pikaday.css" rel="stylesheet" />
     <link href="~/Content/handsontable/handsontable.full.min.css" rel="stylesheet" />
+    <style>
+        body {
+            overflow: hidden !important;
+        }
+    </style>
 }
 
 @section header{
@@ -18,13 +23,9 @@
     @Html.Partial("leftmenu")
 }
 <div class="loading">Cargando&#8230;</div>
-<div id="page-wrapper">
-    <h3 class="page-header">Editar el catàleg de la convenció @Model.Id</h3>
-    <div class="row">
-        <div class="col-xs-12">
-            <div id="tablaExcel"></div>
-        </div>
-    </div>
+<div id="page-wrapper" class="no-padding">
+    <h3 class="page-header" id="excelH3">Editar el catàleg de la convenció @Model.Id</h3>
+    <div id="tablaExcel"></div>
 </div>
 
 
@@ -33,12 +34,12 @@
     <script src="~/Scripts/Pikaday/pikaday.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/numbro/1.11.0/numbro.min.js"></script>
     <script src="~/Scripts/handsontable/handsontable.full.min.js"></script>
-    <script src="~/Scripts/chosen.jquery.min.js"></script>
-    <script src="~/Scripts/handsontable/handsontable-chosen-editor.js"></script>
+    @*<script src="~/Scripts/chosen.jquery.min.js"></script>
+        <script src="~/Scripts/handsontable/handsontable-chosen-editor.js"></script>*@
 
     <script>
         var convencion = {};
-        convencion.Id = '@(Model.Id))';
+        convencion.Id = '@(Model.Id)';
     </script>
     <script src="~/js/convenciones/editar.js"></script>
 

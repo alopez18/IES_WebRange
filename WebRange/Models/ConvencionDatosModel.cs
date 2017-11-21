@@ -5,24 +5,32 @@ using System.Web;
 
 namespace ALC.IES.WebRange.Models {
     public class ConvencionDatosModel {
-        public List<List<Object>> Datos { get; set; }
+        public EntitiesLayer.Articulos Datos { get; set; }
         public String Id { get; set; }
         public List<cls.Filtro> Filtros { get; set; }
         public List<cls.Filtro> FiltrosSelected { get; set; }
         public List<String> Headers { get; set; }
         public List<cls.HOTColConfig> ColsConfig { get; set; }
 
+        private List<String> Campos { get; set; }
+
 
         public ConvencionDatosModel(String id, String nombreFiltro) {
+            this.Id = id;
             this.Filtros = cls.FiltrosConvenciones.GetFiltros();
             this.FiltrosSelected = new List<cls.Filtro>();
             cls.Filtro filtroBasico = this.Filtros.FirstOrDefault(m => m.IsBasic);
             this.Headers = new List<string>();
+            this.Campos = new List<string>();
             this.ColsConfig = new List<cls.HOTColConfig>();
             this.FiltrosSelected.Add(filtroBasico);
+            
             foreach (var field in filtroBasico.Fields) {
                 this.Headers.Add(field.Name);
                 this.ColsConfig.Add(field.HOT_ColConfig);
+                if (!String.IsNullOrWhiteSpace(field.FieldkeyJDE)) {
+                    this.Campos.Add(field.FieldkeyJDE);
+                }
                 
             }
 
@@ -34,6 +42,9 @@ namespace ALC.IES.WebRange.Models {
                             foreach (var field in filtro.Fields) {
                                 this.Headers.Add(field.Name);
                                 this.ColsConfig.Add(field.HOT_ColConfig);
+                                if (!String.IsNullOrWhiteSpace(field.FieldkeyJDE)) {
+                                    this.Campos.Add(field.FieldkeyJDE);
+                                }
                             }
                         }
                     }
@@ -45,6 +56,9 @@ namespace ALC.IES.WebRange.Models {
                         foreach (var field in filtroSeleccionado.Fields) {
                             this.Headers.Add(field.Name);
                             this.ColsConfig.Add(field.HOT_ColConfig);
+                            if (!String.IsNullOrWhiteSpace(field.FieldkeyJDE)) {
+                                this.Campos.Add(field.FieldkeyJDE);
+                            }
                         }
                     }
                 }
@@ -52,47 +66,52 @@ namespace ALC.IES.WebRange.Models {
         }
 
 
-        public void LoadData(int count) {
-            //Creamos datos aleatorios para que se vea algo en los mismos.
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        public void LoadData(/*int pageNumber, int pageSize*/) {
+            //BusinessLayer.Articulos artsBS= BusinessLayer.Articulos.Get(this.Id, this.Campos, pageNumber, pageSize);
+            BusinessLayer.Articulos artsBS = BusinessLayer.Articulos.Get(this.Id, this.Campos);
+            this.Datos = artsBS.ArticulosEntidad;
 
-            Datos = new List<List<Object>>();
-            List<Object> rowAux = null;
-            Random r = new Random(DateTime.Now.Millisecond);
-            for (int i = 0; i < count; i++) {
-                rowAux = new List<Object>();
-                foreach (var filtro in this.FiltrosSelected) {
-                    foreach (var field in filtro.Fields) {
-                        if (field.HOT_ColConfig != null) {
-                            switch (field.HOT_ColConfig.type) {
-                                case "date":
-                                    DateTime start = new DateTime(1995, 1, 1);
-                                    int range = (DateTime.Today - start).Days;
-                                    DateTime dRes = start.AddDays(r.Next(range));
-                                    rowAux.Add(dRes.ToShortDateString());
-                                    break;
-                                case "checkbox":
-                                    rowAux.Add((r.Next(1000, 99999999) % 2 == 0));
-                                    break;
-                                case "numeric":
-                                    rowAux.Add(r.Next(1000, 99999999));
-                                    break;
-                                default:
-                                    if (field.HOT_ColConfig.editor != null && field.HOT_ColConfig.editor == "chosen") {
-                                        rowAux.Add((r.Next(1000, 99999999) % 2 == 0) ? "N" : "S");
-                                    } else {
-                                        rowAux.Add(new string(Enumerable.Repeat(chars, r.Next(5, 15)).Select(s => s[r.Next(s.Length)]).ToArray()));
-                                    }
-                                    
-                                    break;
-                            }
-                        } else {
-                            rowAux.Add(new string(Enumerable.Repeat(chars, r.Next(5, 15)).Select(s => s[r.Next(s.Length)]).ToArray()));
-                        }
-                    }
-                }
-                Datos.Add(rowAux);
-            }
+
+
+            //Creamos datos aleatorios para que se vea algo en los mismos.
+            //const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            //Datos = new List<List<Object>>();
+            //List<Object> rowAux = null;
+            //Random r = new Random(DateTime.Now.Millisecond);
+            //for (int i = 0; i < count; i++) {
+            //    rowAux = new List<Object>();
+            //    foreach (var filtro in this.FiltrosSelected) {
+            //        foreach (var field in filtro.Fields) {
+            //            if (field.HOT_ColConfig != null) {
+            //                switch (field.HOT_ColConfig.type) {
+            //                    case "date":
+            //                        DateTime start = new DateTime(1995, 1, 1);
+            //                        int range = (DateTime.Today - start).Days;
+            //                        DateTime dRes = start.AddDays(r.Next(range));
+            //                        rowAux.Add(dRes.ToShortDateString());
+            //                        break;
+            //                    case "checkbox":
+            //                        rowAux.Add((r.Next(1000, 99999999) % 2 == 0));
+            //                        break;
+            //                    case "numeric":
+            //                        rowAux.Add(r.Next(1000, 99999999));
+            //                        break;
+            //                    default:
+            //                        if (field.HOT_ColConfig.editor != null && field.HOT_ColConfig.editor == "chosen") {
+            //                            rowAux.Add((r.Next(1000, 99999999) % 2 == 0) ? "N" : "S");
+            //                        } else {
+            //                            rowAux.Add(new string(Enumerable.Repeat(chars, r.Next(5, 15)).Select(s => s[r.Next(s.Length)]).ToArray()));
+            //                        }
+
+            //                        break;
+            //                }
+            //            } else {
+            //                rowAux.Add(new string(Enumerable.Repeat(chars, r.Next(5, 15)).Select(s => s[r.Next(s.Length)]).ToArray()));
+            //            }
+            //        }
+            //    }
+            //    Datos.Add(rowAux);
+            //}
 
 
         }
