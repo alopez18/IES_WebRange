@@ -2,36 +2,51 @@
 $(function () {
     //punteros al DOM.
     convencion.$btnFilter = $(".btnFilter");
+    convencion.$btn_nivel = $(".btn-nivel");
     convencion.pagination = {};
     convencion.pagination.page = 1;
     convencion.pagination.NoMorePages = false;
     convencion.pagination.data = null;
     convencion.pagination.currentFilter = null;
+    convencion.pagination.currentLevel = null;
+    convencion.pagination.scrollCheck = false;
 
 
 
-
+    convencion.$btn_nivel.off().on("click", function (e) {
+        e.preventDefault();
+        convencion.$btn_nivel.removeClass("active");
+        var $this = $(this);
+        $this.addClass("active");
+        var idLevel = $this.data("val");
+        var filNow = convencion.pagination.currentFilter;
+        convencion.pagination.currentLevel = null;
+        convencion.loadData(filNow, idLevel);
+    });
 
     //Eventos objetos del DOM.
-    convencion.$btnFilter.on("click", function (e) {
+    convencion.$btnFilter.off().on("click", function (e) {
         e.preventDefault();
         var $this = $(this);
         var id = $this.data("id");
         $(".navbar-top-links>li.active").removeClass("active");
         $this.parent().addClass("active");
         convencion.pagination.currentFilter = null;
-        convencion.loadData(id);
+        convencion.loadData(id, convencion.pagination.currentLevel);
     });
 
 
 
     ///Funcion que carga los datos en la handsontable dado un identificador.
-    convencion.loadData = function (id) {
+    convencion.loadData = function (idFilter, idLevel) {
         gl.loadGlobal.css("display", "block");
 
-        if (convencion.pagination.currentFilter !== id) {
+        //Si hay cambio de filtro reseteamos las propiedades de la tabla.
+        if (convencion.pagination.currentFilter !== idFilter || convencion.pagination.currentLevel !== idLevel) {
+            convencion.pagination.scrollCheck = false; //Lo ponemos a false para que al vaciar la tabla no salte el final de scroll.
             convencion.pagination.page = 1;
-            convencion.pagination.currentFilter = id;
+            convencion.pagination.currentFilter = idFilter;
+            convencion.pagination.currentLevel = idLevel;
             convencion.pagination.NoMorePages = false;
             convencion.pagination.data = null;
             convencion.hot.updateSettings({
@@ -40,15 +55,15 @@ $(function () {
         }
         if (!convencion.pagination.NoMorePages) {
             $.ajax({
-                url: '/Convencion/Datos/' + convencion.Id + '?filtroId=' + convencion.pagination.currentFilter + '&page=' + convencion.pagination.page,
+                url: '/Convencion/Datos/' + convencion.Id + '?filtroId=' + convencion.pagination.currentFilter + '&nivel=' + convencion.pagination.currentLevel + '&page=' + convencion.pagination.page,
                 type: 'POST',
                 cache: false,
                 dataType: 'json',
                 success: function (data) {
-                    if (data.Datos == null || data.Datos.length === 0) {
+                    if (data.Datos === null || data.Datos.length === 0) {
                         convencion.pagination.NoMorePages = true
                     } else {
-                        if (convencion.pagination.data == null) {
+                        if (convencion.pagination.data === null) {
                             convencion.pagination.data = data.Datos;
                         } else {
                             convencion.pagination.data = convencion.pagination.data.concat(data.Datos);
@@ -56,20 +71,22 @@ $(function () {
                         }
                         gl.loadGlobal.hide();
                         //console.log(data.ColsConfig);
-                        
+
                         convencion.hot.updateSettings({
                             colHeaders: data.Headers,
                             data: convencion.pagination.data,
                             columns: data.ColsConfig
-                            //,hiddenColumns: {
-                            //    columns: [0],
-                            //    indicators: true
-                            //}
+                            ,hiddenColumns: {
+                                columns: [0],
+                                indicators: true
+                            }
                         });
+                        convencion.pagination.scrollCheck = true;
                     }
                 },
                 error: function (err) {
                     gl.loadGlobal.css("display", "none");
+                    console.log(err);
                     alert("ERROR");
                 }
             });
@@ -93,21 +110,61 @@ $(function () {
         },
         rowHeaders: true,
         colHeaders: true,
-        filters: true,
+        filters: false,
         dropdownMenu: true,
         allowInsertRow: true,
         allowInsertColumn: false,
         allowRemoveColumn: false,
         allowRemoveRow: false,
-        afterChange: function (change, source) {
+        afterChange: function (changes, source) {
             if (source === 'loadData') {
                 return; //don't save this change
             }
-            console.log("Guardamos los datos " + source);
-            console.log(change);
+
+            switch (source) {
+                case "edit":
+                    for (var i = 0; i < changes.length; i++) {
+                        var rowData = convencion.hot.getDataAtRow(changes[i][0]);
+                        var cambios = [];
+                        var idRow = rowData[0];
+                        var DtoUpdate = {
+                            Id: idRow,
+                            Campo: changes[i][1],
+                            Valor: changes[i][3]
+                        };
+                        cambios.push(DtoUpdate);
+                    }
+                    $.ajax({
+                        url: '/Articulo/Update',
+                        type: 'POST',
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify(cambios),
+                        dataType: 'json',
+                        success: function (data) {
+                            if (!data.Success) {
+                                alert("Ha fallado el guardado del dato");
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err);
+                            alert("ERROR");
+                        }
+                    });
+                    break;
+                default:
+                    console.log("Metodo de edición no controlado: '"+source+"'.");
+                    break;
+            }
+            //console.log("Guardamos los datos " + source);
+            //console.log(changes);
         },
         afterScrollVertically: function () {
-            if (!convencion.pagination.NoMorePages) {
+            /*
+            Para que no se solapen los eventos de scroll y carga de datos utilizamos
+            el flag 'convencion.pagination.scrollCheck' para que no visualize el scroll en caso de estar cargarndo datos
+            esto es debido a que al vaciar la tabla se establece que scroll está al final e intenta cargar la segunda página.
+            */
+            if (!convencion.pagination.NoMorePages && convencion.pagination.scrollCheck) {
                 if (convencion.timeoutScroll) {
                     clearTimeout(convencion.timeoutScroll);
                 }
@@ -119,7 +176,7 @@ $(function () {
                     //console.log(sH + " - " + oH + " - " + sTop);
                     if (oH + sTop >= sH) {
                         ++convencion.pagination.page;
-                        convencion.loadData(convencion.pagination.currentFilter);
+                        convencion.loadData(convencion.pagination.currentFilter, convencion.pagination.currentLevel);
 
                     }
                 }, 200);
@@ -128,28 +185,6 @@ $(function () {
     });
 
     convencion.loadData();
-
-    //ajax('/HandsonTable/GetData', 'GET', '', function (res) {
-    //    var data = JSON.parse(res.response);
-
-    //    console.log('Data loaded');
-    //});
 });
 
 
-//function customDropdownRenderer(instance, td, row, col, prop, value, cellProperties) {
-//    var selectedId;
-//    var optionsList = cellProperties.chosenOptions.data;
-
-//    var values = (value + "").split(",");
-//    var value = [];
-//    for (var index = 0; index < optionsList.length; index++) {
-//        if (values.indexOf(optionsList[index].id + "") > -1) {
-//            selectedId = optionsList[index].id;
-//            value.push(optionsList[index].label);
-//        }
-//    }
-//    value = value.join(", ");
-
-//    Handsontable.TextCell.renderer.apply(this, arguments);
-//}

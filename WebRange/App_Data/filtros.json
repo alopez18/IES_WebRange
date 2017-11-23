@@ -1,9 +1,29 @@
 ﻿[
   {
     "FieldkeyJDE": "",
-    "Name": "basic",
+    "Name": "bàsic",
     "IsBasic": true,
     "Fields": [
+      {
+        "FieldkeyJDE": "",
+        "Name": "Id",
+        "KeyIdioma": "Id",
+        "HOT_ColConfig": {
+          "data": "Id",
+          "type": "text",
+          "editor": false
+        }
+      },
+      {
+        "FieldkeyJDE": "LCC9LVNO",
+        "Name": "Nivel",
+        "KeyIdioma": "Nivel",
+        "HOT_ColConfig": {
+          "data": "Nivel",
+          "type": "numeric",
+          "editor": false
+        }
+      },
       {
         "FieldkeyJDE": "LCZON",
         "Name": "Convención",
@@ -40,6 +60,36 @@
         "KeyIdioma": "DescCapitulo",
         "HOT_ColConfig": {
           "data": "DescCapitulo",
+          "type": "text",
+          "editor": false
+        }
+      },
+      {
+        "FieldkeyJDE": "LCC9LVNO1",
+        "Name": "Subcapítulo",
+        "KeyIdioma": "Subcapitulo",
+        "HOT_ColConfig": {
+          "data": "Subcapitulo",
+          "type": "text",
+          "editor": false
+        }
+      },
+      {
+        "FieldkeyJDE": "LCCNO",
+        "Name": "Orden",
+        "KeyIdioma": "Orden",
+        "HOT_ColConfig": {
+          "data": "Orden",
+          "type": "text",
+          "editor": false
+        }
+      },
+      {
+        "FieldkeyJDE": "LCITM",
+        "Name": "Código articulo",
+        "KeyIdioma": "Cod_Articulo",
+        "HOT_ColConfig": {
+          "data": "Cod_Articulo",
           "type": "text",
           "editor": false
         }
@@ -103,21 +153,12 @@
           "type": "text",
           "editor": false
         }
-      },
-      {
-        "FieldkeyJDE": "LCC9LVNO",
-        "Name": "Nivel",
-        "KeyIdioma": "Nivel",
-        "HOT_ColConfig": {
-          "data": "Nivel",
-          "type": "numeric",
-          "editor": false
-        }
       }
+
     ]
   },
   {
-    "Name": "Fechas",
+    "Name": "Dates",
     "IsBasic": false,
     "Fields": [
       {

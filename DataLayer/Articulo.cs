@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 namespace ALC.IES.WebRange.DataLayer {
     public class Articulo {
         private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(DataLayer.Articulo));
+        private const String _SEPARADOR_PK = "#_#";
+
 
         internal static EntitiesLayer.Articulo Parse(DataRow dr) {
             EntitiesLayer.Articulo res = new EntitiesLayer.Articulo();
@@ -140,6 +142,15 @@ namespace ALC.IES.WebRange.DataLayer {
                     case "LCCYCD":
                         res.Capitulo = sAux;
                         break;
+                    case "LCC9LVNO1":
+                        res.Subcapitulo = sAux;
+                        break;
+                    case "LCCNO":
+                        res.Orden = sAux;
+                        break;
+                    case "LCITM":
+                        res.Cod_Articulo = sAux;
+                        break;
                     case "LCNEJT":
                         res.DescCapitulo = sAux;
                         break;
@@ -163,8 +174,11 @@ namespace ALC.IES.WebRange.DataLayer {
                         break;
                 }
             }
+
+            res.Id = GetPrimaryKey(res);
             return res;
         }
+
 
 
         private static DateTime? ParseDateTime(String val) {
@@ -204,23 +218,86 @@ namespace ALC.IES.WebRange.DataLayer {
             return res;
         }
 
-    }//Class Finish
+
+        public static String GetPrimaryKey(EntitiesLayer.Articulo art) {
+            String res = "";
+            List<String> valores = new List<string>();
+            valores.Add(art.IdConvencion);
+            valores.Add(art.Departamento);
+            valores.Add(art.Capitulo);
+            valores.Add(art.Subcapitulo);
+            valores.Add(art.Orden);
+            valores.Add(art.Cod_Articulo);
+            res = String.Join(_SEPARADOR_PK, valores);
+            res = Convert.ToBase64String(Encoding.UTF8.GetBytes(res));
+            return res;
+        }
+
+
+        public static void DecodePK(ref EntitiesLayer.Articulo art) {
+            String decoded = Encoding.UTF8.GetString(Convert.FromBase64String(art.Id));
+            String[] splitado = decoded.Split(new String[] { _SEPARADOR_PK }, StringSplitOptions.RemoveEmptyEntries);
+            if (splitado.Length == 6) {
+                art.IdConvencion = splitado[0];
+                art.Departamento = splitado[1];
+                art.Capitulo = splitado[2];
+                art.Subcapitulo = splitado[3];
+                art.Orden = splitado[4];
+                art.Cod_Articulo = splitado[5];
+            } else {
+                String message = "El identificador de artuculo pasado no se ha podido decodificar debido a que no tiene la longitud deseada. ";
+                message += String.Format("Los datos son: Id: '{0}'. La longitud decodificada es: {1}.", art.Id, splitado.Length);
+                _log.Error(message);
+                throw new FormatException(message);
+            }
+        }
+
+
+        public static void Save(EntitiesLayer.Articulo art, List<String> camposActualizar) {
+            //Extraemos del Id los campos que conforman la primary key.
+            DecodePK(ref art);
+
+            String update = "UPDATE F55DS53 SET ";
+            foreach (var campo in camposActualizar) {
+                switch (campo) {
+                    case "":
+                    default:
+                        break;
+                }
+            }
+            update += " WHERE ";
+            update += String.Format(" LCZON='{0}' ", art.IdConvencion);
+            update += String.Format(" AND LCSRP7='{0}' ", art.Departamento);
+            update += String.Format(" AND LCCYCD='{0}' ", art.Capitulo);
+            update += String.Format(" AND LCC9LVNO1='{0}' ", art.Subcapitulo);
+            update += String.Format(" AND LCCNO='{0}' ", art.Orden);
+            update += String.Format(" AND LCITM='{0}' ", art.Cod_Articulo);
+
+        }
+
+
+    } //Class Finish
 
     public class Articulos {
 
 
-        public static EntitiesLayer.Articulos Get(String idConvencion, List<String> campos, int? pageNumber, int? pageSize) {
+        public static EntitiesLayer.Articulos Get(String idConvencion, List<String> campos,int? nivel, int? pageNumber, int? pageSize) {
             EntitiesLayer.Articulos res = null;
 
             String select = "";
             select += "select ";
             select += String.Join(", ", campos);
             select += String.Format(" from F55DS53 where LCZON = '{0}' ", idConvencion);
+
+            if (nivel.HasValue) {
+                select += String.Format(" and LCC9LVNO = {0}", nivel.Value);
+            }
+
             if (pageNumber.HasValue && pageSize.HasValue) {
                 int offset = (pageNumber.Value - 1) * pageSize.Value;
                 select += String.Format(" limit {0} offset {1}", pageSize.Value, offset);
             }
-            
+
 
             DataSet ds = ALC.IES.WebRange.DataLayer.Consultas.Execute(select);
 

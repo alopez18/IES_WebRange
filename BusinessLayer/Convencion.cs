@@ -20,9 +20,9 @@ namespace ALC.IES.WebRange.BusinessLayer {
             return res;
         }
 
-        public BusinessLayer.Articulos GetArticulos(List<String> campos, int pageNumber, int pageSize) {
+        public BusinessLayer.Articulos GetArticulos(List<String> campos, int? nivel, int pageNumber, int pageSize) {
             BusinessLayer.Articulos res = new Articulos() {
-                ArticulosEntidad = DataLayer.Articulos.Get(this.ConvencionEntidad.Id, campos, pageNumber, pageSize)
+                ArticulosEntidad = DataLayer.Articulos.Get(this.ConvencionEntidad.Id, campos, nivel, pageNumber, pageSize)
             };
             return res;
         }

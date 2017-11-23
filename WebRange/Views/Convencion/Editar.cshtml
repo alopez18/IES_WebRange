@@ -24,7 +24,20 @@
 }
 <div class="loading">Cargando&#8230;</div>
 <div id="page-wrapper" class="no-padding">
-    <h3 class="page-header" id="excelH3">Editar el catàleg de la convenció @Model.Id</h3>
+    <div class="row">
+        <div class="col-sm-7">
+            <h3 class="page-header" id="excelH3">Editar el catàleg de la convenció @Model.Id</h3>
+        </div>
+        <div class="col-sm-5">
+            <div class="btn-group" role="group" aria-label="..." style="padding-top:32px;">
+                <button type="button" class="btn btn-danger btn-nivel active" data-val="-1">Todos</button>
+                <button type="button" class="btn btn-danger btn-nivel" data-val="0">Modelos</button>
+                <button type="button" class="btn btn-danger btn-nivel" data-val="1">Colores</button>
+                <button type="button" class="btn btn-danger btn-nivel" data-val="2">Tallas</button>
+            </div>
+        </div>
+    </div>
+
     <div id="tablaExcel"></div>
 </div>
 

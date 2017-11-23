@@ -12,7 +12,7 @@ namespace ALC.IES.WebRange.Controllers {
             return View(model);
         }
 
-        
+
     }//Class Finish
 
 
@@ -22,25 +22,29 @@ namespace ALC.IES.WebRange.Controllers {
             return View(model);
         }
 
-        public String Datos(String id, String filtroId/*, int page*/) {
-            //String sPageSize = System.Configuration.ConfigurationManager.AppSettings.Get("ARTICULOS_CONVENCIONES_PAGESIZE");
+        public String Datos(String id, String filtroId, int? nivel, int? page) {
+            String sPageSize = System.Configuration.ConfigurationManager.AppSettings.Get("ARTICULOS_CONVENCIONES_PAGESIZE");
+            int? pageSize = null;
+            if (!String.IsNullOrWhiteSpace(sPageSize)) {
+                pageSize = int.Parse(sPageSize);
+            }
 
-            //int pageSize = int.Parse(sPageSize);
+
             Models.ConvencionDatosModel model = new Models.ConvencionDatosModel(id, filtroId);
-            model.LoadData(/*page, pageSize*/);
+            model.LoadData(nivel, page, pageSize);
 
             Newtonsoft.Json.JsonSerializerSettings sett = new Newtonsoft.Json.JsonSerializerSettings();
             sett.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             String res = Newtonsoft.Json.JsonConvert.SerializeObject(model, sett);
             Response.ContentType = "Application/Json";
-            return res;            
+            return res;
         }
 
 
-        
+
 
     }//Class Finish
 
 
 
-    }//Namespace Finish
+}//Namespace Finish

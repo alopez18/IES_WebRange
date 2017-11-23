@@ -15,6 +15,9 @@ namespace ALC.IES.WebRange.EntitiesLayer {
 
         public Convencion() {
 
+
+
+
         }
 
 

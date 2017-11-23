@@ -24,14 +24,14 @@ namespace ALC.IES.WebRange.Models {
             this.Campos = new List<string>();
             this.ColsConfig = new List<cls.HOTColConfig>();
             this.FiltrosSelected.Add(filtroBasico);
-            
+
             foreach (var field in filtroBasico.Fields) {
                 this.Headers.Add(field.Name);
                 this.ColsConfig.Add(field.HOT_ColConfig);
                 if (!String.IsNullOrWhiteSpace(field.FieldkeyJDE)) {
                     this.Campos.Add(field.FieldkeyJDE);
                 }
-                
+
             }
 
             if (!String.IsNullOrEmpty(nombreFiltro)) {
@@ -50,7 +50,7 @@ namespace ALC.IES.WebRange.Models {
                     }
                 } else {
                     cls.Filtro filtroSeleccionado = this.Filtros.FirstOrDefault(m => m.Name.ToLower() == nombreFiltro.ToLower());
-                    
+
                     if (filtroSeleccionado != null) {
                         this.FiltrosSelected.Add(filtroSeleccionado);
                         foreach (var field in filtroSeleccionado.Fields) {
@@ -66,9 +66,8 @@ namespace ALC.IES.WebRange.Models {
         }
 
 
-        public void LoadData(/*int pageNumber, int pageSize*/) {
-            //BusinessLayer.Articulos artsBS= BusinessLayer.Articulos.Get(this.Id, this.Campos, pageNumber, pageSize);
-            BusinessLayer.Articulos artsBS = BusinessLayer.Articulos.Get(this.Id, this.Campos);
+        public void LoadData(int? nivel, int? pageNumber, int? pageSize) {
+            BusinessLayer.Articulos artsBS = BusinessLayer.Articulos.Get(this.Id, this.Campos, nivel, pageNumber, pageSize);
             this.Datos = artsBS.ArticulosEntidad;
 
 

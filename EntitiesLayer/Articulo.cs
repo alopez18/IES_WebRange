@@ -9,10 +9,14 @@ using System.Threading.Tasks;
 
 namespace ALC.IES.WebRange.EntitiesLayer {
     public class Articulo {
+        public String Id { get; set; }
         public String IdConvencion { get; set; }
         public String Departamento { get; set; }
         public String Capitulo { get; set; }
         public String DescCapitulo { get; set; }
+        public String Subcapitulo { get; set; }
+        public String Orden { get; set; }
+        public String Cod_Articulo { get; set; }
         public String Modelo { get; set; }
         public String DescModelo { get; set; }
         public String Color { get; set; }
