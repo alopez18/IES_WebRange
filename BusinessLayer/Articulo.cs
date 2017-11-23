@@ -60,7 +60,7 @@ namespace ALC.IES.WebRange.BusinessLayer {
                     System.Reflection.PropertyInfo myPropInfo = myType.GetProperty(afs.Field);
                     if (myPropInfo.PropertyType.ToString().Contains("DateTime")) {
                         myPropInfo.SetValue(artBSAux, DateTime.Parse(afs.Value.ToString()), null);
-                    } else if (myPropInfo.PropertyType.ToString().Contains("int")) {
+                    } else if (myPropInfo.PropertyType.ToString().Contains("Int32")) {
                         myPropInfo.SetValue(artBSAux, int.Parse(afs.Value.ToString()), null);
                     } else if (myPropInfo.PropertyType.ToString().Contains("Boolean") || myPropInfo.PropertyType.ToString().Contains("bool")) {
                         myPropInfo.SetValue(artBSAux, Boolean.Parse(afs.Value.ToString()), null);

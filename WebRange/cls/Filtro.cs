@@ -19,6 +19,7 @@ namespace ALC.IES.WebRange.cls {
 
 
     public class Filtro {
+        public string Id { get; set; }
         public string Name { get; set; }
         public bool IsBasic { get; set; }
         public List<FieldFilter> Fields { get; set; }

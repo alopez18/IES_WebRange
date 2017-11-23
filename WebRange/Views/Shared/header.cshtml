@@ -199,7 +199,7 @@
         <li class="active"><a class="btnFilter" data-id="null" href="#">Básico</a></li>
         foreach (var filtro in Model.Filtros) {
             if (!filtro.IsBasic) {
-                <li><a href="#" class="btnFilter" data-id="@filtro.Name">@filtro.Name</a></li>
+                <li><a href="#" class="btnFilter" data-id="@filtro.Id">@filtro.Name</a></li>
             }
         }
         <li><a class="btnFilter" data-id="ALL" href="#">Tot</a></li>

@@ -1,5 +1,6 @@
 ﻿[
   {
+    "Id": "BSC",
     "FieldkeyJDE": "",
     "Name": "bàsic",
     "IsBasic": true,
@@ -158,6 +159,7 @@
     ]
   },
   {
+    "Id": "FCH",
     "Name": "Dates",
     "IsBasic": false,
     "Fields": [
@@ -334,6 +336,7 @@
     ]
   },
   {
+    "Id": "PST",
     "Name": "Presentació",
     "IsBasic": false,
     "Fields": [
@@ -342,7 +345,7 @@
         "Name": "Tipo Servicio",
         "KeyIdioma": "LCC9CAT2 ",
         "HOT_ColConfig": {
-          "data": "Tipo Servicio",
+          "data": "TipoServicio",
           "type": "dropdown",
           "source": [ "Servicio_Central", "Servicio_Directo" ]
         }
@@ -350,6 +353,7 @@
     ]
   },
   {
+    "Id": "MKT",
     "Name": "Marketing",
     "IsBasic": false,
     "Fields": [
@@ -375,6 +379,7 @@
     ]
   },
   {
+    "Id": "DVL",
     "Name": "Devolucions",
     "IsBasic": false,
     "Fields": [
@@ -440,6 +445,7 @@
     ]
   },
   {
+    "Id": "PRC",
     "Name": "Preus",
     "IsBasic": false,
     "Fields": [
@@ -466,6 +472,7 @@
     ]
   },
   {
+    "Id": "OBS",
     "Name": "Observacions",
     "IsBasic": false,
     "Fields": [

@@ -10,7 +10,8 @@ $(function () {
     convencion.pagination.currentFilter = null;
     convencion.pagination.currentLevel = null;
     convencion.pagination.scrollCheck = false;
-
+    convencion.table = {};
+    convencion.table.columnsConfig = null;
 
 
     convencion.$btn_nivel.off().on("click", function (e) {
@@ -67,16 +68,15 @@ $(function () {
                             convencion.pagination.data = data.Datos;
                         } else {
                             convencion.pagination.data = convencion.pagination.data.concat(data.Datos);
-
                         }
                         gl.loadGlobal.hide();
-                        //console.log(data.ColsConfig);
-
+                        console.log(data.ColsConfig);
+                        convencion.table.columnsConfig = data.ColsConfig;
                         convencion.hot.updateSettings({
                             colHeaders: data.Headers,
                             data: convencion.pagination.data,
                             columns: data.ColsConfig
-                            ,hiddenColumns: {
+                            , hiddenColumns: {
                                 columns: [0],
                                 indicators: true
                             }
@@ -123,13 +123,16 @@ $(function () {
 
             switch (source) {
                 case "edit":
+                case "CopyPaste.paste":
                     for (var i = 0; i < changes.length; i++) {
                         var rowData = convencion.hot.getDataAtRow(changes[i][0]);
+                        //var colIndex = GetColFromName(changes[i][1]);
+                        //var column = convencion.table.columnsConfig[colIndex];
                         var cambios = [];
                         var idRow = rowData[0];
                         var DtoUpdate = {
                             Id: idRow,
-                            Campo: changes[i][1],
+                            Campo: changes[i][1],//changes[i][1]
                             Valor: changes[i][3]
                         };
                         cambios.push(DtoUpdate);
@@ -152,7 +155,7 @@ $(function () {
                     });
                     break;
                 default:
-                    console.log("Metodo de edición no controlado: '"+source+"'.");
+                    console.log("Metodo de edición no controlado: '" + source + "'.");
                     break;
             }
             //console.log("Guardamos los datos " + source);
@@ -188,3 +191,15 @@ $(function () {
 });
 
 
+
+
+function GetColFromName(name) {
+    var n_cols = convencion.hot.countCols(); //convecion.$editorTableContainer.handsontable('countCols');
+    var i = 1;
+    for (i = 1; i <= n_cols; i++) {
+        if (name.toLowerCase() == convencion.hot.getColHeader(i).toLowerCase()) {
+            return i;
+        }
+    }
+    return -1; //return -1 if nothing can be found
+}

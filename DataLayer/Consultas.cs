@@ -21,5 +21,17 @@ namespace ALC.IES.WebRange.DataLayer {
         }
 
 
+
+        public static bool Update(String sSelect) {
+            try {
+                JDEdwardsService.Service1SoapClient client = new JDEdwardsService.Service1SoapClient("Service1Soap12");
+                return client.EjecutarActualizacion(sSelect);
+            } catch (Exception ex) {
+                _log.Error(String.Format("Ha fallado la consulta al web service '{0}'. la consulta es: '{1}' ", "EjecutarConsulta", sSelect), ex);
+                throw;
+            }
+        }
+
+
     }//Class Finish
 }//Namespace Finish

@@ -15,5 +15,9 @@ namespace ALC.IES.WebRange.DataLayer {
         }
 
 
+        public static int DateTime2UnixTime(DateTime date) {
+            return (int)(date.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+        }
+
     }//Class Finish
 }//Namespace Finish

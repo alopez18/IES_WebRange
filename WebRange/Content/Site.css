@@ -581,3 +581,14 @@ table.dataTable thead .sorting_desc_disabled {
 .no-padding {
     padding: 0 !important;
 }
+
+
+
+#page-wrapper.no-padding .page-header{
+    padding-left:15px;
+}
+#filtroNivel {
+    padding-top: 32px;
+    float:right;
+    margin-right:15px;
+}

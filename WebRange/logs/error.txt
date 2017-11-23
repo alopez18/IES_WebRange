@@ -37,3 +37,118 @@ Exception rethrown at [0]:
    en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1Soap.EjecutarConsulta(String sSelect)
    en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1SoapClient.EjecutarConsulta(String sSelect) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Connected Services\JDEdwardsService\Reference.cs:línea 91
    en ALC.IES.WebRange.DataLayer.Consultas.Execute(String sSelect) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Consultas.cs:línea 15
+2017-11-23 18:01:36,467 119 ERROR ALC.IES.WebRange.DataLayer.Consultas - Ha fallado la consulta al web service 'EjecutarConsulta'. la consulta es: 'SELECT DCZON, DCDSE, DCDEE from F55V126A where DCZON = '8V1'' 
+System.TimeoutException: El canal de solicitud agotó el tiempo de espera mientras esperaba una respuesta después de 00:09:59.9994909. Aumente el valor de tiempo de espera pasado a la llamada a Request, o bien aumente el valor de SendTimeout en el enlace. El tiempo asignado a esta operación puede haber sido una parte de un tiempo de espera mayor. ---> System.TimeoutException: Error en el servidor remoto: (504) Tiempo de espera agotado para la puerta de enlace. ---> System.Net.WebException: Error en el servidor remoto: (504) Tiempo de espera agotado para la puerta de enlace.
+   en System.Net.HttpWebRequest.GetResponse()
+   en System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.ServiceModel.Channels.HttpChannelUtilities.ProcessGetResponseWebException(WebException webException, HttpWebRequest request, HttpAbortReason abortReason)
+   en System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1Soap.EjecutarConsulta(String sSelect)
+   en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1SoapClient.EjecutarConsulta(String sSelect) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Connected Services\JDEdwardsService\Reference.cs:línea 91
+   en ALC.IES.WebRange.DataLayer.Consultas.Execute(String sSelect) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Consultas.cs:línea 15
+2017-11-23 18:02:20,492 121 ERROR ALC.IES.WebRange.DataLayer.Consultas - Ha fallado la consulta al web service 'EjecutarConsulta'. la consulta es: 'SELECT DCZON, DCDSE, DCDEE from F55V126A where DCZON = '8V1'' 
+System.TimeoutException: El canal de solicitud agotó el tiempo de espera mientras esperaba una respuesta después de 00:09:59.9954052. Aumente el valor de tiempo de espera pasado a la llamada a Request, o bien aumente el valor de SendTimeout en el enlace. El tiempo asignado a esta operación puede haber sido una parte de un tiempo de espera mayor. ---> System.TimeoutException: Error en el servidor remoto: (504) Tiempo de espera agotado para la puerta de enlace. ---> System.Net.WebException: Error en el servidor remoto: (504) Tiempo de espera agotado para la puerta de enlace.
+   en System.Net.HttpWebRequest.GetResponse()
+   en System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.ServiceModel.Channels.HttpChannelUtilities.ProcessGetResponseWebException(WebException webException, HttpWebRequest request, HttpAbortReason abortReason)
+   en System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1Soap.EjecutarConsulta(String sSelect)
+   en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1SoapClient.EjecutarConsulta(String sSelect) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Connected Services\JDEdwardsService\Reference.cs:línea 91
+   en ALC.IES.WebRange.DataLayer.Consultas.Execute(String sSelect) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Consultas.cs:línea 15
+2017-11-23 18:03:03,635 124 ERROR ALC.IES.WebRange.DataLayer.Consultas - Ha fallado la consulta al web service 'EjecutarConsulta'. la consulta es: 'SELECT DCZON, DCDSE, DCDEE from F55V126A where DCZON = '8V1'' 
+System.TimeoutException: El canal de solicitud agotó el tiempo de espera mientras esperaba una respuesta después de 00:10:00. Aumente el valor de tiempo de espera pasado a la llamada a Request, o bien aumente el valor de SendTimeout en el enlace. El tiempo asignado a esta operación puede haber sido una parte de un tiempo de espera mayor. ---> System.TimeoutException: Error en el servidor remoto: (504) Tiempo de espera agotado para la puerta de enlace. ---> System.Net.WebException: Error en el servidor remoto: (504) Tiempo de espera agotado para la puerta de enlace.
+   en System.Net.HttpWebRequest.GetResponse()
+   en System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.ServiceModel.Channels.HttpChannelUtilities.ProcessGetResponseWebException(WebException webException, HttpWebRequest request, HttpAbortReason abortReason)
+   en System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1Soap.EjecutarConsulta(String sSelect)
+   en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1SoapClient.EjecutarConsulta(String sSelect) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Connected Services\JDEdwardsService\Reference.cs:línea 91
+   en ALC.IES.WebRange.DataLayer.Consultas.Execute(String sSelect) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Consultas.cs:línea 15
+2017-11-23 18:03:32,150 156 ERROR ALC.IES.WebRange.DataLayer.Consultas - Ha fallado la consulta al web service 'EjecutarConsulta'. la consulta es: 'SELECT DCZON, DCDSE, DCDEE from F55V126A ORDER BY DCDSE DESC' 
+System.TimeoutException: El canal de solicitud agotó el tiempo de espera mientras esperaba una respuesta después de 00:09:59.9713137. Aumente el valor de tiempo de espera pasado a la llamada a Request, o bien aumente el valor de SendTimeout en el enlace. El tiempo asignado a esta operación puede haber sido una parte de un tiempo de espera mayor. ---> System.TimeoutException: Error en el servidor remoto: (504) Tiempo de espera agotado para la puerta de enlace. ---> System.Net.WebException: Error en el servidor remoto: (504) Tiempo de espera agotado para la puerta de enlace.
+   en System.Net.HttpWebRequest.GetResponse()
+   en System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.ServiceModel.Channels.HttpChannelUtilities.ProcessGetResponseWebException(WebException webException, HttpWebRequest request, HttpAbortReason abortReason)
+   en System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1Soap.EjecutarConsulta(String sSelect)
+   en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1SoapClient.EjecutarConsulta(String sSelect) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Connected Services\JDEdwardsService\Reference.cs:línea 91
+   en ALC.IES.WebRange.DataLayer.Consultas.Execute(String sSelect) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Consultas.cs:línea 15
+2017-11-23 18:04:57,892 124 ERROR ALC.IES.WebRange.DataLayer.Consultas - Ha fallado la consulta al web service 'EjecutarConsulta'. la consulta es: 'SELECT DCZON, DCDSE, DCDEE from F55V126A ORDER BY DCDSE DESC' 
+System.TimeoutException: El canal de solicitud agotó el tiempo de espera mientras esperaba una respuesta después de 00:09:59.9990005. Aumente el valor de tiempo de espera pasado a la llamada a Request, o bien aumente el valor de SendTimeout en el enlace. El tiempo asignado a esta operación puede haber sido una parte de un tiempo de espera mayor. ---> System.TimeoutException: Error en el servidor remoto: (504) Tiempo de espera agotado para la puerta de enlace. ---> System.Net.WebException: Error en el servidor remoto: (504) Tiempo de espera agotado para la puerta de enlace.
+   en System.Net.HttpWebRequest.GetResponse()
+   en System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.ServiceModel.Channels.HttpChannelUtilities.ProcessGetResponseWebException(WebException webException, HttpWebRequest request, HttpAbortReason abortReason)
+   en System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1Soap.EjecutarConsulta(String sSelect)
+   en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1SoapClient.EjecutarConsulta(String sSelect) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Connected Services\JDEdwardsService\Reference.cs:línea 91
+   en ALC.IES.WebRange.DataLayer.Consultas.Execute(String sSelect) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Consultas.cs:línea 15

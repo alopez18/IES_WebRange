@@ -15,7 +15,7 @@ namespace ALC.IES.WebRange.Models {
         private List<String> Campos { get; set; }
 
 
-        public ConvencionDatosModel(String id, String nombreFiltro) {
+        public ConvencionDatosModel(String id, String idFiltro) {
             this.Id = id;
             this.Filtros = cls.FiltrosConvenciones.GetFiltros();
             this.FiltrosSelected = new List<cls.Filtro>();
@@ -34,8 +34,8 @@ namespace ALC.IES.WebRange.Models {
 
             }
 
-            if (!String.IsNullOrEmpty(nombreFiltro)) {
-                if (nombreFiltro == "ALL") {
+            if (!String.IsNullOrEmpty(idFiltro)) {
+                if (idFiltro == "ALL") {
                     foreach (var filtro in this.Filtros) {
                         this.FiltrosSelected.Add(filtro);
                         if (!filtro.IsBasic) {
@@ -49,8 +49,7 @@ namespace ALC.IES.WebRange.Models {
                         }
                     }
                 } else {
-                    cls.Filtro filtroSeleccionado = this.Filtros.FirstOrDefault(m => m.Name.ToLower() == nombreFiltro.ToLower());
-
+                    cls.Filtro filtroSeleccionado = this.Filtros.FirstOrDefault(m => m.Id.ToLower().Trim() == idFiltro.ToLower().Trim());
                     if (filtroSeleccionado != null) {
                         this.FiltrosSelected.Add(filtroSeleccionado);
                         foreach (var field in filtroSeleccionado.Fields) {

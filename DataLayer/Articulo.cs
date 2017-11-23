@@ -9,6 +9,20 @@ namespace ALC.IES.WebRange.DataLayer {
     public class Articulo {
         private static readonly log4net.ILog _log = log4net.LogManager.GetLogger(typeof(DataLayer.Articulo));
         private const String _SEPARADOR_PK = "#_#";
+        private static readonly Dictionary<string, string> _JDE_MODEL_MAP = new Dictionary<string, string>{
+            { "LCZON", "IdConvencion" },
+            { "LC$PBLM", "PublicarModelo" },
+            { "LCC9EADJ1", "FechaEntrega1" },
+            { "LCC9EADJ2", "FechaEntrega2" },
+            { "LCC9EADJ3", "FechaEntrega3" },
+            { "LCC9EADJ4", "FechaEntrega4" },
+            { "LCC9EADJ5", "FechaEntrega5" }
+        };//Falta acabar e implementar para evitar los case en la medida de lo posible.
+
+
+
+
+
 
 
         internal static EntitiesLayer.Articulo Parse(DataRow dr) {
@@ -23,7 +37,7 @@ namespace ALC.IES.WebRange.DataLayer {
                 }
                 switch (col.ColumnName) {
                     case "LCZON":
-                        res.IdConvencion = dr[col.ColumnName].ToString();
+                        res.IdConvencion = sAux;
                         break;
                     case "LC$PBLM":
                         res.PublicarModelo = ParseBooleanYN(sAux);
@@ -253,18 +267,168 @@ namespace ALC.IES.WebRange.DataLayer {
         }
 
 
-        public static void Save(EntitiesLayer.Articulo art, List<String> camposActualizar) {
+        public static Boolean Save(EntitiesLayer.Articulo art, List<String> camposActualizar) {
             //Extraemos del Id los campos que conforman la primary key.
             DecodePK(ref art);
 
             String update = "UPDATE F55DS53 SET ";
-            foreach (var campo in camposActualizar) {
+            List<String> setters = new List<string>();
+            foreach (String campo in camposActualizar) {
                 switch (campo) {
-                    case "":
+                    case "IdConvencion":
+                        setters.Add(String.Format(" LCZON = '{0}' ", art.IdConvencion));
+                        break;
+                    case "PublicarModelo":
+
+                        setters.Add(String.Format(" LC$PBLM = '{0}' ", art.PublicarModelo.Value ? 1 : 0));
+                        break;
+                    case "FechaEntrega1":
+                        setters.Add(String.Format(" LCC9EADJ1 = '{0}' ", Utils.DateTime2UnixTime(art.FechaEntrega1.Value)));
+                        break;
+                    case "FechaEntrega2":
+                        setters.Add(String.Format(" LCC9EADJ2 = '{0}' ", Utils.DateTime2UnixTime(art.FechaEntrega2.Value)));
+                        break;
+                    case "FechaEntrega3":
+                        setters.Add(String.Format(" LCC9EADJ3 = '{0}' ", Utils.DateTime2UnixTime(art.FechaEntrega3.Value)));
+                        break;
+                    case "FechaEntrega4":
+                        setters.Add(String.Format(" LCC9EADJ4 = '{0}' ", Utils.DateTime2UnixTime(art.FechaEntrega4.Value)));
+                        break;
+                    case "FechaEntrega5":
+                        setters.Add(String.Format(" LCC9EADJ5 = '{0}' ", Utils.DateTime2UnixTime(art.FechaEntrega5.Value)));
+                        break;
+                    case "FechaLimite1":
+                        setters.Add(String.Format(" LC$CPD1 = '{0}' ", Utils.DateTime2UnixTime(art.FechaLimite1.Value)));
+                        break;
+                    case "FechaLimite2":
+                        setters.Add(String.Format(" LC$CPD2 = '{0}' ", Utils.DateTime2UnixTime(art.FechaLimite2.Value)));
+                        break;
+                    case "FechaLimite3":
+                        setters.Add(String.Format(" LC$CPD3 = '{0}' ", Utils.DateTime2UnixTime(art.FechaLimite3.Value)));
+                        break;
+                    case "FechaLimite4":
+                        setters.Add(String.Format(" LC$CPD4 = '{0}' ", Utils.DateTime2UnixTime(art.FechaLimite4.Value)));
+                        break;
+                    case "FechaLimite5":
+                        setters.Add(String.Format(" LC$CPD5 = '{0}' ", Utils.DateTime2UnixTime(art.FechaLimite5.Value)));
+                        break;
+                    case "TipoServicio":
+                        switch (art.TipoServicio) {
+                            case EntitiesLayer.TipoServicioItem.Servicio_Central:
+                                setters.Add(" LCC9CAT2 = 'N' ");
+                                break;
+                            case EntitiesLayer.TipoServicioItem.Servicio_Directo:
+                                setters.Add(" LCC9CAT2 = 'S' ");
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case "MejorPrecio":
+                        setters.Add(String.Format(" LC$MPRE = '{0}' ", art.MejorPrecio.Value?1:0));
+                        break;
+                    case "Folleto":
+                        setters.Add(String.Format(" LCCCD07DES = '{0}' ", art.Folleto));
+                        break;
+                    case "PermitirDevolucion":
+                        setters.Add(String.Format(" LC$PDEV = '{0}' ", art.PermitirDevolucion.Value ? 1 : 0));
+                        break;
+                    case "CompraSegura":
+                        switch (art.CompraSegura.Value) {
+                            case EntitiesLayer.CompraSeguraItem.Condicional:
+                                setters.Add(" LC$MDPR = 'C' ");
+                                break;
+                            case EntitiesLayer.CompraSeguraItem.No:
+                                setters.Add(" LC$MDPR = '0' ");
+                                break;
+                            case EntitiesLayer.CompraSeguraItem.Si:
+                                setters.Add(" LC$MDPR = '1' ");
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case "PorcentajeDevolucion":
+                        setters.Add(String.Format(" LC$CRAT = {0} ", art.PorcentajeDevolucion));
+                        break;
+                    case "PeriodoDevolucion":
+                        setters.Add(String.Format(" LC$PERI = {0} ", art.PeriodoDevolucion));
+                        break;
+                    case "PorcentajeCargoProveedor":
+                        setters.Add(String.Format(" LC$PRAT = {0} ", art.PorcentajeCargoProveedor));
+                        break;
+                    case "BaseCalculoCargo":
+                        switch (art.BaseCalculoCargo.Value) {
+                            case EntitiesLayer.BaseCalculoCargoItem.Aplicar_sobre_PVS:
+                                setters.Add(" LC$PACP = '1' ");
+                                break;
+                            case EntitiesLayer.BaseCalculoCargoItem.Aplicar_sobre_Tarifa_Bruta_Prov:
+                                setters.Add(" LC$PACP = '2' ");
+                                break;
+                            case EntitiesLayer.BaseCalculoCargoItem.Aplicar_sobre_Tarifa_Neta_Prov:
+                                setters.Add(" LC$PACP = '3' ");
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case "TarifaBruta":
+                        setters.Add(String.Format(" LC$TPROV = {0} ", art.TarifaBruta));
+                        break;
+                    case "DescuentoBase":
+                        setters.Add(String.Format(" LC$BAP1 = {0} ", art.DescuentoBase));
+                        break;
+                    case "Observacion":
+                        setters.Add(String.Format(" LCACD01DES = '{0}' ", art.Observacion));
+                        break;
+                    case "Nivel":
+                        setters.Add(String.Format(" LCC9LVNO = {0} ", art.Nivel));
+                        break;
+                    case "DescColor":
+                        setters.Add(String.Format(" LCRMK2 = '{0}' ", art.DescColor));
+                        break;
+                    case "Departamento":
+                        setters.Add(String.Format(" LCSRP7 = '{0}' ", art.Departamento));
+                        break;
+                    case "Capitulo":
+                        setters.Add(String.Format(" LCCYCD = '{0}' ", art.Capitulo));
+                        break;
+                    case "Subcapitulo":
+                        setters.Add(String.Format(" LCC9LVNO1 = '{0}' ", art.Subcapitulo));
+                        break;
+                    case "Orden":
+                        setters.Add(String.Format(" LCCNO = '{0}' ", art.Orden));
+                        break;
+                    case "Cod_Articulo":
+                        setters.Add(String.Format(" LCITM = '{0}' ", art.Cod_Articulo));
+                        break;
+                    case "DescCapitulo":
+                        setters.Add(String.Format(" LCNEJT = '{0}' ", art.DescCapitulo));
+                        break;
+                    case "Modelo":
+                        setters.Add(String.Format(" LCC9LVL0 = '{0}' ", art.Modelo));
+                        break;
+                    case "DescModelo":
+                        setters.Add(String.Format(" LCDSC1 = '{0}' ", art.DescModelo));
+                        break;
+                    case "Color":
+                        setters.Add(String.Format(" LCC9LVL1 = '{0}' ", art.Color));
+                        break;
+                    case "Talla":
+                        setters.Add(String.Format(" LCC9LVL2 = '{0}' ", art.Talla));
+                        break;
+                    case "DescTalla":
+                        setters.Add(String.Format(" LCDSC3 = '{0}' ", art.DescTalla));
+                        break;
                     default:
+                        String message = String.Format("No se ha podido crear el update debido a que no se ha reconicido el campo'{0}'", campo);
+                        _log.Warn(message);
                         break;
                 }
             }
+
+            update += String.Join(", ", setters);
+
             update += " WHERE ";
             update += String.Format(" LCZON='{0}' ", art.IdConvencion);
             update += String.Format(" AND LCSRP7='{0}' ", art.Departamento);
@@ -272,6 +436,10 @@ namespace ALC.IES.WebRange.DataLayer {
             update += String.Format(" AND LCC9LVNO1='{0}' ", art.Subcapitulo);
             update += String.Format(" AND LCCNO='{0}' ", art.Orden);
             update += String.Format(" AND LCITM='{0}' ", art.Cod_Articulo);
+
+
+            return Consultas.Update(update);
+
 
         }
 
@@ -281,7 +449,7 @@ namespace ALC.IES.WebRange.DataLayer {
     public class Articulos {
 
 
-        public static EntitiesLayer.Articulos Get(String idConvencion, List<String> campos,int? nivel, int? pageNumber, int? pageSize) {
+        public static EntitiesLayer.Articulos Get(String idConvencion, List<String> campos, int? nivel, int? pageNumber, int? pageSize) {
             EntitiesLayer.Articulos res = null;
 
             String select = "";
