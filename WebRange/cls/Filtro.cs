@@ -48,6 +48,7 @@ namespace ALC.IES.WebRange.cls {
         public string format { get; set; }
         public string language { get; set; }
         public List<String> source { get; set; }
+        public String sourceOut { get; set; }
     }
 
 

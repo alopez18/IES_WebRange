@@ -19,12 +19,15 @@ namespace ALC.IES.WebRange.Models {
 
 
             this.Filtros = cls.FiltrosConvenciones.GetFiltros();
-
-            this.Header = new HeaderModel();
+            String titulo = String.Format("Editar el catálogo de la convención <b>{0}</b>", this.Id);
+            this.Header = new HeaderModel(titulo);
             this.Header.Filtros = this.Filtros;
+
+
+
         }
 
-       
+
 
 
         //public String GetJSON() {

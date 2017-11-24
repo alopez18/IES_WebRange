@@ -62,6 +62,27 @@ namespace ALC.IES.WebRange.Models {
                     }
                 }
             }
+
+
+
+            //Controlamos los sourcesExternos            
+            foreach (var config in this.ColsConfig) {
+                if (!String.IsNullOrWhiteSpace(config.sourceOut)) {
+                    switch (config.sourceOut.ToLower()) {
+                        case "folleto":
+                        case "folletos":
+                            EntitiesLayer.Folletos fs = BusinessLayer.Folletos.Get(this.Id);
+                            config.source = fs.Select(m => m.Descripcion).ToList();
+                            config.sourceOut = null;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+
+            }
+
+
         }
 
 

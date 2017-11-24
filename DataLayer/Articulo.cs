@@ -120,13 +120,13 @@ namespace ALC.IES.WebRange.DataLayer {
 
                         break;
                     case "LC$CRAT":
-                        res.PorcentajeDevolucion = ParseInt(sAux);
+                        res.PorcentajeDevolucion = ParseInt(sAux)/1000;
                         break;
                     case "LC$PERI":
                         res.PeriodoDevolucion = ParseInt(sAux);
                         break;
                     case "LC$PRAT":
-                        res.PorcentajeCargoProveedor = ParseInt(sAux);
+                        res.PorcentajeCargoProveedor = ParseInt(sAux)/1000;
                         break;
                     case "LC$PACP":
                         int? nCalculoCargo = ParseInt(sAux);
@@ -135,10 +135,10 @@ namespace ALC.IES.WebRange.DataLayer {
                         }
                         break;
                     case "LC$TPROV":
-                        res.TarifaBruta = ParseInt(sAux);
+                        res.TarifaBruta = ParseInt(sAux)/10000;
                         break;
                     case "LC$BAP1":
-                        res.DescuentoBase = ParseInt(sAux);
+                        res.DescuentoBase = ParseInt(sAux)/10000;
                         break;
                     case "LCACD01DES":
                         res.Observacion = sAux;
@@ -188,7 +188,6 @@ namespace ALC.IES.WebRange.DataLayer {
                         break;
                 }
             }
-
             res.Id = GetPrimaryKey(res);
             return res;
         }
@@ -201,7 +200,9 @@ namespace ALC.IES.WebRange.DataLayer {
             int nAux;
             if (!String.IsNullOrWhiteSpace(val)) {
                 if (int.TryParse(val, out nAux)) {
-                    res = Utils.UnixTimeStampToDateTime(nAux);
+                    if (nAux > 0) {
+                        res = Utils.Convert_JDEDate_To_GregorianDate(val);
+                    }
                 } else {
                     if (DateTime.TryParse(val, out dAux)) {
                         res = dAux;
@@ -280,37 +281,37 @@ namespace ALC.IES.WebRange.DataLayer {
                         break;
                     case "PublicarModelo":
 
-                        setters.Add(String.Format(" LC$PBLM = '{0}' ", art.PublicarModelo.Value ? 1 : 0));
+                        setters.Add(String.Format(" LC$PBLM = {0} ", art.PublicarModelo.Value ? 1 : 0));
                         break;
                     case "FechaEntrega1":
-                        setters.Add(String.Format(" LCC9EADJ1 = '{0}' ", Utils.DateTime2UnixTime(art.FechaEntrega1.Value)));
+                       setters.Add(String.Format(" LCC9EADJ1 = '{0}' ", Utils.Convert_GregorianDate_To_JulianDate(art.FechaEntrega1.Value)));
                         break;
                     case "FechaEntrega2":
-                        setters.Add(String.Format(" LCC9EADJ2 = '{0}' ", Utils.DateTime2UnixTime(art.FechaEntrega2.Value)));
+                        setters.Add(String.Format(" LCC9EADJ2 = '{0}' ", Utils.Convert_GregorianDate_To_JulianDate(art.FechaEntrega2.Value)));
                         break;
                     case "FechaEntrega3":
-                        setters.Add(String.Format(" LCC9EADJ3 = '{0}' ", Utils.DateTime2UnixTime(art.FechaEntrega3.Value)));
+                        setters.Add(String.Format(" LCC9EADJ3 = '{0}' ", Utils.Convert_GregorianDate_To_JulianDate(art.FechaEntrega3.Value)));
                         break;
                     case "FechaEntrega4":
-                        setters.Add(String.Format(" LCC9EADJ4 = '{0}' ", Utils.DateTime2UnixTime(art.FechaEntrega4.Value)));
+                        setters.Add(String.Format(" LCC9EADJ4 = '{0}' ", Utils.Convert_GregorianDate_To_JulianDate(art.FechaEntrega4.Value)));
                         break;
                     case "FechaEntrega5":
-                        setters.Add(String.Format(" LCC9EADJ5 = '{0}' ", Utils.DateTime2UnixTime(art.FechaEntrega5.Value)));
+                        setters.Add(String.Format(" LCC9EADJ5 = '{0}' ", Utils.Convert_GregorianDate_To_JulianDate(art.FechaEntrega5.Value)));
                         break;
                     case "FechaLimite1":
-                        setters.Add(String.Format(" LC$CPD1 = '{0}' ", Utils.DateTime2UnixTime(art.FechaLimite1.Value)));
+                        setters.Add(String.Format(" LC$CPD1 = '{0}' ", Utils.Convert_GregorianDate_To_JulianDate(art.FechaLimite1.Value)));
                         break;
                     case "FechaLimite2":
-                        setters.Add(String.Format(" LC$CPD2 = '{0}' ", Utils.DateTime2UnixTime(art.FechaLimite2.Value)));
+                        setters.Add(String.Format(" LC$CPD2 = '{0}' ", Utils.Convert_GregorianDate_To_JulianDate(art.FechaLimite2.Value)));
                         break;
                     case "FechaLimite3":
-                        setters.Add(String.Format(" LC$CPD3 = '{0}' ", Utils.DateTime2UnixTime(art.FechaLimite3.Value)));
+                        setters.Add(String.Format(" LC$CPD3 = '{0}' ", Utils.Convert_GregorianDate_To_JulianDate(art.FechaLimite3.Value)));
                         break;
                     case "FechaLimite4":
-                        setters.Add(String.Format(" LC$CPD4 = '{0}' ", Utils.DateTime2UnixTime(art.FechaLimite4.Value)));
+                        setters.Add(String.Format(" LC$CPD4 = '{0}' ", Utils.Convert_GregorianDate_To_JulianDate(art.FechaLimite4.Value)));
                         break;
                     case "FechaLimite5":
-                        setters.Add(String.Format(" LC$CPD5 = '{0}' ", Utils.DateTime2UnixTime(art.FechaLimite5.Value)));
+                        setters.Add(String.Format(" LC$CPD5 = '{0}' ", Utils.Convert_GregorianDate_To_JulianDate(art.FechaLimite5.Value)));
                         break;
                     case "TipoServicio":
                         switch (art.TipoServicio) {
@@ -325,13 +326,13 @@ namespace ALC.IES.WebRange.DataLayer {
                         }
                         break;
                     case "MejorPrecio":
-                        setters.Add(String.Format(" LC$MPRE = '{0}' ", art.MejorPrecio.Value?1:0));
+                        setters.Add(String.Format(" LC$MPRE = {0} ", art.MejorPrecio.Value ? 1 : 0));
                         break;
                     case "Folleto":
                         setters.Add(String.Format(" LCCCD07DES = '{0}' ", art.Folleto));
                         break;
                     case "PermitirDevolucion":
-                        setters.Add(String.Format(" LC$PDEV = '{0}' ", art.PermitirDevolucion.Value ? 1 : 0));
+                        setters.Add(String.Format(" LC$PDEV = {0} ", art.PermitirDevolucion.Value ? 1 : 0));
                         break;
                     case "CompraSegura":
                         switch (art.CompraSegura.Value) {
@@ -349,13 +350,13 @@ namespace ALC.IES.WebRange.DataLayer {
                         }
                         break;
                     case "PorcentajeDevolucion":
-                        setters.Add(String.Format(" LC$CRAT = {0} ", art.PorcentajeDevolucion));
+                        setters.Add(String.Format(" LC$CRAT = {0} ", (art.PorcentajeDevolucion.Value * 1000)));
                         break;
                     case "PeriodoDevolucion":
                         setters.Add(String.Format(" LC$PERI = {0} ", art.PeriodoDevolucion));
                         break;
                     case "PorcentajeCargoProveedor":
-                        setters.Add(String.Format(" LC$PRAT = {0} ", art.PorcentajeCargoProveedor));
+                        setters.Add(String.Format(" LC$PRAT = {0} ", (art.PorcentajeCargoProveedor.Value * 1000)));
                         break;
                     case "BaseCalculoCargo":
                         switch (art.BaseCalculoCargo.Value) {
@@ -373,10 +374,10 @@ namespace ALC.IES.WebRange.DataLayer {
                         }
                         break;
                     case "TarifaBruta":
-                        setters.Add(String.Format(" LC$TPROV = {0} ", art.TarifaBruta));
+                        setters.Add(String.Format(" LC$TPROV = {0} ", (art.TarifaBruta.Value * 10000)));
                         break;
                     case "DescuentoBase":
-                        setters.Add(String.Format(" LC$BAP1 = {0} ", art.DescuentoBase));
+                        setters.Add(String.Format(" LC$BAP1 = {0} ", (art.DescuentoBase.Value * 10000)));
                         break;
                     case "Observacion":
                         setters.Add(String.Format(" LCACD01DES = '{0}' ", art.Observacion));

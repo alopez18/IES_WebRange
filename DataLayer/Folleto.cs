@@ -39,8 +39,8 @@ namespace ALC.IES.WebRange.DataLayer {
             if (ds != null && ds.Tables != null && ds.Tables.Count > 0) {
                 foreach (DataRow r in ds.Tables[0].Rows) {
                     fAux = new EntitiesLayer.Folleto() {
-                        IdConvencion = r["VFZON"].ToString(),
-                        Descripcion = r["VFCCD07DES"].ToString()
+                        IdConvencion = r["VFZON"].ToString().Trim(),
+                        Descripcion = r["VFCCD07DES"].ToString().Trim()
                     };
                     fRes.Add(fAux);
                 }

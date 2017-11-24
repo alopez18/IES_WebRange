@@ -43,41 +43,53 @@ namespace ALC.IES.WebRange.BusinessLayer {
         public String Id { get; set; }
         public List<ArticuloFieldSaver> Fields { get; set; }
 
-        public static void Save(Dictionary<String, List<ArticuloFieldSaver>> saverList) {
+        public static bool? Save(Dictionary<String, List<ArticuloFieldSaver>> saverList) {
             EntitiesLayer.Articulo artBSAux;
-            //BusinessLayer.Articulos arts = new BusinessLayer.Articulos() {
-            //    ArticulosEntidad = new EntitiesLayer.Articulos()
-            //};
+            bool? res = null;
+            List<String> lista = new List<string>();
             foreach (KeyValuePair<String, List<ArticuloFieldSaver>> svr in saverList) {
                 artBSAux = new EntitiesLayer.Articulo();
                 artBSAux.Id = svr.Key;
                 foreach (ArticuloFieldSaver afs in svr.Value) {
-                    /*
-                 * Establecemos el valor de la propiedades especificadas
-                 * con reflection
-                 */
-                    Type myType = typeof(EntitiesLayer.Articulo);
-                    System.Reflection.PropertyInfo myPropInfo = myType.GetProperty(afs.Field);
-                    if (myPropInfo.PropertyType.ToString().Contains("DateTime")) {
-                        myPropInfo.SetValue(artBSAux, DateTime.Parse(afs.Value.ToString()), null);
-                    } else if (myPropInfo.PropertyType.ToString().Contains("Int32")) {
-                        myPropInfo.SetValue(artBSAux, int.Parse(afs.Value.ToString()), null);
-                    } else if (myPropInfo.PropertyType.ToString().Contains("Boolean") || myPropInfo.PropertyType.ToString().Contains("bool")) {
-                        myPropInfo.SetValue(artBSAux, Boolean.Parse(afs.Value.ToString()), null);
-                    } else if (myPropInfo.PropertyType.ToString().Contains("TipoServicioItem")) {
-                        myPropInfo.SetValue(artBSAux, Enum.Parse(typeof(EntitiesLayer.TipoServicioItem), afs.Value.ToString(), true), null);
-                    } else if (myPropInfo.PropertyType.ToString().Contains("CompraSeguraItem")) {
-                        myPropInfo.SetValue(artBSAux, Enum.Parse(typeof(EntitiesLayer.CompraSeguraItem), afs.Value.ToString(), true), null);
-                    } else if (myPropInfo.PropertyType.ToString().Contains("BaseCalculoCargoItem")) {
-                        myPropInfo.SetValue(artBSAux, Enum.Parse(typeof(EntitiesLayer.BaseCalculoCargoItem), afs.Value.ToString(), true), null);
-                    } else {
-                        myPropInfo.SetValue(artBSAux, afs.Value, null);
+                    /* 
+                     * Establecemos el valor de la propiedades especificadas con reflection
+                     */
+                    if (afs.Value != null && !String.IsNullOrWhiteSpace(afs.Value.ToString())) {
+                        lista.Add(afs.Field);//Si tiene algún valor lo añadimos para actualizar.
+                        Type myType = typeof(EntitiesLayer.Articulo);
+                        System.Reflection.PropertyInfo myPropInfo = myType.GetProperty(afs.Field);
+                        if (myPropInfo.PropertyType.ToString().Contains("DateTime")) {
+                            DateTime dAux;
+                            if (DateTime.TryParse(afs.Value.ToString(), out dAux)) {
+                                myPropInfo.SetValue(artBSAux, dAux, null);
+                            }                            
+                        } else if (myPropInfo.PropertyType.ToString().Contains("Int32")) {
+                            int nAux;
+                            if (int.TryParse(afs.Value.ToString(), out nAux)) {
+                                myPropInfo.SetValue(artBSAux, nAux, null);
+                            }                            
+                        } else if (myPropInfo.PropertyType.ToString().Contains("Boolean") || myPropInfo.PropertyType.ToString().Contains("bool")) {
+                            myPropInfo.SetValue(artBSAux, Boolean.Parse(afs.Value.ToString()), null);
+                        } else if (myPropInfo.PropertyType.ToString().Contains("TipoServicioItem")) {
+                            myPropInfo.SetValue(artBSAux, Enum.Parse(typeof(EntitiesLayer.TipoServicioItem), afs.Value.ToString(), true), null);
+                        } else if (myPropInfo.PropertyType.ToString().Contains("CompraSeguraItem")) {
+                            myPropInfo.SetValue(artBSAux, Enum.Parse(typeof(EntitiesLayer.CompraSeguraItem), afs.Value.ToString(), true), null);
+                        } else if (myPropInfo.PropertyType.ToString().Contains("BaseCalculoCargoItem")) {
+                            myPropInfo.SetValue(artBSAux, Enum.Parse(typeof(EntitiesLayer.BaseCalculoCargoItem), afs.Value.ToString(), true), null);
+                        } else {
+                            myPropInfo.SetValue(artBSAux, afs.Value, null);
+                        }
                     }
                 }
-                //arts.ArticulosEntidad.Add(artBSAux);
-                List<String> lista = svr.Value.Select(m => m.Field).ToList();
-                DataLayer.Articulo.Save(artBSAux, lista);
+                
+                if (lista.Count>0) {//Si hay algún dato que se puede actualizar los hacemos.
+                   return DataLayer.Articulo.Save(artBSAux, lista);
+                }                
             }
+            return res;
         }
-    }
+
+
+
+    }//Class Finish
 }//Namespace Finish

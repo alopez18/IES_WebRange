@@ -152,3 +152,26 @@ Exception rethrown at [0]:
    en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1Soap.EjecutarConsulta(String sSelect)
    en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1SoapClient.EjecutarConsulta(String sSelect) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Connected Services\JDEdwardsService\Reference.cs:línea 91
    en ALC.IES.WebRange.DataLayer.Consultas.Execute(String sSelect) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Consultas.cs:línea 15
+2017-11-24 12:12:27,671 17 ERROR ALC.IES.WebRange.DataLayer.Consultas - Ha fallado la consulta al web service 'EjecutarConsulta'. la consulta es: 'UPDATE F55DS53 SET  LC$BAP1 = 250000  WHERE  LCZON='8V1'  AND LCSRP7='T2'  AND LCCYCD='5'  AND LCC9LVNO1='1'  AND LCCNO='1'  AND LCITM='5612433' ' 
+System.ServiceModel.EndpointNotFoundException: No había ningún extremo escuchando en http://ninkasi.intersport.dev/WebServiceJDE.asmx que pudiera aceptar el mensaje. La causa suele ser una dirección o una acción SOAP incorrecta. Consulte InnerException, si está presente, para obtener más información. ---> System.Net.WebException: No se puede resolver el nombre remoto: 'ninkasi.intersport.dev'
+   en System.Net.HttpWebRequest.GetRequestStream(TransportContext& context)
+   en System.Net.HttpWebRequest.GetRequestStream()
+   en System.ServiceModel.Channels.HttpOutput.WebRequestHttpOutput.GetOutputStream()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Channels.HttpOutput.WebRequestHttpOutput.GetOutputStream()
+   en System.ServiceModel.Channels.HttpOutput.Send(TimeSpan timeout)
+   en System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.SendRequest(Message message, TimeSpan timeout)
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1Soap.EjecutarActualizacion(String sComando)
+   en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1SoapClient.EjecutarActualizacion(String sComando) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Connected Services\JDEdwardsService\Reference.cs:línea 99
+   en ALC.IES.WebRange.DataLayer.Consultas.Update(String sSelect) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Consultas.cs:línea 28

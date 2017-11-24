@@ -26,22 +26,9 @@
     <div id="wrapper">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">
-                    <img src="~/Content/images/intersport-logo.jpg" height="50" /> <div>Web Range</div>
-                </a>
-            </div>
-            <!-- /.navbar-header -->
+            
             @RenderSection("header", required: false)
-            <!-- /.navbar-top-links -->
             @RenderSection("leftmenu", required: false)
-            <!-- /.navbar-static-side -->
         </nav>
         <!-- Page Content -->
         @RenderBody()

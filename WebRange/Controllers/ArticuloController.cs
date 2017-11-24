@@ -40,8 +40,10 @@ namespace ALC.IES.WebRange.Controllers {
                 //    });
                 //}
             }
-            BusinessLayer.ArticuloSaver.Save(saverList);
-            res.Success = true;
+
+            bool? efectuado = BusinessLayer.ArticuloSaver.Save(saverList);
+            res.Success = (efectuado.HasValue == false || efectuado.Value == true);
+            res.ErrorTecnico = "El servicio ha devuelto false";
             return Json(res);
         }
 

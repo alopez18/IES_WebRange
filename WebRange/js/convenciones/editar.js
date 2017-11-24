@@ -1,5 +1,63 @@
 ﻿
 $(function () {
+    numeral.register('locale', 'es', {
+        delimiters: {
+            thousands: ' ',
+            decimal: ','
+        },
+        abbreviations: {
+            thousand: 'k',
+            million: 'm',
+            billion: 'b',
+            trillion: 't'
+        },
+        ordinal: function (number) {
+            return number === 1 ? 'ª' : 'º';
+        },
+        currency: {
+            symbol: '€'
+        }
+    });
+
+    // switch between locales
+    numeral.locale('es');
+
+    //// load a format
+    //numeral.register('format', 'percentage2', {
+    //    regexps: {
+    //        format: /(%)/,
+    //        unformat: /(%)/
+    //    },
+    //    format: function (value, format, roundingFunction) {
+    //        var space = numeral._.includes(format, ' %') ? ' ' : '',
+    //            output;
+
+    //        //value = value * 100;
+
+    //        // check for space before %
+    //        format = format.replace(/\s?\%/, '');
+
+    //        output = numeral._.numberToFormat(value, format, roundingFunction);
+
+    //        if (numeral._.includes(output, ')')) {
+    //            output = output.split('');
+
+    //            output.splice(-1, 0, space + '%');
+
+    //            output = output.join('');
+    //        } else {
+    //            output = output + space + '%';
+    //        }
+
+    //        return output;
+    //    },
+    //    unformat: function (string) {
+    //        return numeral._.stringToNumber(string) * 0.01;
+    //    }
+    //});
+
+
+
     //punteros al DOM.
     convencion.$btnFilter = $(".btnFilter");
     convencion.$btn_nivel = $(".btn-nivel");
@@ -87,7 +145,7 @@ $(function () {
                 error: function (err) {
                     gl.loadGlobal.css("display", "none");
                     console.log(err);
-                    alert("ERROR");
+                    alert("Ha fallado la recuperación de datos.\r\nConsulte el log para más información.");
                 }
             });
         }
@@ -110,8 +168,9 @@ $(function () {
         },
         rowHeaders: true,
         colHeaders: true,
-        filters: false,
+        filters: true,
         dropdownMenu: true,
+        allowInvalid: false,
         allowInsertRow: true,
         allowInsertColumn: false,
         allowRemoveColumn: false,
@@ -120,7 +179,7 @@ $(function () {
             if (source === 'loadData') {
                 return; //don't save this change
             }
-
+            var $this = $(this);
             switch (source) {
                 case "edit":
                 case "CopyPaste.paste":
@@ -135,24 +194,28 @@ $(function () {
                             Campo: changes[i][1],//changes[i][1]
                             Valor: changes[i][3]
                         };
-                        cambios.push(DtoUpdate);
+                        if (changes[i][2] !== changes[i][3]) {
+                            cambios.push(DtoUpdate);
+                        }                        
                     }
-                    $.ajax({
-                        url: '/Articulo/Update',
-                        type: 'POST',
-                        contentType: "application/json; charset=utf-8",
-                        data: JSON.stringify(cambios),
-                        dataType: 'json',
-                        success: function (data) {
-                            if (!data.Success) {
-                                alert("Ha fallado el guardado del dato");
+                    if (cambios.length>0) {
+                        $.ajax({
+                            url: '/Articulo/Update',
+                            type: 'POST',
+                            contentType: "application/json; charset=utf-8",
+                            data: JSON.stringify(cambios),
+                            dataType: 'json',
+                            success: function (data) {
+                                if (!data.Success) {
+                                    alert(data.ErrorTecnico);
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err);
+                                //alert("Ha fallado la recuperación de datos.\r\nConsulte el log para más información.");
                             }
-                        },
-                        error: function (err) {
-                            console.log(err);
-                            alert("ERROR");
-                        }
-                    });
+                        });
+                    }                    
                     break;
                 default:
                     console.log("Metodo de edición no controlado: '" + source + "'.");

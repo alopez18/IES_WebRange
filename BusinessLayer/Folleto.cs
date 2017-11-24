@@ -12,7 +12,7 @@ namespace ALC.IES.WebRange.BusinessLayer {
     }//Class Finish
 
     public class Folletos {
-        public EntitiesLayer.Folletos Get(String IdConvencion) {
+        public static EntitiesLayer.Folletos Get(String IdConvencion) {
             return DataLayer.Folletos.Get(IdConvencion);
         }
     }
