@@ -22,10 +22,13 @@ namespace ALC.IES.WebRange.BusinessLayer {
 
         }
 
+        public static List<String> GetDistinctField(String idConvencion, String field) {
+            return DataLayer.Articulos.GetDistinctField(idConvencion, field);
+        }
 
-        public static BusinessLayer.Articulos Get(String idConvencion, List<String> campos, int? nivel, int? pageNumber = null, int? pageSize = null) {
+        public static BusinessLayer.Articulos Get(String idConvencion, List<String> campos, int? nivel, int? pageNumber = null, int? pageSize = null, List<KeyValuePair<String, String>> filtros = null) {
             BusinessLayer.Articulos res = new Articulos() {
-                ArticulosEntidad = DataLayer.Articulos.Get(idConvencion, campos, nivel, pageNumber, pageSize)
+                ArticulosEntidad = DataLayer.Articulos.Get(idConvencion, campos, nivel, pageNumber, pageSize,filtros)
             };
             return res;
         }
@@ -62,12 +65,12 @@ namespace ALC.IES.WebRange.BusinessLayer {
                             DateTime dAux;
                             if (DateTime.TryParse(afs.Value.ToString(), out dAux)) {
                                 myPropInfo.SetValue(artBSAux, dAux, null);
-                            }                            
+                            }
                         } else if (myPropInfo.PropertyType.ToString().Contains("Int32")) {
                             int nAux;
                             if (int.TryParse(afs.Value.ToString(), out nAux)) {
                                 myPropInfo.SetValue(artBSAux, nAux, null);
-                            }                            
+                            }
                         } else if (myPropInfo.PropertyType.ToString().Contains("Boolean") || myPropInfo.PropertyType.ToString().Contains("bool")) {
                             myPropInfo.SetValue(artBSAux, Boolean.Parse(afs.Value.ToString()), null);
                         } else if (myPropInfo.PropertyType.ToString().Contains("TipoServicioItem")) {
@@ -81,10 +84,10 @@ namespace ALC.IES.WebRange.BusinessLayer {
                         }
                     }
                 }
-                
-                if (lista.Count>0) {//Si hay algún dato que se puede actualizar los hacemos.
-                   return DataLayer.Articulo.Save(artBSAux, lista);
-                }                
+
+                if (lista.Count > 0) {//Si hay algún dato que se puede actualizar los hacemos.
+                    return DataLayer.Articulo.Save(artBSAux, lista);
+                }
             }
             return res;
         }

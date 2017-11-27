@@ -15,7 +15,8 @@ namespace ALC.IES.WebRange.DataLayer {
             DataSet ds = Consultas.Execute(select);
             if (ds!=null&&ds.Tables!=null&&ds.Tables[0].Rows.Count>0) {
                 res = Parse(ds.Tables[0].Rows[0]);
-            }            
+            }
+            ds.Dispose();
             return res;
         }
 
@@ -63,6 +64,7 @@ namespace ALC.IES.WebRange.DataLayer {
                 _log.Error(message);
                 throw new Exception(message);
             }
+            ds.Dispose();
             return res;
         }
 

@@ -38,7 +38,7 @@ namespace ALC.IES.WebRange.cls {
         public string type { get; set; }
         public string dateFormat { get; set; }
         public bool? correctFormat { get; set; }
-        public bool? allowEmpty { get; set; }        
+        public bool? allowEmpty { get; set; }
         public string defaultDate { get; set; }
         public DatePickerConfig datePickerConfig { get; set; }
         public int? width { get; set; }
@@ -49,6 +49,7 @@ namespace ALC.IES.WebRange.cls {
         public string language { get; set; }
         public List<String> source { get; set; }
         public String sourceOut { get; set; }
+        public Boolean? readOnly { get; set; }
     }
 
 

@@ -1,86 +1,50 @@
-﻿
-$(function () {
-    numeral.register('locale', 'es', {
-        delimiters: {
-            thousands: ' ',
-            decimal: ','
-        },
-        abbreviations: {
-            thousand: 'k',
-            million: 'm',
-            billion: 'b',
-            trillion: 't'
-        },
-        ordinal: function (number) {
-            return number === 1 ? 'ª' : 'º';
-        },
-        currency: {
-            symbol: '€'
-        }
-    });
-
-    // switch between locales
-    numeral.locale('es');
-
-    //// load a format
-    //numeral.register('format', 'percentage2', {
-    //    regexps: {
-    //        format: /(%)/,
-    //        unformat: /(%)/
-    //    },
-    //    format: function (value, format, roundingFunction) {
-    //        var space = numeral._.includes(format, ' %') ? ' ' : '',
-    //            output;
-
-    //        //value = value * 100;
-
-    //        // check for space before %
-    //        format = format.replace(/\s?\%/, '');
-
-    //        output = numeral._.numberToFormat(value, format, roundingFunction);
-
-    //        if (numeral._.includes(output, ')')) {
-    //            output = output.split('');
-
-    //            output.splice(-1, 0, space + '%');
-
-    //            output = output.join('');
-    //        } else {
-    //            output = output + space + '%';
-    //        }
-
-    //        return output;
-    //    },
-    //    unformat: function (string) {
-    //        return numeral._.stringToNumber(string) * 0.01;
-    //    }
-    //});
-
-
-
+﻿$(function () {
     //punteros al DOM.
     convencion.$btnFilter = $(".btnFilter");
+    convencion.$btnPaginacion = $(".btn-paginacion");
+    convencion.$btnMarca = $(".btn-marca");
     convencion.$btn_nivel = $(".btn-nivel");
-    convencion.pagination = {};
-    convencion.pagination.page = 1;
-    convencion.pagination.NoMorePages = false;
-    convencion.pagination.data = null;
-    convencion.pagination.currentFilter = null;
-    convencion.pagination.currentLevel = null;
-    convencion.pagination.scrollCheck = false;
-    convencion.table = {};
-    convencion.table.columnsConfig = null;
 
+
+    convencion.$btnPaginacion.off().on("click", function (e) {
+        e.preventDefault();
+        $(".dropdown-menu.dropdown-messages.filtrosPaginacion > li.active").removeClass("active");
+        var $this = $(this);
+        $this.parent().addClass("active");
+        $("#spnPaginacion").text($this.text());
+
+        var pageSize = $this.data("val");
+        convencion.loadData(convencion.pagination.currentFilter, convencion.pagination.currentLevel, pageSize);
+    });
+
+
+    convencion.$btnMarca.off().on("click", function (e) {
+        e.preventDefault();
+        $(".dropdown-menu.dropdown-messages.filtrosMarca > li.active").removeClass("active");
+        var $this = $(this);
+        $this.parent().addClass("active");
+        $("#spnFiltroMarca").text($this.text());
+        var field = $this.data("field");
+        var marca = $this.data("val");
+        var oAux = {
+            campo: field,
+            valor: marca
+        };
+        convencion.pagination.currentFiltersOwn = [];
+        convencion.pagination.currentFiltersOwn.push(oAux);
+        convencion.pagination.NewFilter = true;
+        convencion.loadData(convencion.pagination.currentFilter, convencion.pagination.currentLevel, convencion.pagination.pageSize);
+    });
 
     convencion.$btn_nivel.off().on("click", function (e) {
         e.preventDefault();
-        convencion.$btn_nivel.removeClass("active");
+        $(".dropdown-menu.dropdown-messages.filtrosNivel > li.active").removeClass("active");
         var $this = $(this);
-        $this.addClass("active");
+        $this.parent().addClass("active");
+        $("#spnFiltroNivel").text($this.text());
         var idLevel = $this.data("val");
-        var filNow = convencion.pagination.currentFilter;
         convencion.pagination.currentLevel = null;
-        convencion.loadData(filNow, idLevel);
+        convencion.loadData(convencion.pagination.currentFilter, idLevel, convencion.pagination.pageSize);
     });
 
     //Eventos objetos del DOM.
@@ -88,86 +52,37 @@ $(function () {
         e.preventDefault();
         var $this = $(this);
         var id = $this.data("id");
-        $(".navbar-top-links>li.active").removeClass("active");
+        $(".dropdown-menu.dropdown-messages.filtros > li.active").removeClass("active");
         $this.parent().addClass("active");
+        $("#spnFiltro").text($this.text());
         convencion.pagination.currentFilter = null;
-        convencion.loadData(id, convencion.pagination.currentLevel);
+        convencion.loadData(id, convencion.pagination.currentLevel, convencion.pagination.pageSize);
     });
 
 
 
     ///Funcion que carga los datos en la handsontable dado un identificador.
-    convencion.loadData = function (idFilter, idLevel) {
-        gl.loadGlobal.css("display", "block");
 
-        //Si hay cambio de filtro reseteamos las propiedades de la tabla.
-        if (convencion.pagination.currentFilter !== idFilter || convencion.pagination.currentLevel !== idLevel) {
-            convencion.pagination.scrollCheck = false; //Lo ponemos a false para que al vaciar la tabla no salte el final de scroll.
-            convencion.pagination.page = 1;
-            convencion.pagination.currentFilter = idFilter;
-            convencion.pagination.currentLevel = idLevel;
-            convencion.pagination.NoMorePages = false;
-            convencion.pagination.data = null;
-            convencion.hot.updateSettings({
-                data: []
-            });
-        }
-        if (!convencion.pagination.NoMorePages) {
-            $.ajax({
-                url: '/Convencion/Datos/' + convencion.Id + '?filtroId=' + convencion.pagination.currentFilter + '&nivel=' + convencion.pagination.currentLevel + '&page=' + convencion.pagination.page,
-                type: 'POST',
-                cache: false,
-                dataType: 'json',
-                success: function (data) {
-                    if (data.Datos === null || data.Datos.length === 0) {
-                        convencion.pagination.NoMorePages = true
-                    } else {
-                        if (convencion.pagination.data === null) {
-                            convencion.pagination.data = data.Datos;
-                        } else {
-                            convencion.pagination.data = convencion.pagination.data.concat(data.Datos);
-                        }
-                        gl.loadGlobal.hide();
-                        console.log(data.ColsConfig);
-                        convencion.table.columnsConfig = data.ColsConfig;
-                        convencion.hot.updateSettings({
-                            colHeaders: data.Headers,
-                            data: convencion.pagination.data,
-                            columns: data.ColsConfig
-                            , hiddenColumns: {
-                                columns: [0],
-                                indicators: true
-                            }
-                        });
-                        convencion.pagination.scrollCheck = true;
-                    }
-                },
-                error: function (err) {
-                    gl.loadGlobal.css("display", "none");
-                    console.log(err);
-                    alert("Ha fallado la recuperación de datos.\r\nConsulte el log para más información.");
-                }
-            });
-        }
-    }
 
     convencion.timeoutScroll = null;
     convencion.container = document.getElementById('tablaExcel');
     convencion.hot = new Handsontable(convencion.container, {
         //data: data, //Handsontable.helper.createSpreadsheetData(1000, 1000),
         startRows: 30,
-        startCols: 20,
+        //startCols: 20,
         width: "100%",
         height: function () {
             var wH = $(window).height();
             var hHeader = $(".navbar.navbar-default.navbar-static-top").outerHeight(true);
-            var hH3 = $("#excelH3").outerHeight(true);
+            var hH3 = 0;//$("#excelH3").outerHeight(true);
             var h = wH - (hH3 + hHeader);
-            return h - 100;
+            return h;
             //return 420;
         },
         rowHeaders: true,
-        colHeaders: true,
+        colHeaders: convencion.table.columnsHeaders,
+        columns: convencion.table.columnsConfig,
+        colWidths: 100,
         filters: true,
         dropdownMenu: true,
         allowInvalid: false,
@@ -175,6 +90,10 @@ $(function () {
         allowInsertColumn: false,
         allowRemoveColumn: false,
         allowRemoveRow: false,
+        hiddenColumns: {
+            columns: [0, 1, 2],
+            indicators: true
+        },
         afterChange: function (changes, source) {
             if (source === 'loadData') {
                 return; //don't save this change
@@ -196,9 +115,9 @@ $(function () {
                         };
                         if (changes[i][2] !== changes[i][3]) {
                             cambios.push(DtoUpdate);
-                        }                        
+                        }
                     }
-                    if (cambios.length>0) {
+                    if (cambios.length > 0) {
                         $.ajax({
                             url: '/Articulo/Update',
                             type: 'POST',
@@ -215,7 +134,7 @@ $(function () {
                                 //alert("Ha fallado la recuperación de datos.\r\nConsulte el log para más información.");
                             }
                         });
-                    }                    
+                    }
                     break;
                 default:
                     console.log("Metodo de edición no controlado: '" + source + "'.");
@@ -223,46 +142,118 @@ $(function () {
             }
             //console.log("Guardamos los datos " + source);
             //console.log(changes);
-        },
-        afterScrollVertically: function () {
-            /*
-            Para que no se solapen los eventos de scroll y carga de datos utilizamos
-            el flag 'convencion.pagination.scrollCheck' para que no visualize el scroll en caso de estar cargarndo datos
-            esto es debido a que al vaciar la tabla se establece que scroll está al final e intenta cargar la segunda página.
-            */
-            if (!convencion.pagination.NoMorePages && convencion.pagination.scrollCheck) {
-                if (convencion.timeoutScroll) {
-                    clearTimeout(convencion.timeoutScroll);
-                }
-                convencion.timeoutScroll = setTimeout(function () {
-                    var $wtHolder = $(".wtHolder");
-                    var sTop = $wtHolder[0].scrollTop;
-                    var oH = $wtHolder[0].offsetHeight;
-                    var sH = $wtHolder[0].scrollHeight;
-                    //console.log(sH + " - " + oH + " - " + sTop);
-                    if (oH + sTop >= sH) {
-                        ++convencion.pagination.page;
-                        convencion.loadData(convencion.pagination.currentFilter, convencion.pagination.currentLevel);
-
-                    }
-                }, 200);
-            }
         }
+        //,afterScrollVertically: function () {
+        //    /*
+        //    Para que no se solapen los eventos de scroll y carga de datos utilizamos
+        //    el flag 'convencion.pagination.scrollCheck' para que no visualize el scroll en caso de estar cargarndo datos
+        //    esto es debido a que al vaciar la tabla se establece que scroll está al final e intenta cargar la segunda página.
+        //    */
+        //    if (!convencion.pagination.NoMorePages && convencion.pagination.scrollCheck) {
+        //        if (convencion.timeoutScroll) {
+        //            clearTimeout(convencion.timeoutScroll);
+        //        }
+        //        convencion.timeoutScroll = setTimeout(function () {
+        //            var $wtHolder = $(".wtHolder");
+        //            var sTop = $wtHolder[0].scrollTop;
+        //            var oH = $wtHolder[0].offsetHeight;
+        //            var sH = $wtHolder[0].scrollHeight;
+        //            //console.log(sH + " - " + oH + " - " + sTop);
+        //            if (oH + sTop >= sH) {
+        //                ++convencion.pagination.page;
+        //                convencion.loadData(convencion.pagination.currentFilter, convencion.pagination.currentLevel, convencion.pagination.pageSize);
+        //            }
+        //        }, 200);
+        //    }
+        //}
     });
 
-    convencion.loadData();
+    //convencion.loadData();
+    gl.loadGlobal.css("display", "none");
+
 });
 
+convencion.loadData = function (idFilter, idLevel, pageSize) {
+    gl.loadGlobal.css("display", "block");
 
-
-
-function GetColFromName(name) {
-    var n_cols = convencion.hot.countCols(); //convecion.$editorTableContainer.handsontable('countCols');
-    var i = 1;
-    for (i = 1; i <= n_cols; i++) {
-        if (name.toLowerCase() == convencion.hot.getColHeader(i).toLowerCase()) {
-            return i;
-        }
+    //Si hay cambio de filtro reseteamos las propiedades de la tabla.
+    if (convencion.pagination.currentFilter !== idFilter
+        || convencion.pagination.currentLevel !== idLevel
+        || convencion.pagination.pageSize !== pageSize
+        || convencion.pagination.NewFilter) {
+        convencion.pagination.scrollCheck = false; //Lo ponemos a false para que al vaciar la tabla no salte el final de scroll.
+        convencion.pagination.page = 1;
+        convencion.pagination.currentFilter = idFilter;
+        convencion.pagination.currentLevel = idLevel;
+        convencion.pagination.NoMorePages = false;
+        convencion.pagination.data = null;
+        convencion.pagination.pageSize = pageSize;
+        convencion.hot.updateSettings({
+            data: []
+        });
     }
-    return -1; //return -1 if nothing can be found
+    if (!convencion.pagination.NoMorePages) {
+        var datos = {
+            filtroId: convencion.pagination.currentFilter,
+            nivel: convencion.pagination.currentLevel,
+            page: convencion.pagination.page,
+            pageSize: convencion.pagination.pageSize,
+            filtros: convencion.pagination.currentFiltersOwn
+        }
+
+        $.ajax({
+            url: '/Convencion/Datos/' + convencion.Id,
+            data: datos,
+            type: 'POST',
+            cache: false,
+            dataType: 'json',
+            success: function (data) {
+                if (data.Datos === null || data.Datos.length === 0) {
+                    convencion.pagination.NoMorePages = true
+                } else {
+                    $("#totalEls").text(data.Total);
+                    var pSize = convencion.pagination.pageSize;
+                    if (parseInt(pSize) > parseInt(data.Total)) {
+                        pSize = data.Total;
+                    }
+                    $("#pageEls").text(pSize);
+                    if (convencion.pagination.data === null) {
+                        convencion.pagination.data = data.Datos;
+                    } else {
+                        convencion.pagination.data = convencion.pagination.data.concat(data.Datos);
+                    }
+                    gl.loadGlobal.hide();
+                    console.log(data.ColsConfig);
+                    convencion.table.columnsConfig = data.ColsConfig;
+                    convencion.hot.updateSettings({
+                        colHeaders: data.Headers,
+                        colWidths: undefined,
+                        data: convencion.pagination.data,
+                        columns: data.ColsConfig
+
+                    });
+                    convencion.pagination.scrollCheck = true;
+                }
+            },
+            error: function (err) {
+                gl.loadGlobal.css("display", "none");
+                console.log(err);
+                alert("Ha fallado la recuperación de datos.\r\nConsulte el log para más información.");
+            }
+        });
+    }
 }
+
+
+
+
+//function GetColFromName(name) {
+//    var n_cols = convencion.hot.countCols(); //convecion.$editorTableContainer.handsontable('countCols');
+//    var i = 1;
+//    for (i = 1; i <= n_cols; i++) {
+//        if (name.toLowerCase() == convencion.hot.getColHeader(i).toLowerCase()) {
+//            return i;
+//        }
+//    }
+//    return -1; //return -1 if nothing can be found
+//}

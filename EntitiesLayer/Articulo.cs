@@ -23,6 +23,8 @@ namespace ALC.IES.WebRange.EntitiesLayer {
         public String DescColor { get; set; }
         public String Talla { get; set; }
         public String DescTalla { get; set; }
+        public String Marca { get; set; }
+
 
 
         public Boolean? PublicarModelo { get; set; }
@@ -35,7 +37,7 @@ namespace ALC.IES.WebRange.EntitiesLayer {
 
         [JsonConverter(typeof(ShortDateConverter))]
         public DateTime? FechaEntrega3 { get; set; }
-        
+
         [JsonConverter(typeof(ShortDateConverter))]
         public DateTime? FechaEntrega4 { get; set; }
 
@@ -101,7 +103,7 @@ namespace ALC.IES.WebRange.EntitiesLayer {
     public enum BaseCalculoCargoItem { Aplicar_sobre_PVS = 1, Aplicar_sobre_Tarifa_Bruta_Prov = 2, Aplicar_sobre_Tarifa_Neta_Prov = 3 }
 
     public class Articulos : List<Articulo> {
-
+        public int Total { get; set; }
 
 
 

@@ -6,12 +6,8 @@
 @section head{
     <link href="~/Content/loadingOverlay.css" rel="stylesheet" />
     <link href="~/Content/Pikaday/pikaday.css" rel="stylesheet" />
-    <link href="~/Content/handsontable/handsontable.full.min.css" rel="stylesheet" />
-    <style>
-        body {
-            overflow: hidden !important;
-        }
-    </style>
+    <link href="~/Content/handsontable/handsontable.full.css" rel="stylesheet" />
+
 }
 
 @section header{
@@ -20,41 +16,78 @@
 }
 
 @section leftmenu{
-    @Html.Partial("leftmenu")
+    @*@Html.Partial("leftmenu")*@
 }
 <div class="loading">Cargando&#8230;</div>
-<div id="page-wrapper" class="no-padding">
-    <div class="row">
-        <div class="col-sm-7">
-            <h3 class="page-header" id="excelH3">Editar el catálogo de la convención <b>@Model.Id</b></h3>
-        </div>
-        <div class="col-sm-5">
-            <div class="btn-group" id="filtroNivel" role="group" aria-label="...">
-                <button type="button" class="btn btn-danger btn-nivel active" data-val="-1">Todos</button>
-                <button type="button" class="btn btn-danger btn-nivel" data-val="0">Modelos</button>
-                <button type="button" class="btn btn-danger btn-nivel" data-val="1">Colores</button>
-                <button type="button" class="btn btn-danger btn-nivel" data-val="2">Tallas</button>
+<div id="page-wrapper" class="no-padding no-margin">
+    @*<div class="row">
+            <div class="col-sm-7">
+                <h3 class="page-header" id="excelH3">Editar el catálogo de la convención <b>@Model.Id</b></h3>
             </div>
-        </div>
+            <div class="col-sm-5">
+                <div class="btn-group" id="filtroNivel" role="group" aria-label="...">
+                    <button type="button" class="btn btn-danger btn-nivel active" data-val="-1">Todos</button>
+                    <button type="button" class="btn btn-danger btn-nivel" data-val="0">Modelos</button>
+                    <button type="button" class="btn btn-danger btn-nivel" data-val="1">Colores</button>
+                    <button type="button" class="btn btn-danger btn-nivel" data-val="2">Tallas</button>
+                </div>
+            </div>
+        </div>*@
+    <div style="padding-bottom:35px;">
+        <div id="tablaExcel"></div>
     </div>
-
-    <div id="tablaExcel"></div>
+    <footer class="fEditor">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="label label-danger" style="float:right">
+                <span id="pageEls">&nbsp;&nbsp;&nbsp;</span> elementos de <span id="totalEls">&nbsp;&nbsp;&nbsp;</span>
+            </div>
+        </nav>        
+    </footer>
 </div>
 
 
 @section Scripts{
     <script src="~/Scripts/moment.min.js"></script>
     <script src="~/Scripts/Pikaday/pikaday.js"></script>
-    <script src="~/Scripts/numeral/numeral.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/numbro/1.11.1/numbro.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/numbro//min/languages.min.js"></script>
     <script src="~/Scripts/handsontable/handsontable.full.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numbro/1.11.1/languages.js"></script>
+
+
     @*<script src="~/Scripts/chosen.jquery.min.js"></script>
         <script src="~/Scripts/handsontable/handsontable-chosen-editor.js"></script>*@
 
     <script>
         var convencion = {};
         convencion.Id = '@(Model.Id)';
+        convencion.pagination = {};
+        convencion.pagination.page = 1;
+        convencion.pagination.NoMorePages = false;
+        convencion.pagination.data = null;
+        convencion.pagination.currentFilter = null;
+        convencion.pagination.currentLevel = null;
+        convencion.pagination.scrollCheck = false;
+        convencion.table = {};
+        convencion.table.columnsConfig = @Html.Raw(Model.JsonHOT_Config);
+        convencion.table.columnsHeaders = @Html.Raw(Model.JsonHOT_Headers);
+        convencion.pagination.currentFiltersOwn = [];
+        convencion.pagination.pageSize = @Model.PageSize;
     </script>
     <script src="~/js/convenciones/editar.js"></script>
 

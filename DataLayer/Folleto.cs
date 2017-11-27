@@ -45,6 +45,7 @@ namespace ALC.IES.WebRange.DataLayer {
                     fRes.Add(fAux);
                 }
             }
+            ds.Dispose();
             return fRes;
         }
 

@@ -120,13 +120,13 @@ namespace ALC.IES.WebRange.DataLayer {
 
                         break;
                     case "LC$CRAT":
-                        res.PorcentajeDevolucion = ParseInt(sAux)/1000;
+                        res.PorcentajeDevolucion = ParseInt(sAux) / 1000;
                         break;
                     case "LC$PERI":
                         res.PeriodoDevolucion = ParseInt(sAux);
                         break;
                     case "LC$PRAT":
-                        res.PorcentajeCargoProveedor = ParseInt(sAux)/1000;
+                        res.PorcentajeCargoProveedor = ParseInt(sAux) / 1000;
                         break;
                     case "LC$PACP":
                         int? nCalculoCargo = ParseInt(sAux);
@@ -135,10 +135,10 @@ namespace ALC.IES.WebRange.DataLayer {
                         }
                         break;
                     case "LC$TPROV":
-                        res.TarifaBruta = ParseInt(sAux)/10000;
+                        res.TarifaBruta = ParseInt(sAux) / 10000;
                         break;
                     case "LC$BAP1":
-                        res.DescuentoBase = ParseInt(sAux)/10000;
+                        res.DescuentoBase = ParseInt(sAux) / 10000;
                         break;
                     case "LCACD01DES":
                         res.Observacion = sAux;
@@ -182,6 +182,9 @@ namespace ALC.IES.WebRange.DataLayer {
                         break;
                     case "LCDSC3":
                         res.DescTalla = sAux;
+                        break;
+                    case "LCSRP8":
+                        res.Marca = sAux;
                         break;
                     default:
                         _log.WarnFormat("Columna '{0}' no reconocida para parsear la entidad {1}", col.ColumnName, "EntitiesLayer.Convencion");
@@ -284,7 +287,7 @@ namespace ALC.IES.WebRange.DataLayer {
                         setters.Add(String.Format(" LC$PBLM = {0} ", art.PublicarModelo.Value ? 1 : 0));
                         break;
                     case "FechaEntrega1":
-                       setters.Add(String.Format(" LCC9EADJ1 = '{0}' ", Utils.Convert_GregorianDate_To_JulianDate(art.FechaEntrega1.Value)));
+                        setters.Add(String.Format(" LCC9EADJ1 = '{0}' ", Utils.Convert_GregorianDate_To_JulianDate(art.FechaEntrega1.Value)));
                         break;
                     case "FechaEntrega2":
                         setters.Add(String.Format(" LCC9EADJ2 = '{0}' ", Utils.Convert_GregorianDate_To_JulianDate(art.FechaEntrega2.Value)));
@@ -421,6 +424,9 @@ namespace ALC.IES.WebRange.DataLayer {
                     case "DescTalla":
                         setters.Add(String.Format(" LCDSC3 = '{0}' ", art.DescTalla));
                         break;
+                    case "Marca":
+                        setters.Add(String.Format(" LCSRP8 = '{0}' ", art.Marca));
+                        break;
                     default:
                         String message = String.Format("No se ha podido crear el update debido a que no se ha reconicido el campo'{0}'", campo);
                         _log.Warn(message);
@@ -450,33 +456,61 @@ namespace ALC.IES.WebRange.DataLayer {
     public class Articulos {
 
 
-        public static EntitiesLayer.Articulos Get(String idConvencion, List<String> campos, int? nivel, int? pageNumber, int? pageSize) {
+        public static List<String> GetDistinctField(String idConvencion, String field) {
+            List<String> res = new List<string>();
+            String sSelect = String.Format("select distinct {0} from F55DS53 where LCZON = '{1}' ", field, idConvencion);
+            DataSet ds = ALC.IES.WebRange.DataLayer.Consultas.Execute(sSelect);
+            foreach (DataRow r in ds.Tables[0].Rows) {
+                res.Add(r[0].ToString());
+            }
+            return res;
+        }
+
+
+        public static EntitiesLayer.Articulos Get(String idConvencion, List<String> campos, int? nivel, int? pageNumber, int? pageSize, List<KeyValuePair<String, String>> filtros) {
             EntitiesLayer.Articulos res = null;
 
-            String select = "";
-            select += "select ";
+            String select = "select ";            
+            String selectCount = select + " count(*) ";
             select += String.Join(", ", campos);
-            select += String.Format(" from F55DS53 where LCZON = '{0}' ", idConvencion);
+            String sFfrom = String.Format(" from F55DS53 where LCZON = '{0}' ", idConvencion);
+
 
             if (nivel.HasValue) {
-                select += String.Format(" and LCC9LVNO = {0}", nivel.Value);
+                sFfrom += String.Format(" and LCC9LVNO = {0}", nivel.Value);
             }
 
-            if (pageNumber.HasValue && pageSize.HasValue) {
-                int offset = (pageNumber.Value - 1) * pageSize.Value;
-                select += String.Format(" limit {0} offset {1}", pageSize.Value, offset);
+            if (filtros != null && filtros.Count > 0) {
+                foreach (var f in filtros) {
+                    sFfrom += String.Format(" and {0} = '{1}'", f.Key, f.Value);
+                }
             }
+
+
+
+            if (pageNumber.HasValue && pageSize.HasValue && pageSize.Value > 0) {
+                int offset = (pageNumber.Value - 1) * pageSize.Value;
+                select += sFfrom + String.Format(" limit {0} offset {1}", pageSize.Value, offset);
+            }
+
+
+            selectCount += sFfrom;
+            DataSet dsCount = ALC.IES.WebRange.DataLayer.Consultas.Execute(selectCount);
+            String c = dsCount.Tables[0].Rows[0][0].ToString();
+            dsCount.Dispose();
 
 
             DataSet ds = ALC.IES.WebRange.DataLayer.Consultas.Execute(select);
 
             if (ds != null && ds.Tables.Count > 0) {
                 res = new EntitiesLayer.Articulos();
+                res.Total = int.Parse(c);
                 foreach (DataRow r in ds.Tables[0].Rows) {
                     EntitiesLayer.Articulo artAux = DataLayer.Articulo.Parse(r);
                     res.Add(artAux);
                 }
             }
+            ds.Dispose();
             return res;
         }
 

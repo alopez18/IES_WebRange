@@ -22,16 +22,17 @@ namespace ALC.IES.WebRange.Controllers {
             return View(model);
         }
 
-        public String Datos(String id, String filtroId, int? nivel, int? page) {
-            String sPageSize = System.Configuration.ConfigurationManager.AppSettings.Get("ARTICULOS_CONVENCIONES_PAGESIZE");
-            int? pageSize = null;
-            if (!String.IsNullOrWhiteSpace(sPageSize)) {
-                pageSize = int.Parse(sPageSize);
-            }
+        public String Datos(String id, String filtroId, int? nivel, int? page, int? pageSize, List<DTO.DtoFiltrosCollectionItem> filtros) {
+            if (!pageSize.HasValue) {
+                String sPageSizeDef = System.Configuration.ConfigurationManager.AppSettings.Get("ARTICULOS_CONVENCIONES_PAGESIZE_DEF");
+                if (!String.IsNullOrWhiteSpace(sPageSizeDef)) {
+                    pageSize = int.Parse(sPageSizeDef);
+                }
+            }            
 
 
             Models.ConvencionDatosModel model = new Models.ConvencionDatosModel(id, filtroId);
-            model.LoadData(nivel, page, pageSize);
+            model.LoadData(nivel, page, pageSize, filtros);
 
             Newtonsoft.Json.JsonSerializerSettings sett = new Newtonsoft.Json.JsonSerializerSettings();
             sett.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;

@@ -81,7 +81,7 @@ body {
     }
 
     .navbar-top-links .dropdown-menu li a {
-        padding: 3px 20px;
+        padding: 6px 20px;
         min-height: 0;
     }
 
@@ -582,13 +582,62 @@ table.dataTable thead .sorting_desc_disabled {
     padding: 0 !important;
 }
 
-
-
-#page-wrapper.no-padding .page-header{
-    padding-left:15px;
+.no-margin {
+    margin: 0 !important;
 }
+
+
+
+#page-wrapper.no-padding .page-header {
+    padding-left: 15px;
+}
+
 #filtroNivel {
     padding-top: 32px;
-    float:right;
-    margin-right:15px;
+    float: right;
+    margin-right: 15px;
+}
+
+
+.dropdown-menu.dropdown-messages.filtrosMarca {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.handsontable .htDimmed {
+    background-color: rgba(143,143,143,0.5);
+}
+
+
+footer.fEditor {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    z-index: 9999;
+    background-color: #FFF;
+    border-top: solid 1px #CCC;
+    padding: 5px 20px;
+}
+
+.pagination {
+    margin: 2px 0px;
+}
+
+    .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+        z-index: 3;
+        color: #fff;
+        cursor: default;
+        background-color: #e60a0a;
+        border-color: #e60a0a;
+    }
+
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+    color: #fff;
+    text-decoration: none;
+    background-color: #e60a0a;
+    outline: 0;
+}
+
+.dropdown-menu .divider {
+    margin: 1px 0;
 }

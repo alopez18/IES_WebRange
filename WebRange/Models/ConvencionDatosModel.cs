@@ -11,6 +11,7 @@ namespace ALC.IES.WebRange.Models {
         public List<cls.Filtro> FiltrosSelected { get; set; }
         public List<String> Headers { get; set; }
         public List<cls.HOTColConfig> ColsConfig { get; set; }
+        public int Total { get; set; }
 
         private List<String> Campos { get; set; }
 
@@ -34,7 +35,7 @@ namespace ALC.IES.WebRange.Models {
 
             }
 
-            if (!String.IsNullOrEmpty(idFiltro)) {
+            if (!String.IsNullOrEmpty(idFiltro) && idFiltro != "BSC") {
                 if (idFiltro == "ALL") {
                     foreach (var filtro in this.Filtros) {
                         this.FiltrosSelected.Add(filtro);
@@ -86,10 +87,16 @@ namespace ALC.IES.WebRange.Models {
         }
 
 
-        public void LoadData(int? nivel, int? pageNumber, int? pageSize) {
-            BusinessLayer.Articulos artsBS = BusinessLayer.Articulos.Get(this.Id, this.Campos, nivel, pageNumber, pageSize);
+        public void LoadData(int? nivel, int? pageNumber, int? pageSize, List<DTO.DtoFiltrosCollectionItem> filtros) {
+            List<KeyValuePair<String, String>> filtrosAux = new List<KeyValuePair<string, string>>();
+            if (filtros != null && filtros.Count > 0) {//Transformamos a tipo standard para pasar a capa de negocio.
+                foreach (var item in filtros) {
+                    filtrosAux.Add(new KeyValuePair<string, string>(item.campo, item.valor));
+                }
+            }
+            BusinessLayer.Articulos artsBS = BusinessLayer.Articulos.Get(this.Id, this.Campos, nivel, pageNumber, pageSize, filtrosAux);
             this.Datos = artsBS.ArticulosEntidad;
-
+            this.Total = artsBS.ArticulosEntidad.Total;
 
 
             //Creamos datos aleatorios para que se vea algo en los mismos.

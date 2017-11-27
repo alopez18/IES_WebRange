@@ -150,6 +150,7 @@
     <Compile Include="Controllers\ConvencionesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DTO\DtoAjaxReturn.cs" />
+    <Compile Include="DTO\DtoFiltrosCollectionItem.cs" />
     <Compile Include="DTO\DtoUpdate.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
