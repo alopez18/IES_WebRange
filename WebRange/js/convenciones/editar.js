@@ -211,12 +211,9 @@ convencion.loadData = function (idFilter, idLevel, pageSize) {
                 if (data.Datos === null || data.Datos.length === 0) {
                     convencion.pagination.NoMorePages = true
                 } else {
-                    $("#totalEls").text(data.Total);
-                    var pSize = convencion.pagination.pageSize;
-                    if (parseInt(pSize) > parseInt(data.Total)) {
-                        pSize = data.Total;
-                    }
-                    $("#pageEls").text(pSize);
+                    convencion.pagination.loadPagination(data.Total, convencion.pagination.pageSize, convencion.pagination.page);
+
+
                     if (convencion.pagination.data === null) {
                         convencion.pagination.data = data.Datos;
                     } else {
@@ -245,7 +242,71 @@ convencion.loadData = function (idFilter, idLevel, pageSize) {
 }
 
 
+convencion.pagination.loadPagination = function (totalItems, pageSize, actualPage) {
+    if (!convencion.pagination.$liPagingModel) {//Si no se ha cargado aun el modelo, lo cargamos.
+        var $liPagingModel = $("#liPagingModel");
+        convencion.pagination.$liPagingModel = $liPagingModel.clone();
+        $liPagingModel.remove();
+    }
+    var howMany = 5;
+    var pages = totalItems % pageSize === 0 ? (totalItems / pageSize) : (parseInt(totalItems / pageSize) + 1);
+    if (pages < howMany) howMany = pages;
+    var pageMin, pageMax;
+    pageMin = actualPage - 2;
+    if (pageMin < 1) {
+        pageMin = 1;
+    }
+    pageMax = pageMin + howMany;
+    if (pageMax > pages) {
+        pageMax = pages;
+    }
+    var elements = [];
+    $(".liPagingCloned").remove();
+    for (var i = pageMin; i <= pageMax; i++) {
+        var $element = convencion.pagination.$liPagingModel.clone();
+        $element.removeAttr("id");
+        var $a = $("a", $element);
+        $a.text(i);
+        $a.data("page", i);
+        $a.addClass("aPaging");
 
+        if (i === actualPage) {
+            $element.addClass("active");
+        }
+        $element.addClass("liPagingCloned");
+        elements.push($element);
+    }
+
+    $("#liPagingPrev").after(elements);
+
+
+    //Before
+    var pagebefore = actualPage + 1;
+    if (pagebefore < 1) pagebefore = 1;
+    $("#aPagingBefore").data("page", pagebefore);
+    //next
+    var pageNext = actualPage + 1;
+    if (pageNext > pages) pageNext = pages;
+    $("#aPagingNext").data("page", pageNext);
+    //Last
+    $("#aPagingLast").data("page", pages);
+
+
+
+    //Texto de paginas
+    $("#totalEls").text(totalItems);
+    var pageSizeCurrent = (parseInt(pageSize) > parseInt(totalItems)) ? totalItems : pageSize;
+    $("#pageEls").text(pageSizeCurrent);
+
+    //Añadimos eventos
+    $(".aPaging").off().on("click", function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        var page = $this.data("page");
+        convencion.pagination.page = page;
+        convencion.loadData(convencion.pagination.currentFilter, convencion.pagination.currentLevel, convencion.pagination.pageSize);
+    })
+}
 
 //function GetColFromName(name) {
 //    var n_cols = convencion.hot.countCols(); //convecion.$editorTableContainer.handsontable('countCols');

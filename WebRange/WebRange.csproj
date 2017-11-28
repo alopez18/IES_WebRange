@@ -147,6 +147,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="cls\Filtro.cs" />
     <Compile Include="Controllers\ArticuloController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ConvencionesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DTO\DtoAjaxReturn.cs" />
@@ -273,6 +274,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Articulo\" />
+    <Folder Include="Views\Base\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

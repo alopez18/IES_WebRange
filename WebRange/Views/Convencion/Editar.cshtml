@@ -20,19 +20,6 @@
 }
 <div class="loading">Cargando&#8230;</div>
 <div id="page-wrapper" class="no-padding no-margin">
-    @*<div class="row">
-            <div class="col-sm-7">
-                <h3 class="page-header" id="excelH3">Editar el catálogo de la convención <b>@Model.Id</b></h3>
-            </div>
-            <div class="col-sm-5">
-                <div class="btn-group" id="filtroNivel" role="group" aria-label="...">
-                    <button type="button" class="btn btn-danger btn-nivel active" data-val="-1">Todos</button>
-                    <button type="button" class="btn btn-danger btn-nivel" data-val="0">Modelos</button>
-                    <button type="button" class="btn btn-danger btn-nivel" data-val="1">Colores</button>
-                    <button type="button" class="btn btn-danger btn-nivel" data-val="2">Tallas</button>
-                </div>
-            </div>
-        </div>*@
     <div style="padding-bottom:35px;">
         <div id="tablaExcel"></div>
     </div>
@@ -40,25 +27,41 @@
         <nav aria-label="Page navigation">
             <ul class="pagination">
                 <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
+                    <a href="#" class="aPaging" aria-label="Inicio" title="Inicio" id="aPagingFirst" data-page="1">
+                        <span aria-hidden="true">
+                            <i class="fa fa-angle-double-left"></i>
+                        </span>
                     </a>
                 </li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
+                <li id="liPagingPrev">
+                    <a href="#" class="aPaging" aria-label="Anterior" title="Anterior" id="aPagingBefore" data-page="">
+                        <span aria-hidden="true">
+                            <i class="fa fa-angle-left"></i>
+                        </span>
+                    </a>
+                </li>
+                <li id="liPagingModel">
+                    <a href="#" class="aPaging" data-page="1">1</a>
+                </li>
                 <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
+                    <a href="#" class="aPaging" aria-label="Siguiente" title="Siguiente" id="aPagingNext" data-page="">
+                        <span aria-hidden="true">
+                            <i class="fa fa-angle-right"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="aPaging" aria-label="Fin" title="Fin" id="aPagingLast" data-page="">
+                        <span aria-hidden="true">
+                            <i class="fa fa-angle-double-right"></i>
+                        </span>
                     </a>
                 </li>
             </ul>
             <div class="label label-danger" style="float:right">
                 <span id="pageEls">&nbsp;&nbsp;&nbsp;</span> elementos de <span id="totalEls">&nbsp;&nbsp;&nbsp;</span>
             </div>
-        </nav>        
+        </nav>
     </footer>
 </div>
 
