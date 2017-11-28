@@ -616,8 +616,13 @@ footer.fEditor {
     z-index: 9999;
     background-color: #FFF;
     border-top: solid 1px #CCC;
-    padding: 5px 20px;
+    padding: 2px 20px;
+    display: none;
 }
+
+    footer.fEditor > nav {
+        height: 35px;
+    }
 
 .pagination {
     margin: 2px 0px;
@@ -640,4 +645,30 @@ footer.fEditor {
 
 .dropdown-menu .divider {
     margin: 1px 0;
+}
+
+
+.nav-title {
+    color: #666;
+    padding: 0px 5px;
+    font-size: 1em;
+    float: left;
+}
+
+@media (max-width: 768px) {
+    .navbar-header {
+        float: left;
+        max-width: 50%
+    }
+
+    .nav-title {
+        float: right;
+        max-width: 50%;
+        margin-right: 2%;
+        text-align: right;
+    }
+
+    .navbar-top-links {
+        clear: both;
+    }
 }

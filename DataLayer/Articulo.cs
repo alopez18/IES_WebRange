@@ -458,7 +458,7 @@ namespace ALC.IES.WebRange.DataLayer {
 
         public static List<String> GetDistinctField(String idConvencion, String field) {
             List<String> res = new List<string>();
-            String sSelect = String.Format("select distinct {0} from F55DS53 where LCZON = '{1}' ", field, idConvencion);
+            String sSelect = String.Format("select distinct {0} from F55DS53 where LCZON = '{1}' order by 1", field, idConvencion);
             DataSet ds = ALC.IES.WebRange.DataLayer.Consultas.Execute(sSelect);
             foreach (DataRow r in ds.Tables[0].Rows) {
                 res.Add(r[0].ToString());
@@ -491,6 +491,8 @@ namespace ALC.IES.WebRange.DataLayer {
             if (pageNumber.HasValue && pageSize.HasValue && pageSize.Value > 0) {
                 int offset = (pageNumber.Value - 1) * pageSize.Value;
                 select += sFfrom + String.Format(" limit {0} offset {1}", pageSize.Value, offset);
+            } else {
+                select += sFfrom;
             }
 
 

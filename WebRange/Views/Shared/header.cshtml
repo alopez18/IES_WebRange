@@ -5,18 +5,21 @@
 }
 
 <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-    </button>
+    @if (Model.MenuLeft) {
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    }
     <a class="navbar-brand" href="/">
-        <img src="~/Content/images/intersport-logo.jpg" height="50" /> <div>
-            @Html.Raw(Model.Titulo)
-        </div>
+        <img src="~/Content/images/intersport-logo.jpg" height="50" />
     </a>
 </div>
+<h2 class="nav-title">
+    @Html.Raw(Model.Titulo)
+</h2>
 <ul class="nav navbar-top-links navbar-right">
     @if (Model.Filtros != null && Model.Filtros.Count > 0) {
         ALC.IES.WebRange.cls.Filtro lastF = Model.Filtros.Last();
@@ -37,7 +40,7 @@
             <!-- /.dropdown-messages -->
         </li>
     }
-    @if (Model.FiltroNivel) {        
+    @if (Model.FiltroNivel) {
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="fa fa-tags fa-fw"></i> <span id="spnFiltroNivel">-Nivel-</span> <i class="fa fa-caret-down"></i>
@@ -86,7 +89,7 @@
             <ul class="dropdown-menu dropdown-messages filtrosMarca">
                 @foreach (var marca in Model.FiltroMarca) {
                     <li><a href="#" class="btn-marca" data-field="LCSRP8" data-val="@marca">@marca.Trim()</a></li>
-                }                
+                }
             </ul>
             <!-- /.dropdown-messages -->
         </li>

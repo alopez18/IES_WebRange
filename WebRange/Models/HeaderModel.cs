@@ -10,11 +10,13 @@ namespace ALC.IES.WebRange.Models {
         public Boolean FiltroNivel { get; set; }
         public List<cls.Filtro> Filtros { get; set; }
         public List<String> FiltroMarca { get; set; }
+        public Boolean MenuLeft { get; set; }
 
 
-        public HeaderModel(String titulo, Boolean filtroNivel = false) {
+        public HeaderModel(String titulo, Boolean filtroNivel = false, Boolean menuLeft = true) {
             this.Titulo = titulo;
             this.FiltroNivel = filtroNivel;
+            this.MenuLeft = menuLeft;
         }
 
 

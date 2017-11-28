@@ -28,8 +28,11 @@ namespace ALC.IES.WebRange.Controllers {
                 if (!String.IsNullOrWhiteSpace(sPageSizeDef)) {
                     pageSize = int.Parse(sPageSizeDef);
                 }
-            }            
-
+            } else {
+                if (pageSize.Value<0) {
+                    pageSize = null;
+                }
+            }
 
             Models.ConvencionDatosModel model = new Models.ConvencionDatosModel(id, filtroId);
             model.LoadData(nivel, page, pageSize, filtros);

@@ -18,11 +18,11 @@ namespace ALC.IES.WebRange.Models {
         public int PageSize { get; set; }
 
 
-        public BusinessLayer.Convencion ConvencionCurrent { get; set; }
+        //public BusinessLayer.Convencion ConvencionCurrent { get; set; }
 
         public ConvencionEditarModel(String id) {
             this.Id = id;
-            this.ConvencionCurrent = BusinessLayer.Convencion.Get(id);
+            //this.ConvencionCurrent = BusinessLayer.Convencion.Get(id);
             this.MostrarFiltro = false;
             String sPageSizeDef = System.Configuration.ConfigurationManager.AppSettings.Get("ARTICULOS_CONVENCIONES_PAGESIZE_DEF");
             if (!String.IsNullOrWhiteSpace(sPageSizeDef)) {
@@ -34,6 +34,7 @@ namespace ALC.IES.WebRange.Models {
             this.Header = new HeaderModel(titulo, true);
             this.Header.Filtros = this.Filtros;
             this.Header.FiltroMarca = BusinessLayer.Articulos.GetDistinctField(this.Id, "LCSRP8");
+            this.Header.MenuLeft = false;
 
             cls.Filtro f = this.Filtros.FirstOrDefault(m => m.IsBasic);
             if (f != null) {

@@ -4,6 +4,7 @@
     convencion.$btnPaginacion = $(".btn-paginacion");
     convencion.$btnMarca = $(".btn-marca");
     convencion.$btn_nivel = $(".btn-nivel");
+    convencion.$aRefresh = $("#aRefresh");
 
 
     convencion.$btnPaginacion.off().on("click", function (e) {
@@ -59,32 +60,31 @@
         convencion.loadData(id, convencion.pagination.currentLevel, convencion.pagination.pageSize);
     });
 
+    convencion.$aRefresh.off().on("click", function (e) {
+        e.preventDefault();
+        convencion.loadData(convencion.pagination.currentFilter, convencion.pagination.currentLevel, convencion.pagination.pageSize);
+    })
+
 
 
     ///Funcion que carga los datos en la handsontable dado un identificador.
 
 
-    convencion.timeoutScroll = null;
+    //convencion.timeoutScroll = null;
     convencion.container = document.getElementById('tablaExcel');
     convencion.hot = new Handsontable(convencion.container, {
         //data: data, //Handsontable.helper.createSpreadsheetData(1000, 1000),
         startRows: 30,
         //startCols: 20,
         width: "100%",
-        height: function () {
-            var wH = $(window).height();
-            var hHeader = $(".navbar.navbar-default.navbar-static-top").outerHeight(true);
-            var hH3 = 0;//$("#excelH3").outerHeight(true);
-            var h = wH - (hH3 + hHeader);
-            return h;
-            //return 420;
-        },
+        height: convencion.calculeHTOHeight(false),
         rowHeaders: true,
         colHeaders: convencion.table.columnsHeaders,
         columns: convencion.table.columnsConfig,
         colWidths: 100,
         filters: true,
         dropdownMenu: true,
+        contextMenu: true,
         allowInvalid: false,
         allowInsertRow: true,
         allowInsertColumn: false,
@@ -171,7 +171,31 @@
     //convencion.loadData();
     gl.loadGlobal.css("display", "none");
 
+
+
+    var toResizeHOT = null;
+    $(window).resize(function () {
+        clearTimeout(toResizeHOT);
+        toResizeHOT = setTimeout(function () {
+            var h = convencion.calculeHTOHeight(true);
+            convencion.hot.updateSettings({
+                height: h
+            });
+        }, 300);
+    });
 });
+
+convencion.calculeHTOHeight = function (withFooter) {
+    var wH = $(window).height();
+    var hHeader = $(".navbar.navbar-default.navbar-static-top").outerHeight(true);
+    var hFooter = 0;
+    if (withFooter) {
+        hFooter = $("footer.fEditor").outerHeight(true);
+    }
+    var h = wH - (hHeader + hFooter);
+    return h;
+    //return 420;
+}
 
 convencion.loadData = function (idFilter, idLevel, pageSize) {
     gl.loadGlobal.css("display", "block");
@@ -181,7 +205,7 @@ convencion.loadData = function (idFilter, idLevel, pageSize) {
         || convencion.pagination.currentLevel !== idLevel
         || convencion.pagination.pageSize !== pageSize
         || convencion.pagination.NewFilter) {
-        convencion.pagination.scrollCheck = false; //Lo ponemos a false para que al vaciar la tabla no salte el final de scroll.
+        //convencion.pagination.scrollCheck = false; //Lo ponemos a false para que al vaciar la tabla no salte el final de scroll.
         convencion.pagination.page = 1;
         convencion.pagination.currentFilter = idFilter;
         convencion.pagination.currentLevel = idLevel;
@@ -211,16 +235,15 @@ convencion.loadData = function (idFilter, idLevel, pageSize) {
                 if (data.Datos === null || data.Datos.length === 0) {
                     convencion.pagination.NoMorePages = true
                 } else {
-                    convencion.pagination.loadPagination(data.Total, convencion.pagination.pageSize, convencion.pagination.page);
-
-
-                    if (convencion.pagination.data === null) {
-                        convencion.pagination.data = data.Datos;
-                    } else {
-                        convencion.pagination.data = convencion.pagination.data.concat(data.Datos);
-                    }
+                    convencion.pagination.loadPagination(data.Total, convencion.pagination.pageSize, convencion.pagination.page, data.Datos.length);
+                    convencion.pagination.data = data.Datos;
+                    //if (convencion.pagination.data === null) {
+                    //    convencion.pagination.data = data.Datos;
+                    //} else {
+                    //    convencion.pagination.data = convencion.pagination.data.concat(data.Datos);
+                    //}
                     gl.loadGlobal.hide();
-                    console.log(data.ColsConfig);
+                    //console.log(data.ColsConfig);
                     convencion.table.columnsConfig = data.ColsConfig;
                     convencion.hot.updateSettings({
                         colHeaders: data.Headers,
@@ -229,7 +252,7 @@ convencion.loadData = function (idFilter, idLevel, pageSize) {
                         columns: data.ColsConfig
 
                     });
-                    convencion.pagination.scrollCheck = true;
+                    //convencion.pagination.scrollCheck = true;
                 }
             },
             error: function (err) {
@@ -242,13 +265,13 @@ convencion.loadData = function (idFilter, idLevel, pageSize) {
 }
 
 
-convencion.pagination.loadPagination = function (totalItems, pageSize, actualPage) {
+convencion.pagination.loadPagination = function (totalItems, pageSize, actualPage, numElements) {
     if (!convencion.pagination.$liPagingModel) {//Si no se ha cargado aun el modelo, lo cargamos.
         var $liPagingModel = $("#liPagingModel");
         convencion.pagination.$liPagingModel = $liPagingModel.clone();
         $liPagingModel.remove();
     }
-    var howMany = 5;
+    var howMany = 4;
     var pages = totalItems % pageSize === 0 ? (totalItems / pageSize) : (parseInt(totalItems / pageSize) + 1);
     if (pages < howMany) howMany = pages;
     var pageMin, pageMax;
@@ -295,8 +318,8 @@ convencion.pagination.loadPagination = function (totalItems, pageSize, actualPag
 
     //Texto de paginas
     $("#totalEls").text(totalItems);
-    var pageSizeCurrent = (parseInt(pageSize) > parseInt(totalItems)) ? totalItems : pageSize;
-    $("#pageEls").text(pageSizeCurrent);
+    //var pageSizeCurrent = (parseInt(pageSize) > parseInt(totalItems)) ? totalItems : pageSize;
+    $("#pageEls").text(numElements);
 
     //Añadimos eventos
     $(".aPaging").off().on("click", function (e) {
@@ -305,8 +328,20 @@ convencion.pagination.loadPagination = function (totalItems, pageSize, actualPag
         var page = $this.data("page");
         convencion.pagination.page = page;
         convencion.loadData(convencion.pagination.currentFilter, convencion.pagination.currentLevel, convencion.pagination.pageSize);
-    })
+    });
+
+    var $footer = $("footer.fEditor");
+    var fVisible = $footer.is(":visible")
+    $footer.show();
+    if (!fVisible) {
+        var h = convencion.calculeHTOHeight(true);
+        convencion.hot.updateSettings({
+            height: h
+        });
+    }
 }
+
+
 
 //function GetColFromName(name) {
 //    var n_cols = convencion.hot.countCols(); //convecion.$editorTableContainer.handsontable('countCols');
