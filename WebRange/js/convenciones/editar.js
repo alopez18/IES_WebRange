@@ -84,6 +84,8 @@
         colWidths: 100,
         filters: true,
         dropdownMenu: true,
+        manualColumnResize: true,
+        manualRowResize: true,
         contextMenu: true,
         allowInvalid: false,
         allowInsertRow: true,
