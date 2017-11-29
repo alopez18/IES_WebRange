@@ -5,12 +5,14 @@ using System.Web;
 
 namespace ALC.IES.WebRange.Models {
     public class ConvencionDatosModel {
-        public EntitiesLayer.Articulos Datos { get; set; }
+        //public EntitiesLayer.Articulos Datos { get; set; }
+        public List<List<Object>> Datos { get; set; }
         public String Id { get; set; }
-        public List<cls.Filtro> Filtros { get; set; }
+        private List<cls.Filtro> Filtros { get; set; }
         public List<cls.Filtro> FiltrosSelected { get; set; }
         public List<String> Headers { get; set; }
         public List<cls.HOTColConfig> ColsConfig { get; set; }
+        public List<String> MapeoCampos { get; set; }
         public int Total { get; set; }
 
         private List<String> Campos { get; set; }
@@ -24,11 +26,13 @@ namespace ALC.IES.WebRange.Models {
             this.Headers = new List<string>();
             this.Campos = new List<string>();
             this.ColsConfig = new List<cls.HOTColConfig>();
+            this.MapeoCampos = new List<string>();
             this.FiltrosSelected.Add(filtroBasico);
 
             foreach (var field in filtroBasico.Fields) {
                 this.Headers.Add(field.Name);
                 this.ColsConfig.Add(field.HOT_ColConfig);
+                this.MapeoCampos.Add(field.data);
                 if (!String.IsNullOrWhiteSpace(field.FieldkeyJDE)) {
                     this.Campos.Add(field.FieldkeyJDE);
                 }
@@ -43,6 +47,7 @@ namespace ALC.IES.WebRange.Models {
                             foreach (var field in filtro.Fields) {
                                 this.Headers.Add(field.Name);
                                 this.ColsConfig.Add(field.HOT_ColConfig);
+                                this.MapeoCampos.Add(field.data);
                                 if (!String.IsNullOrWhiteSpace(field.FieldkeyJDE)) {
                                     this.Campos.Add(field.FieldkeyJDE);
                                 }
@@ -56,6 +61,7 @@ namespace ALC.IES.WebRange.Models {
                         foreach (var field in filtroSeleccionado.Fields) {
                             this.Headers.Add(field.Name);
                             this.ColsConfig.Add(field.HOT_ColConfig);
+                            this.MapeoCampos.Add(field.data);
                             if (!String.IsNullOrWhiteSpace(field.FieldkeyJDE)) {
                                 this.Campos.Add(field.FieldkeyJDE);
                             }
@@ -91,12 +97,30 @@ namespace ALC.IES.WebRange.Models {
             List<KeyValuePair<String, String>> filtrosAux = new List<KeyValuePair<string, string>>();
             if (filtros != null && filtros.Count > 0) {//Transformamos a tipo standard para pasar a capa de negocio.
                 foreach (var item in filtros) {
-                    filtrosAux.Add(new KeyValuePair<string, string>(item.campo, item.valor));
+                    if (!String.IsNullOrWhiteSpace(item.campo) && !String.IsNullOrWhiteSpace(item.valor)) {
+                        filtrosAux.Add(new KeyValuePair<string, string>(item.campo, item.valor));
+                    }
                 }
             }
             BusinessLayer.Articulos artsBS = BusinessLayer.Articulos.Get(this.Id, this.Campos, nivel, pageNumber, pageSize, filtrosAux);
-            this.Datos = artsBS.ArticulosEntidad;
+            this.Datos = new List<List<object>>();// artsBS.ArticulosEntidad;
             this.Total = artsBS.ArticulosEntidad.Total;
+            List<Object> articuloLista = null;
+            foreach (var art in artsBS.ArticulosEntidad) {
+                articuloLista = new List<object>();
+                Type myType = typeof(EntitiesLayer.Articulo);
+
+
+                foreach (var filtro in this.FiltrosSelected) {
+                    foreach (var field in filtro.Fields) {
+                        System.Reflection.PropertyInfo myPropInfo = myType.GetProperty(field.data);
+                        articuloLista.Add(myPropInfo.GetValue(art));
+                    }
+                }
+                this.Datos.Add(articuloLista);
+            }
+
+
 
 
             //Creamos datos aleatorios para que se vea algo en los mismos.

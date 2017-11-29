@@ -21,6 +21,22 @@
     @Html.Raw(Model.Titulo)
 </h2>
 <ul class="nav navbar-top-links navbar-right">
+    @if (Model.FiltroMarca != null && Model.FiltroMarca.Count > 0) {
+        ALC.IES.WebRange.cls.Filtro lastF = Model.Filtros.Last();
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-copyright fa-fw"></i> <span id="spnFiltroMarca">-Marca-</span> <i class="fa fa-caret-down"></i>
+            </a>
+
+            <ul class="dropdown-menu dropdown-messages filtrosMarca">
+                <li><a href="#" class="btn-marca" data-field="" data-val="">-Marca-</a></li>
+                @foreach (var marca in Model.FiltroMarca) {
+                    <li><a href="#" class="btn-marca" data-field="LCSRP8" data-val="@marca">@marca.Trim()</a></li>
+                }
+            </ul>
+            <!-- /.dropdown-messages -->
+        </li>
+    }
     @if (Model.Filtros != null && Model.Filtros.Count > 0) {
         ALC.IES.WebRange.cls.Filtro lastF = Model.Filtros.Last();
         <li class="dropdown">
@@ -72,28 +88,17 @@
                     <li><a href="#" class="btn-paginacion" data-val="10000">10000</a></li>
                     <li class="divider"></li>
                     <li><a href="#" class="btn-paginacion" data-val="100000">100000</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#" class="btn-paginacion" data-val="-1">Todas</a></li>
+                    @*
+                        <li class="divider"></li>
+                        <li><a href="#" class="btn-paginacion" data-val="-1">Todas</a></li>
+                    *@
                 }
 
             </ul>
             <!-- /.dropdown-messages -->
         </li>
     }
-    @if (Model.FiltroMarca != null && Model.FiltroMarca.Count > 0) {
-        ALC.IES.WebRange.cls.Filtro lastF = Model.Filtros.Last();
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-copyright fa-fw"></i> <span id="spnFiltroMarca">-Marca-</span> <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-messages filtrosMarca">
-                @foreach (var marca in Model.FiltroMarca) {
-                    <li><a href="#" class="btn-marca" data-field="LCSRP8" data-val="@marca">@marca.Trim()</a></li>
-                }
-            </ul>
-            <!-- /.dropdown-messages -->
-        </li>
-    }
+
 
     @*@if (Model.Filtros != null) {
             <li class="active"><a class="btnFilter" data-id="null" href="#">Básico</a></li>

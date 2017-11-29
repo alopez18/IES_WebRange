@@ -29,12 +29,13 @@ namespace ALC.IES.WebRange.cls {
         public string FieldkeyJDE { get; set; }
         public string Name { get; set; }
         public string KeyIdioma { get; set; }
+        public string data { get; set; }
         public HOTColConfig HOT_ColConfig { get; set; }
     }//Class Finish
 
 
     public class HOTColConfig {
-        public string data { get; set; }
+        
         public string type { get; set; }
         public string dateFormat { get; set; }
         public bool? correctFormat { get; set; }

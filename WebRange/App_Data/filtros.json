@@ -2,15 +2,15 @@
   {
     "Id": "BSC",
     "FieldkeyJDE": "",
-    "Name": "Básico",
+    "Name": "Codificación",
     "IsBasic": true,
     "Fields": [
       {
         "FieldkeyJDE": "",
         "Name": "Id",
         "KeyIdioma": "Id",
+        "data": "Id",
         "HOT_ColConfig": {
-          "data": "Id",
           "type": "text",
           "readOnly": true
         }
@@ -19,8 +19,8 @@
         "FieldkeyJDE": "LCC9LVNO",
         "Name": "Nivel",
         "KeyIdioma": "Nivel",
+        "data": "Nivel",
         "HOT_ColConfig": {
-          "data": "Nivel",
           "type": "numeric",
           "readOnly": true
         }
@@ -29,8 +29,9 @@
         "FieldkeyJDE": "LCZON",
         "Name": "Conv.",
         "KeyIdioma": "Convencion",
+        "data": "IdConvencion",
         "HOT_ColConfig": {
-          "data": "IdConvencion",
+
           "type": "text",
           "readOnly": true
         }
@@ -39,8 +40,8 @@
         "FieldkeyJDE": "LCSRP8",
         "Name": "Marca",
         "KeyIdioma": "Marca",
+        "data": "Marca",
         "HOT_ColConfig": {
-          "data": "Marca",
           "type": "text",
           "readOnly": true
         }
@@ -49,8 +50,8 @@
         "FieldkeyJDE": "LCSRP7",
         "Name": "Dept.",
         "KeyIdioma": "Departamento",
+        "data": "Departamento",
         "HOT_ColConfig": {
-          "data": "Departamento",
           "type": "text",
           "readOnly": true
         }
@@ -59,8 +60,8 @@
         "FieldkeyJDE": "LCCYCD",
         "Name": "Cap.",
         "KeyIdioma": "Capitulo",
+        "data": "Capitulo",
         "HOT_ColConfig": {
-          "data": "Capitulo",
           "type": "text",
           "readOnly": true
         }
@@ -69,8 +70,8 @@
         "FieldkeyJDE": "LCNEJT",
         "Name": "D. Cap.",
         "KeyIdioma": "DescCapitulo",
+        "data": "DescCapitulo",
         "HOT_ColConfig": {
-          "data": "DescCapitulo",
           "type": "text",
           "readOnly": true
         }
@@ -79,8 +80,8 @@
         "FieldkeyJDE": "LCC9LVNO1",
         "Name": "Subcap.",
         "KeyIdioma": "Subcapitulo",
+        "data": "Subcapitulo",
         "HOT_ColConfig": {
-          "data": "Subcapitulo",
           "type": "text",
           "readOnly": true
         }
@@ -89,8 +90,8 @@
         "FieldkeyJDE": "LCCNO",
         "Name": "Orden",
         "KeyIdioma": "Orden",
+        "data": "Orden",
         "HOT_ColConfig": {
-          "data": "Orden",
           "type": "text",
           "readOnly": true
         }
@@ -99,8 +100,8 @@
         "FieldkeyJDE": "LCITM",
         "Name": "C. Art.",
         "KeyIdioma": "Cod_Articulo",
+        "data": "Cod_Articulo",
         "HOT_ColConfig": {
-          "data": "Cod_Articulo",
           "type": "text",
           "readOnly": true
         }
@@ -109,8 +110,8 @@
         "FieldkeyJDE": "LCC9LVL0",
         "Name": "Modelo",
         "KeyIdioma": "Modelo",
+        "data": "Modelo",
         "HOT_ColConfig": {
-          "data": "Modelo",
           "type": "text",
           "readOnly": true
         }
@@ -119,8 +120,8 @@
         "FieldkeyJDE": "LCDSC1",
         "Name": "D. Modelo",
         "KeyIdioma": "DescModelo",
+        "data": "DescModelo",
         "HOT_ColConfig": {
-          "data": "Modelo",
           "type": "text",
           "readOnly": true
         }
@@ -129,8 +130,8 @@
         "FieldkeyJDE": "LCC9LVL1",
         "Name": "Color",
         "KeyIdioma": "Color",
+        "data": "Color",
         "HOT_ColConfig": {
-          "data": "Color",
           "type": "text",
           "readOnly": true
         }
@@ -139,8 +140,8 @@
         "FieldkeyJDE": "LCRMK2",
         "Name": "D. Color",
         "KeyIdioma": "DescColor",
+        "data": "DescColor",
         "HOT_ColConfig": {
-          "data": "DescColor",
           "type": "text",
           "readOnly": true
         }
@@ -149,8 +150,8 @@
         "FieldkeyJDE": "LCC9LVL2",
         "Name": "Talla",
         "KeyIdioma": "Talla",
+        "data": "Talla",
         "HOT_ColConfig": {
-          "data": "Talla",
           "type": "text",
           "readOnly": true
         }
@@ -159,8 +160,8 @@
         "FieldkeyJDE": "LCDSC3",
         "Name": "D. Talla",
         "KeyIdioma": "DescTalla",
+        "data": "DescTalla",
         "HOT_ColConfig": {
-          "data": "DescTalla",
           "type": "text",
           "readOnly": true
         }
@@ -177,8 +178,8 @@
         "FieldkeyJDE": "LCC9EADJ1",
         "Name": "F. Entrega 1",
         "KeyIdioma": "LCC9EADJ1",
+        "data": "FechaEntrega1",
         "HOT_ColConfig": {
-          "data": "FechaEntrega1",
           "type": "date",
           "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
@@ -194,8 +195,8 @@
         "FieldkeyJDE": "LCC9EADJ2",
         "Name": "F. Entrega 2",
         "KeyIdioma": "LCC9EADJ2",
+        "data": "FechaEntrega2",
         "HOT_ColConfig": {
-          "data": "FechaEntrega2",
           "type": "date",
           "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
@@ -211,8 +212,8 @@
         "FieldkeyJDE": "LCC9EADJ3",
         "Name": "F. Entrega 3",
         "KeyIdioma": "LCC9EADJ3",
+        "data": "FechaEntrega3",
         "HOT_ColConfig": {
-          "data": "FechaEntrega3",
           "type": "date",
           "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
@@ -228,8 +229,8 @@
         "FieldkeyJDE": "LCC9EADJ4",
         "Name": "F. Entrega 4",
         "KeyIdioma": "LCC9EADJ4",
+        "data": "FechaEntrega4",
         "HOT_ColConfig": {
-          "data": "FechaEntrega4",
           "type": "date",
           "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
@@ -245,8 +246,8 @@
         "FieldkeyJDE": "LCC9EADJ5",
         "Name": "F. Entrega 5",
         "KeyIdioma": "LCC9EADJ5",
+        "data": "FechaEntrega5",
         "HOT_ColConfig": {
-          "data": "FechaEntrega5",
           "type": "date",
           "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
@@ -262,8 +263,8 @@
         "FieldkeyJDE": "LC$CPD1",
         "Name": "F. Limite 1",
         "KeyIdioma": "LC$CPD1",
+        "data": "FechaLimite1",
         "HOT_ColConfig": {
-          "data": "FechaLimite1",
           "type": "date",
           "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
@@ -279,8 +280,8 @@
         "FieldkeyJDE": "LC$CPD2",
         "Name": "F. Limite 2",
         "KeyIdioma": "LC$CPD2",
+        "data": "FechaLimite2",
         "HOT_ColConfig": {
-          "data": "FechaLimite2",
           "type": "date",
           "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
@@ -296,8 +297,8 @@
         "FieldkeyJDE": "LC$CPD3",
         "Name": "F. Limite 3",
         "KeyIdioma": "LC$CPD3",
+        "data": "FechaLimite3",
         "HOT_ColConfig": {
-          "data": "FechaLimite3",
           "type": "date",
           "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
@@ -313,8 +314,8 @@
         "FieldkeyJDE": "LC$CPD4",
         "Name": "F. Limite 4",
         "KeyIdioma": "LC$CPD4",
+        "data": "FechaLimite4",
         "HOT_ColConfig": {
-          "data": "FechaLimite4",
           "type": "date",
           "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
@@ -330,8 +331,8 @@
         "FieldkeyJDE": "LC$CPD5",
         "Name": "F. Limite 5",
         "KeyIdioma": "LC$CPD5",
+        "data": "FechaLimite5",
         "HOT_ColConfig": {
-          "data": "FechaLimite5",
           "type": "date",
           "dateFormat": "DD/MM/YYYY",
           "correctFormat": true,
@@ -354,8 +355,8 @@
         "FieldkeyJDE": "LCC9CAT2",
         "Name": "T. Serv.",
         "KeyIdioma": "LCC9CAT2 ",
+        "data": "TipoServicio",
         "HOT_ColConfig": {
-          "data": "TipoServicio",
           "type": "dropdown",
           "source": [ "", "Servicio_Central", "Servicio_Directo" ]
         }
@@ -371,8 +372,8 @@
         "FieldkeyJDE": "LC$MPRE",
         "Name": "Mejor Prc.",
         "KeyIdioma": "LC$MPRE ",
+        "data": "MejorPrecio",
         "HOT_ColConfig": {
-          "data": "MejorPrecio",
           "type": "checkbox"
         }
       },
@@ -380,8 +381,8 @@
         "FieldkeyJDE": "LCCCD07DES",
         "Name": "Folleto",
         "KeyIdioma": "LC$MPRE ",
+        "data": "Folleto",
         "HOT_ColConfig": {
-          "data": "Folleto",
           "type": "dropdown",
           "sourceOut": "Folletos"
         }
@@ -397,8 +398,8 @@
         "FieldkeyJDE": "LC$PDEV",
         "Name": "Permitir Dev.",
         "KeyIdioma": "PermitirDevolucion",
+        "data": "PermitirDevolucion",
         "HOT_ColConfig": {
-          "data": "PermitirDevolucion",
           "type": "checkbox"
         }
       },
@@ -406,8 +407,8 @@
         "FieldkeyJDE": "LC$MDPR",
         "Name": "Compra Segura",
         "KeyIdioma": "LC$MPRE ",
+        "data": "CompraSegura",
         "HOT_ColConfig": {
-          "data": "CompraSegura",
           "type": "dropdown",
           "source": [ "", "Condicional", "No", "Si" ]
         }
@@ -416,8 +417,8 @@
         "FieldkeyJDE": "LC$CRAT",
         "Name": "% Dev.",
         "KeyIdioma": "LC$MPRE ",
+        "data": "PorcentajeDevolucion",
         "HOT_ColConfig": {
-          "data": "PorcentajeDevolucion",
           "type": "numeric"
         }
       },
@@ -425,8 +426,8 @@
         "FieldkeyJDE": "LC$PERI",
         "Name": "Per. Dev.",
         "KeyIdioma": "LC$MPRE ",
+        "data": "PeriodoDevolucion",
         "HOT_ColConfig": {
-          "data": "PeriodoDevolucion",
           "type": "dropdown",
           "source": [ "", "1", "2" ]
         }
@@ -435,8 +436,8 @@
         "FieldkeyJDE": "LC$PRAT",
         "Name": "% Cargo Prov.",
         "KeyIdioma": "LC$MPRE ",
+        "data": "PorcentajeCargoProveedor",
         "HOT_ColConfig": {
-          "data": "PorcentajeCargoProveedor",
           "type": "numeric"
         }
       },
@@ -444,8 +445,8 @@
         "FieldkeyJDE": "LC$PACP",
         "Name": "Base Calc. Cargo",
         "KeyIdioma": "LC$MPRE ",
+        "data": "BaseCalculoCargo",
         "HOT_ColConfig": {
-          "data": "BaseCalculoCargo",
           "type": "dropdown",
           "source": [ "", "Aplicar_sobre_PVS", "Aplicar_sobre_Tarifa_Bruta_Prov", "Aplicar_sobre_Tarifa_Neta_Prov" ]
         }
@@ -461,8 +462,8 @@
         "FieldkeyJDE": "LC$TPROV",
         "Name": "Tar. Bruta",
         "KeyIdioma": "PVC",
+        "data": "TarifaBruta",
         "HOT_ColConfig": {
-          "data": "TarifaBruta",
           "type": "numeric",
           "format": "0,0.00$",
           "language": "es-ES"
@@ -472,8 +473,8 @@
         "FieldkeyJDE": "LC$BAP1",
         "Name": "Desc. Base",
         "KeyIdioma": "PVC",
+        "data": "DescuentoBase",
         "HOT_ColConfig": {
-          "data": "DescuentoBase",
           "type": "numeric",
           "format": "0,0.00$",
           "language": "es-ES"
@@ -490,8 +491,8 @@
         "FieldkeyJDE": "LCACD01DES",
         "Name": "Obs.",
         "KeyIdioma": "PVC",
+        "data": "Observacion",
         "HOT_ColConfig": {
-          "data": "Observacion",
           "type": "text"
         }
       }

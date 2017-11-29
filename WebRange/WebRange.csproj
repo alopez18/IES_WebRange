@@ -208,6 +208,8 @@
     <Content Include="js\convenciones\editar.js" />
     <Content Include="js\global.js" />
     <Content Include="js\menu.js" />
+    <Content Include="Scripts\bootbox.js" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\chosen.jquery.js" />

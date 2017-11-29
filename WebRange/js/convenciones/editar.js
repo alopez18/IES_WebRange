@@ -11,11 +11,20 @@
         e.preventDefault();
         $(".dropdown-menu.dropdown-messages.filtrosPaginacion > li.active").removeClass("active");
         var $this = $(this);
-        $this.parent().addClass("active");
-        $("#spnPaginacion").text($this.text());
-
         var pageSize = $this.data("val");
-        convencion.loadData(convencion.pagination.currentFilter, convencion.pagination.currentLevel, pageSize);
+        if (parseInt(pageSize) === -1) {
+            bootbox.confirm("La carga de datos excesivos puede implicar el mal funcionamiento de la herramienta. <br/>¿Seguro que deseas cargar <b>todos</b> los datos?", function (result) {
+                if (result) {
+                    $this.parent().addClass("active");
+                    $("#spnPaginacion").text($this.text());
+                    convencion.loadData(convencion.pagination.currentFilter, convencion.pagination.currentLevel, pageSize);
+                }
+            });
+        } else {
+            $this.parent().addClass("active");
+            $("#spnPaginacion").text($this.text());
+            convencion.loadData(convencion.pagination.currentFilter, convencion.pagination.currentLevel, pageSize);
+        }
     });
 
 
@@ -72,6 +81,11 @@
 
     //convencion.timeoutScroll = null;
     convencion.container = document.getElementById('tablaExcel');
+    //convencion.hot = new Handsontable(convencion.container, {
+    //    data: [],
+    //    colHeaders: true,
+    //    rowHeaders: true
+    //})
     convencion.hot = new Handsontable(convencion.container, {
         //data: data, //Handsontable.helper.createSpreadsheetData(1000, 1000),
         startRows: 30,
@@ -88,7 +102,7 @@
         manualRowResize: true,
         contextMenu: true,
         allowInvalid: false,
-        allowInsertRow: true,
+        allowInsertRow: false,
         allowInsertColumn: false,
         allowRemoveColumn: false,
         allowRemoveRow: false,
@@ -106,20 +120,23 @@
                 case "CopyPaste.paste":
                     for (var i = 0; i < changes.length; i++) {
                         var rowData = convencion.hot.getDataAtRow(changes[i][0]);
+                        var columnMap = convencion.table.mapeo[changes[i][1]];
+
+
                         //var colIndex = GetColFromName(changes[i][1]);
                         //var column = convencion.table.columnsConfig[colIndex];
                         var cambios = [];
                         var idRow = rowData[0];
                         var DtoUpdate = {
                             Id: idRow,
-                            Campo: changes[i][1],//changes[i][1]
+                            Campo: columnMap,//changes[i][1],//changes[i][1]
                             Valor: changes[i][3]
                         };
                         if (changes[i][2] !== changes[i][3]) {
                             cambios.push(DtoUpdate);
                         }
                     }
-                    if (cambios.length > 0) {
+                    if (cambios.length > 0) {//Comprobamos que los cambios son correctos.
                         $.ajax({
                             url: '/Articulo/Update',
                             type: 'POST',
@@ -211,59 +228,67 @@ convencion.loadData = function (idFilter, idLevel, pageSize) {
         convencion.pagination.page = 1;
         convencion.pagination.currentFilter = idFilter;
         convencion.pagination.currentLevel = idLevel;
-        convencion.pagination.NoMorePages = false;
-        convencion.pagination.data = null;
+        //convencion.pagination.NoMorePages = false;
+        //convencion.pagination.data = null;
         convencion.pagination.pageSize = pageSize;
         convencion.hot.updateSettings({
             data: []
         });
     }
-    if (!convencion.pagination.NoMorePages) {
-        var datos = {
-            filtroId: convencion.pagination.currentFilter,
-            nivel: convencion.pagination.currentLevel,
-            page: convencion.pagination.page,
-            pageSize: convencion.pagination.pageSize,
-            filtros: convencion.pagination.currentFiltersOwn
-        }
-
-        $.ajax({
-            url: '/Convencion/Datos/' + convencion.Id,
-            data: datos,
-            type: 'POST',
-            cache: false,
-            dataType: 'json',
-            success: function (data) {
-                if (data.Datos === null || data.Datos.length === 0) {
-                    convencion.pagination.NoMorePages = true
-                } else {
-                    convencion.pagination.loadPagination(data.Total, convencion.pagination.pageSize, convencion.pagination.page, data.Datos.length);
-                    convencion.pagination.data = data.Datos;
-                    //if (convencion.pagination.data === null) {
-                    //    convencion.pagination.data = data.Datos;
-                    //} else {
-                    //    convencion.pagination.data = convencion.pagination.data.concat(data.Datos);
-                    //}
-                    gl.loadGlobal.hide();
-                    //console.log(data.ColsConfig);
-                    convencion.table.columnsConfig = data.ColsConfig;
-                    convencion.hot.updateSettings({
-                        colHeaders: data.Headers,
-                        colWidths: undefined,
-                        data: convencion.pagination.data,
-                        columns: data.ColsConfig
-
-                    });
-                    //convencion.pagination.scrollCheck = true;
-                }
-            },
-            error: function (err) {
-                gl.loadGlobal.css("display", "none");
-                console.log(err);
-                alert("Ha fallado la recuperación de datos.\r\nConsulte el log para más información.");
-            }
-        });
+    //if (!convencion.pagination.NoMorePages) {
+    var datos = {
+        filtroId: convencion.pagination.currentFilter,
+        nivel: convencion.pagination.currentLevel,
+        page: convencion.pagination.page,
+        pageSize: convencion.pagination.pageSize,
+        filtros: convencion.pagination.currentFiltersOwn
     }
+    console.log("Solicitamos datos (" + Date.now() + ")");
+    $.ajax({
+        url: '/Convencion/Datos/' + convencion.Id,
+        data: datos,
+        type: 'POST',
+        cache: false,
+        dataType: 'json',
+        success: function (data) {
+            console.log("Datos recuperados (" + Date.now() + ")");
+            console.log(data.Datos);
+            //if (data.Datos === null || data.Datos.length === 0) {
+            //    convencion.pagination.NoMorePages = true
+            //} else {
+            convencion.pagination.loadPagination(data.Total, convencion.pagination.pageSize, convencion.pagination.page, data.Datos.length);
+            //convencion.pagination.data = data.Datos;
+            //if (convencion.pagination.data === null) {
+            //    convencion.pagination.data = data.Datos;
+            //} else {
+            //    convencion.pagination.data = convencion.pagination.data.concat(data.Datos);
+            //}
+            gl.loadGlobal.hide();
+            //console.log(data.ColsConfig);
+            convencion.table.columnsConfig = data.ColsConfig;
+            convencion.table.mapeo = data.MapeoCampos;
+            convencion.hot.updateSettings({
+                colHeaders: data.Headers,
+                colWidths: undefined,
+                data: data.Datos, //convencion.pagination.data,
+                columns: data.ColsConfig
+                ,hiddenColumns: {
+                    columns: [0, 1, 2],
+                    indicators: false
+                }
+            });
+            //convencion.pagination.scrollCheck = true;
+            console.log("Datos pintados (" + Date.now() + ")");
+            convencion.pagination.NewFilter = false;
+            //}
+        },
+        error: function (err) {
+            gl.loadGlobal.css("display", "none");
+            console.log(err);
+            alert("Ha fallado la recuperación de datos.\r\nConsulte el log para más información.");
+        }
+    });
+    //}
 }
 
 

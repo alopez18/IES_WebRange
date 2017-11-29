@@ -18,7 +18,8 @@ namespace ALC.IES.WebRange {
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+                      "~/Scripts/bootbox.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/menu").Include(
                       "~/Scripts/metisMenu.min.js",
