@@ -175,3 +175,24 @@ Exception rethrown at [0]:
    en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1Soap.EjecutarActualizacion(String sComando)
    en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1SoapClient.EjecutarActualizacion(String sComando) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Connected Services\JDEdwardsService\Reference.cs:línea 99
    en ALC.IES.WebRange.DataLayer.Consultas.Update(String sSelect) en C:\Proyectos\IES\WebRangeIES\desenv\IES_WebRange\DataLayer\Consultas.cs:línea 28
+2017-11-30 10:48:13,536 9 ERROR ALC.IES.WebRange.DataLayer.Consultas - Ha fallado la consulta al web service 'EjecutarConsulta'. la consulta es: 'SELECT DCZON, DCDSE, DCDEE from F55V126A ORDER BY DCDSE DESC' 
+System.ServiceModel.EndpointNotFoundException: No había ningún extremo escuchando en http://ninkasi.intersport.dev/WebServiceJDE.asmx que pudiera aceptar el mensaje. La causa suele ser una dirección o una acción SOAP incorrecta. Consulte InnerException, si está presente, para obtener más información. ---> System.Net.WebException: Error en el servidor remoto: (404) No se encontró.
+   en System.Net.HttpWebRequest.GetResponse()
+   en System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+
+Server stack trace: 
+   en System.ServiceModel.Channels.HttpChannelUtilities.ProcessGetResponseWebException(WebException webException, HttpWebRequest request, HttpAbortReason abortReason)
+   en System.ServiceModel.Channels.HttpChannelFactory`1.HttpRequestChannel.HttpChannelRequest.WaitForReply(TimeSpan timeout)
+   en System.ServiceModel.Channels.RequestChannel.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Dispatcher.RequestChannelBinder.Request(Message message, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannel.Call(String action, Boolean oneway, ProxyOperationRuntime operation, Object[] ins, Object[] outs, TimeSpan timeout)
+   en System.ServiceModel.Channels.ServiceChannelProxy.InvokeService(IMethodCallMessage methodCall, ProxyOperationRuntime operation)
+   en System.ServiceModel.Channels.ServiceChannelProxy.Invoke(IMessage message)
+
+Exception rethrown at [0]: 
+   en System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   en System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1Soap.EjecutarConsulta(String sSelect)
+   en ALC.IES.WebRange.DataLayer.JDEdwardsService.Service1SoapClient.EjecutarConsulta(String sSelect) en C:\Proyectos\IES\IES_WebRange\desenv\DataLayer\Connected Services\JDEdwardsService\Reference.cs:línea 91
+   en ALC.IES.WebRange.DataLayer.Consultas.Execute(String sSelect) en C:\Proyectos\IES\IES_WebRange\desenv\DataLayer\Consultas.cs:línea 16
