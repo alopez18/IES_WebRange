@@ -8,9 +8,6 @@ using System.Web.Routing;
 
 namespace ALC.IES.WebRange.Controllers {
     public class BaseController : Controller {
-
-
-
         public static string RenderViewToString(string controllerName, string viewName, object viewModel) {
             using (var writer = new StringWriter()) {
                 var routeData = new RouteData();

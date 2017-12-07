@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -100,7 +101,14 @@ namespace ALC.IES.WebRange.EntitiesLayer {
 
     public enum TipoServicioItem { Servicio_Central, Servicio_Directo }
     public enum CompraSeguraItem { Condicional, No, Si }
-    public enum BaseCalculoCargoItem { Aplicar_sobre_PVS = 1, Aplicar_sobre_Tarifa_Bruta_Prov = 2, Aplicar_sobre_Tarifa_Neta_Prov = 3 }
+    public enum BaseCalculoCargoItem {
+        [EnumMember(Value = "Aplicar_sobre_PVS")]
+        Aplicar_sobre_PVS = 1,
+        [EnumMember(Value = "Aplicar_sobre_Tarifa_Bruta_Prov")]
+        Aplicar_sobre_Tarifa_Bruta_Prov = 2,
+        [EnumMember(Value = "Aplicar_sobre_Tarifa_Neta_Prov")]
+        Aplicar_sobre_Tarifa_Neta_Prov = 3
+    }
 
     public class Articulos : List<Articulo> {
         public int Total { get; set; }

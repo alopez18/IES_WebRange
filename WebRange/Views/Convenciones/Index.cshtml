@@ -23,7 +23,7 @@
     <div class="row">
         <div class="list-group">
             @foreach (var conv in Model.ConvencionesCurrent) {
-                <a href="@Url.Action("Editar", "Convencion", new { id = conv.Id })" class="list-group-item"><span class="badge">@conv.Start.ToShortDateString() - @conv.End.ToShortDateString()</span>@conv.Id</a>
+                <a href="@Url.Action("Editar", "Convencion", new { id = conv.Id })" class="list-group-item"><span class="badge">@(conv.Start.HasValue ? conv.Start.Value.ToShortDateString() : "") - @(conv.End.HasValue ? conv.End.Value.ToShortDateString() : "")</span>@conv.Id</a>
             }
         </div>
     </div>

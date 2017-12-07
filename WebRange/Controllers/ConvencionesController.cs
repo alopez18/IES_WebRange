@@ -29,7 +29,7 @@ namespace ALC.IES.WebRange.Controllers {
                     pageSize = int.Parse(sPageSizeDef);
                 }
             } else {
-                if (pageSize.Value<0) {
+                if (pageSize.Value < 0) {
                     pageSize = null;
                 }
             }
@@ -39,6 +39,11 @@ namespace ALC.IES.WebRange.Controllers {
 
             Newtonsoft.Json.JsonSerializerSettings sett = new Newtonsoft.Json.JsonSerializerSettings();
             sett.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+            sett.Converters = new List<Newtonsoft.Json.JsonConverter>() {
+                new Newtonsoft.Json.Converters.StringEnumConverter() { CamelCaseText = false, AllowIntegerValues = false },
+                new EntitiesLayer.ShortDateConverter()
+            };
+
             String res = Newtonsoft.Json.JsonConvert.SerializeObject(model, sett);
             Response.ContentType = "Application/Json";
             return res;

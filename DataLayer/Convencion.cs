@@ -29,10 +29,10 @@ namespace ALC.IES.WebRange.DataLayer {
                         res.Id = dr["DCZON"].ToString();
                         break;
                     case "DCDSE":
-                        res.Start = DataLayer.Utils.UnixTimeStampToDateTime(double.Parse(dr["DCDSE"].ToString()));
+                        res.Start = DataLayer.Utils.Convert_JDEDate_To_GregorianDate(dr["DCDSE"].ToString());
                         break;
                     case "DCDEE":
-                        res.End = DataLayer.Utils.UnixTimeStampToDateTime(double.Parse(dr["DCDEE"].ToString()));
+                        res.End = DataLayer.Utils.Convert_JDEDate_To_GregorianDate(dr["DCDEE"].ToString());
                         break;
                     default:
                         _log.WarnFormat("Columna '{0}' no reconocida para parsear la entidad {1}", col.ColumnName, "EntitiesLayer.Convencion");
