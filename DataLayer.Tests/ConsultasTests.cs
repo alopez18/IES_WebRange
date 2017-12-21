@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DataLayer.Tests {
     [TestClass]
-    public class UnitTest1 {
+    public class ConsultasTests {
         [TestMethod]
         public void ConsultaBasica() {
             //String select = "select * from F55V137C limit 20";

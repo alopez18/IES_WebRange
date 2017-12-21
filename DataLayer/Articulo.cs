@@ -469,38 +469,25 @@ namespace ALC.IES.WebRange.DataLayer {
 
         public static EntitiesLayer.Articulos Get(String idConvencion, List<String> campos, int? nivel, int? pageNumber, int? pageSize, List<KeyValuePair<String, String>> filtros) {
             EntitiesLayer.Articulos res = null;
-
-            String select = "select ";            
-            String selectCount = select + " count(*) ";
-            select += String.Join(", ", campos);
-            String sFfrom = String.Format(" from F55DS53 where LCZON = '{0}' ", idConvencion);
-
-
+            StringBuilder condicionBuilder = new StringBuilder();
+            condicionBuilder.AppendFormat("where LCZON = '{0}' ", idConvencion);
             if (nivel.HasValue) {
-                sFfrom += String.Format(" and LCC9LVNO = {0}", nivel.Value);
+                condicionBuilder.AppendFormat(" and LCC9LVNO = {0} ", nivel.Value);
             }
-
             if (filtros != null && filtros.Count > 0) {
                 foreach (var f in filtros) {
-                    sFfrom += String.Format(" and {0} = '{1}'", f.Key, f.Value);
+                    condicionBuilder.AppendFormat(" and {0} = '{1}' ", f.Key, f.Value);
                 }
             }
 
+            SQLGenerador generador = new SQLGenerador(campos, "F55DS53", condicionBuilder.ToString());            
 
+            String select = generador.GetConsulta(pageSize, pageNumber);
+            String selectCount = generador.GetConsultaCount();
 
-            if (pageNumber.HasValue && pageSize.HasValue && pageSize.Value > 0) {
-                int offset = (pageNumber.Value - 1) * pageSize.Value;
-                select += sFfrom + String.Format(" limit {0} offset {1}", pageSize.Value, offset);
-            } else {
-                select += sFfrom;
-            }
-
-
-            selectCount += sFfrom;
             DataSet dsCount = ALC.IES.WebRange.DataLayer.Consultas.Execute(selectCount);
             String c = dsCount.Tables[0].Rows[0][0].ToString();
             dsCount.Dispose();
-
 
             DataSet ds = ALC.IES.WebRange.DataLayer.Consultas.Execute(select);
 

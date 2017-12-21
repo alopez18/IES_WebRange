@@ -55,6 +55,7 @@
     <Compile Include="Convencion.cs" />
     <Compile Include="Folleto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLGenerador.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
